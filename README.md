@@ -65,3 +65,9 @@ add `node-uuid.v4`, `lodash/Throttle` for subscribe(saveState)
 ## new npm modules
 
 - redux-devtools
+
+
+## Issues:
+
+- 1. react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
+
