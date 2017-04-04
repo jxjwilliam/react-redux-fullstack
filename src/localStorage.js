@@ -1,6 +1,8 @@
+const TodoState = 'state'
+
 export const loadState = () => {
     try {
-        const serializedState = localStorage.getItem('state');
+        const serializedState = localStorage.getItem(TodoState);
         if(serializedState === null) {
             return undefined;
         }
@@ -13,10 +15,10 @@ export const loadState = () => {
 export const saveState = (state) => {
     try {
         const serializedState = JSON.stringify(state);
-        localStorage.setItem('state', serializedState);
+        localStorage.setItem(TodoState, serializedState);
     } catch(err) {
         // Ignore write errors.
     }
 }
 
-export const removeState = () => localStorage.removeItem('state');
+export const removeState = () => localStorage.removeItem(TodoState);
