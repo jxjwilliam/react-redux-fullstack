@@ -36,6 +36,14 @@ config package.json, add webpack.config.js, do some updating, use `webpack-dev-s
 
 initial state in HTML 5 Local-storage.
 
+```javascript
+  store.subscribe(() => {
+    saveState({'todos': store.getState()})
+})
+```
+
+add `node-uuid.v4`, `lodash/Throttle` for subscribe(saveState) 
+
 ### 3. step-3
 
 ### 4. step-4
