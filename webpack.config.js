@@ -1,10 +1,15 @@
-var path = require('path');
+'use strict';
+
 var webpack = require('webpack');
+var path = require('path');
+
+var env = process.env.NODE_ENV
+var port = process.env.PORT || 8081
 
 module.exports = {
   devtool: 'inline-source-map',
   entry: [
-    './todoApp.js'
+    path.resolve(__dirname,  'src', 'index.js')
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -15,7 +20,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loaders: ['babel-loader'],
         exclude: /node_modules/
       }
     ]
