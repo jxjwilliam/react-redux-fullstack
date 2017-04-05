@@ -4,18 +4,15 @@ import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
 import { removeState } from '../localStorage'
 
-const App = ({ params }) => {
-    console.log('App: ', params);
-    return (
-        <div>
-            <AddTodo />
-            <VisibleTodoList filter={params.filter || 'all'}/>
-            <Footer />
-            <button type="button" onClick={removeState}>
-                Reset LocalStorage State
-            </button>
-        </div>
-    )
-}
+const App = () =>  (
+    <div>
+        <AddTodo />
+        <VisibleTodoList/>
+        <Footer />
+        <button type="button" onClick={removeState}>
+            Reset LocalStorage State
+        </button>
+    </div>
+);
 
 export default App

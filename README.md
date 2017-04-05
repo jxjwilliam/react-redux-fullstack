@@ -54,9 +54,11 @@ add `node-uuid.v4`, `lodash/Throttle` for subscribe(saveState)
 
 - debug: devtool: 'inline-source-map',
 - FilterLink not work correct. (step-3 either)
--
+- TODO???
 
 ### 5. step-5
+
+- mapDispatchToProps Shorthand Notation
 
 ### 6. step-6
 
