@@ -50,8 +50,11 @@ add `node-uuid.v4`, `lodash/Throttle` for subscribe(saveState)
 - use react-router <Link> for hashHistory URL.
 - add removeState to reset localStorage's state to prove it work.
 
-
 ### 4. step-4
+
+- debug: devtool: 'inline-source-map',
+- FilterLink not work correct. (step-3 either)
+-
 
 ### 5. step-5
 

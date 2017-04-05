@@ -7,7 +7,7 @@ var env = process.env.NODE_ENV
 var port = process.env.PORT || 8081
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   entry: [
     path.resolve(__dirname,  'src', 'index.js')
   ],

@@ -16,7 +16,11 @@ const Footer = () => (
     <FilterLink filter="completed">
       Completed
     </FilterLink>
+    {", "}
+    <FilterLink filter="unknown">
+      Unknown
+    </FilterLink>
   </p>
-)
+);
 
 export default Footer
