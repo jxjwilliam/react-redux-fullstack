@@ -60,6 +60,22 @@ add `node-uuid.v4`, `lodash/Throttle` for subscribe(saveState)
 
 ### 6. step-6
 
+- favicon
+- mongod && mongoose
+- routes: /api/todos, models
+- server: 
+    "webpack-dev-middleware",
+    "webpack-hot-middleware"
+
+try to integrate williamDemo (Redux Universal) and react-redux-universal-hot-example into.
+
+```bash
+mongod &
+npm run start1 
+open http://localhost:8081
+open http://localhost:/8081/api/routes/
+```
+
 ### 7. step-7
 
 ### 8. step-8

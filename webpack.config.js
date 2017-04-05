@@ -3,12 +3,15 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var env = process.env.NODE_ENV
-var port = process.env.PORT || 8081
-
 module.exports = {
   devtool: 'source-map',
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
   entry: [
+    'webpack-hot-middleware/client',
     path.resolve(__dirname,  'src', 'index.js')
   ],
   output: {
