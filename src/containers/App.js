@@ -1,8 +1,8 @@
 import React from 'react'
-import Footer from './Footer'
+import Footer from '../components/Todos/Footer'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
-import { removeState } from '../localStorage'
+import { removeState } from '../helpers/localStorage'
 
 const App = ({ params }) => {
     console.log('App: ', params);

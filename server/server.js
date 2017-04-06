@@ -6,6 +6,8 @@ import express from 'express';
 import favicon from 'serve-favicon'
 import prettyjson from 'prettyjson'
 import bodyParser from 'body-parser'
+import http from 'http'
+import SocketIo from 'socket.io'
 
 // 2. import webpack
 import webpack from 'webpack';
@@ -18,21 +20,23 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 
+const port = process.env.PORT ? process.env.PORT : 8081
 const compiler = webpack(webpackConfig);
 const app = express();
-const port = process.env.PORT ? process.env.PORT : 8081
 
 // 4. extends:
+
+const server = new http.Server(app);
+const io = new SocketIo(server);
+io.path('/ws');
+
 import routes from './routes';
 import db from './db'
 db.connect();
 
-app.use(favicon(path.join(__dirname, '..', 'favicon.ico')))
 
-//app.use(require("webpack-dev-middleware")(compiler, {
-//    noInfo: true,
-//    publicPath: webpackConfig.output.publicPath
-//}));
+// 5. config web-server
+app.use(favicon(path.join(__dirname, '..', 'favicon.ico')))
 
 app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
@@ -47,6 +51,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+
+app.use(express.static(__dirname + '../public'));
+
 // /api/todos/
 app.use(routes);
 
@@ -54,10 +61,37 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
-app.listen(port, error => {
+const runnable = app.listen(port, error => {
     if(error) {
         console.error(prettyjson.render(error))
     } else {
         console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
     }
 });
+
+const bufferSize = 100;
+const messageBuffer = new Array(bufferSize);
+let messageIndex = 0;
+
+io.on('connection', (socket) => {
+    socket.emit('news', {msg: `'Hello World!' from server`});
+
+    socket.on('history', () => {
+        for (let index = 0; index < bufferSize; index++) {
+            const msgNo = (messageIndex + index) % bufferSize;
+            const msg = messageBuffer[msgNo];
+            if (msg) {
+                socket.emit('msg', msg);
+            }
+        }
+    });
+
+    socket.on('msg', (data) => {
+        data.id = messageIndex;
+        messageBuffer[messageIndex % bufferSize] = data;
+        messageIndex++;
+        io.emit('msg', data);
+    });
+});
+
+io.listen(runnable);

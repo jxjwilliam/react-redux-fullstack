@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools, devToolsEnhancer } from 'redux-devtools-extension';
 
 import todoApp from './reducers'
-import { loadState, saveState } from './localStorage'
+import { loadState, saveState } from './helpers/localStorage'
 import throttle from 'lodash/throttle';
 
 const configureStore = () => {
