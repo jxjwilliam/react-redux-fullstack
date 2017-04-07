@@ -1,26 +1,35 @@
-const todo = (state, action) => {
+import { combineReducers } from 'redux';
+import todo from './todo'
+
+const byId = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_TODO':
-      return {
-        id: action.id,
-        text: action.text,
-        completed: false
-      }
     case 'TOGGLE_TODO':
-      if (state.id !== action.id) {
-        return state
-      }
-
       return {
         ...state,
-        completed: !state.completed
+        [action.id]: todo(state[action.id], action)
       }
     default:
       return state
   }
 }
 
-const todos = (state = [], action) => {
+const allIds = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [...state, action.id];
+    default:
+      return state;
+  }
+}
+
+const todos = combineReducers({
+  byId,
+  allIds
+})
+
+// cource 11 replaced
+const todos1 = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return [
@@ -29,7 +38,7 @@ const todos = (state = [], action) => {
       ]
     case 'TOGGLE_TODO':
       return state.map(t =>
-        todo(t, action)
+          todo(t, action)
       )
     default:
       return state
@@ -38,17 +47,22 @@ const todos = (state = [], action) => {
 
 export default todos
 
+const getAllTodos = (state) =>
+  state.allIds.map(id => state.byId[id]);
+
+
 // not a reducer, a selector
-//{type: "@@redux/INIT"}
 export const getVisibleTodos = (state, filter) => {
+  const allTodos = getAllTodos(state);
+
   console.log('getVisibleTodos: ', filter);
   switch (filter) {
     case 'all':
-      return state
+      return allTodos;
     case 'completed':
-      return state.filter(t => t.completed)
+      return allTodos.filter(t => t.completed)
     case 'active':
-      return state.filter(t => !t.completed)
+      return allTodos.filter(t => !t.completed)
     default:
       throw new Error('Unknown filter: ' + filter)
   }
