@@ -77,9 +77,13 @@ open http://localhost:/8081/api/routes/
 
 re-cast `getVisibleTodos` to `reducers` as a `selector`, so `mapStateToProps` use `state` instead of `state.todos`.
 
+work at course-15.
+
 ### 7. step-7
 
 ### 8. step-8
+
+checkout -b from step-6, at course-16. 
 
 ### 9. step-9
 
