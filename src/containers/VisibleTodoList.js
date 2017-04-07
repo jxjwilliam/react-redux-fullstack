@@ -1,20 +1,58 @@
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { toggleTodo } from '../actions'
+import * as todoActions from '../actions'
 import TodoList from '../components/Todos/TodoList'
 import { getVisibleTodos } from '../reducers'
+import { fetchTodos } from '../helpers/fetchTodos'
 
-const mapStateToProps = (state, {params}) => ({
-  todos: getVisibleTodos(state, params.filter || 'all')
-});
+class VisibleTodoList extends Component {
 
-const mapDispatchToProps = ({
-  onTodoClick: toggleTodo
-})
+  // the only way to setState is dispatch action.
+  fetchData() {
+    const { filter, receiveTodos } = this.props;
 
-const VisibleTodoList = withRouter(connect(
+    fetchTodos(filter).then(todos => {
+      console.log(filter, todos);
+      receiveTodos(filter, todos);
+    });
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.filter !== this.props.filter) {
+      this.fetchData();
+    }
+  }
+
+  render() {
+    const { toggleTodo, ...rest } = this.props;
+    return (
+      <TodoList
+      {...rest}
+      onTodoClick={toggleTodo}
+      />
+    )
+  }
+}
+// lifecycle-hook
+const mapStateToProps = (state, {params}) => {
+  const filter = params.filter || 'all';
+  return {
+    todos: getVisibleTodos(state, filter),
+    filter
+  }
+};
+
+//const mapDispatchToProps = ({
+//  todoActions,
+//});
+VisibleTodoList = withRouter(connect(
   mapStateToProps,
-  mapDispatchToProps
-)(TodoList))
+  todoActions
+)(VisibleTodoList))
 
 export default VisibleTodoList

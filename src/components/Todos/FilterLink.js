@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { Link }  from 'react-router'
 
 const FilterLink = ({ filter, children }) => {
-    console.log('FilterLink: ', filter, children);
     return (
         <Link
             to={filter === 'all' ? '' : filter}

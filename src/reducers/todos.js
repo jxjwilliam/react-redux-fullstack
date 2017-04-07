@@ -54,7 +54,6 @@ const getAllTodos = (state) =>
 // not a reducer, a selector
 export const getVisibleTodos = (state, filter) => {
   const allTodos = getAllTodos(state);
-
   console.log('getVisibleTodos: ', filter);
   switch (filter) {
     case 'all':
@@ -67,3 +66,6 @@ export const getVisibleTodos = (state, filter) => {
       throw new Error('Unknown filter: ' + filter)
   }
 };
+
+// How action dispatch({type:'RECEIVE_TODOS'}) ??
+// call getVisibleTodos(state, filter), and return `todos` to visibleTodoList.props.

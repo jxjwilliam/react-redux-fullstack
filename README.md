@@ -47,14 +47,13 @@ add `node-uuid.v4`, `lodash/Throttle` for subscribe(saveState)
 ### 3. step-3
 
 - seperate js to Root, configureStore
-- use react-router <Link> for hashHistory URL.
+- use react-router `Link` for hashHistory URL.
 - add removeState to reset localStorage's state to prove it work.
 
 ### 4. step-4
 
 - debug: devtool: 'inline-source-map',
 - FilterLink not work correct. (step-3 either)
--
 
 ### 5. step-5
 
@@ -95,5 +94,9 @@ re-cast `getVisibleTodos` to `reducers` as a `selector`, so `mapStateToProps` us
 
 ## Issues:
 
-- 1. react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
+- react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
 
+
+## Reference
+
+![Redux Life Cycle](./public/redux-life-cycle.png)

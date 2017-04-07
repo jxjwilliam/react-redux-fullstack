@@ -2,9 +2,8 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools, devToolsEnhancer } from 'redux-devtools-extension';
 
 import todoApp from './reducers'
-import { loadState, saveState } from './helpers/localStorage'
-import throttle from 'lodash/throttle';
-
+//import { loadState, saveState } from './helpers/localStorage'
+//import throttle from 'lodash/throttle';
 
 const addLoggingToDispatch = (store) => {
   if (!console.group) {
@@ -25,20 +24,19 @@ const addLoggingToDispatch = (store) => {
 
 const configureStore = () => {
 
-  const persistedState = loadState();
+  //const persistedState = initialState; // loadState();
 
   const store = createStore(
     todoApp,
-    persistedState,
     devToolsEnhancer()
   );
 
   if(process.env.NODE_ENV !== 'production') {
     store.dispatch = addLoggingToDispatch(store);
   }
-  store.subscribe(throttle(() => {
-    saveState({todos: store.getState().todos})
-  }), 1000);
+  //store.subscribe(throttle(() => {
+  //  saveState({todos: store.getState().todos})
+  //}), 1000);
 
   /**
    * {"todos":[{"id":0,"text":"hi","completed":false},{"id":1,"text":"ho","completed":true}],"visibilityFilter":"SHOW_ALL"}
