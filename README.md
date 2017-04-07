@@ -76,6 +76,8 @@ open http://localhost:8081
 open http://localhost:/8081/api/routes/
 ```
 
+re-cast `getVisibleTodos` to `reducers` as a `selector`, so `mapStateToProps` use `state` instead of `state.todos`.
+
 ### 7. step-7
 
 `users` tab works. It uses mongo + redux global state + react component.

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux';
 
+import todos, * as fromTodos from './todos'
 
-import todos from './todos'
 import {userList, userDetail} from './userReducer'
 
 // state = {todos:[], userList:[], userDetail: {}, routing: {}
@@ -14,3 +14,6 @@ const todoApp = combineReducers({
 })
 
 export default todoApp
+
+export const getVisibleTodos = (state, filter) =>
+  fromTodos.getVisibleTodos(state.todos, filter);
