@@ -4,12 +4,11 @@ import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
 import { removeState } from '../helpers/localStorage'
 
-const App = ({ params }) => {
-    console.log('App: ', params);
+const App = () => {
     return (
         <div>
             <AddTodo />
-            <VisibleTodoList filter={params.filter || 'all'}/>
+            <VisibleTodoList />
             <Footer />
             <button type="button" onClick={removeState}>
                 Reset LocalStorage State
