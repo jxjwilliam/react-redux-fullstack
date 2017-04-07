@@ -12,7 +12,7 @@ module.exports = {
   ],
   entry: [
     'webpack-hot-middleware/client',
-    path.resolve(__dirname,  'src', 'index.js')
+    path.resolve(__dirname, 'src', 'index.js')
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -25,6 +25,31 @@ module.exports = {
         test: /\.js$/,
         loaders: ['babel-loader'],
         exclude: /node_modules/
+      },
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['react', 'stage-0', 'es2015']
+        }
+      },
+      // CSS
+      {
+        test: /\.styl$/,
+        include: path.join(__dirname, 'src/styles'),
+        loader: 'style-loader!css-loader!stylus-loader'
+      },
+      {
+        test: /\.css$/,
+        include: [
+          path.resolve(__dirname, 'src/styles')
+        ],
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.scss/,
+        loader: 'style-loader!css-loader!sass-loader'
       }
     ]
   }

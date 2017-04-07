@@ -78,6 +78,18 @@ open http://localhost:/8081/api/routes/
 
 ### 7. step-7
 
+`users` tab works. It uses mongo + redux global state + react component.
+- redux-thunk
+- componentDidMount to call store.dispatch('FETCH_USER')
+- in userAction.js, superagent.get('/api/users') to get the user-list
+- in userReducer.js, state is updated with the user-list
+- in userApp.js, `mapStateToProps` update state.userList
+- in userApp.js, render is trigger coz state.userList is changed.
+
+`http://localhost:8081/users`
+
+will make click and userDetail work.
+
 ### 8. step-8
 
 ### 9. step-9
