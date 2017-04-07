@@ -37,3 +37,19 @@ const todos = (state = [], action) => {
 }
 
 export default todos
+
+// not a reducer, a selector
+//{type: "@@redux/INIT"}
+export const getVisibleTodos = (state, filter) => {
+  console.log('getVisibleTodos: ', filter);
+  switch (filter) {
+    case 'all':
+      return state
+    case 'completed':
+      return state.filter(t => t.completed)
+    case 'active':
+      return state.filter(t => !t.completed)
+    default:
+      throw new Error('Unknown filter: ' + filter)
+  }
+};
