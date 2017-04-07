@@ -19,7 +19,7 @@ export const getUsers = () => {
 };
 
 export const selectUser = (user) => ({
-  type: 'USER_SELECTED',
+  type: 'USER_SELECT',
   payload: user
 });
 

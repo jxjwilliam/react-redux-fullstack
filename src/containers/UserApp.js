@@ -4,6 +4,23 @@ import {connect} from 'react-redux';
 //import superagent from 'superagent'
 import {getUsers, selectUser} from '../actions/UserAction'
 
+
+const UseDetail = (user) => {
+  if (user && Object.keys(user).length > 0) {
+    return (
+      <div>
+        <h3>{user.firstName} {user.lastName}</h3>
+
+        <p className="well">
+          <label>Email: {user.email}</label>
+          <label>Phone: {user.phone}</label>
+          <label>DOB: {user.dob}</label>
+        </p>
+      </div>
+    );
+  }
+}
+
 class Users extends Component {
 
   constructor() {
@@ -28,7 +45,8 @@ class Users extends Component {
    * }
    */
   render() {
-    const {userList} = this.props;
+    const {userList, userDetail} = this.props;
+    console.info(userList.length, JSON.stringify(userDetail));
     let users;
     if (userList === null || typeof userList === 'undefined') {
       users = (
@@ -50,7 +68,9 @@ class Users extends Component {
     return (
       <div>
         <h2>Users List</h2>
-        <ul> {users} </ul>
+        <ol> {users} </ol>
+        <hr/>
+        {UseDetail(userDetail)}
       </div>
     )
   }
@@ -58,7 +78,8 @@ class Users extends Component {
 
 const mapStateToProps = (state, {params}) => {
   return {
-    userList: state.userList
+    userList: state.userList,
+    userDetail: state.userDetail
   };
 }
 
