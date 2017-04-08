@@ -90,7 +90,11 @@ re-cast `getVisibleTodos` to `reducers` as a `selector`, so `mapStateToProps` us
 
 `http://localhost:8081/users`
 
-will make click and userDetail work.
+- userList clicks and userDetail work.
+- karma-test works.
+- re-config the structure, bring (mv) stuff from previous `williamDemo` repository.
+  I prefer to make this repository as a template for `react-redux-fullstack`, so step by step to integrate some good stuff.
+
 
 ### 8. step-8
 
@@ -100,12 +104,25 @@ will make click and userDetail work.
 
 
 
-## new npm modules
+## Unit Test
 
-- redux-devtools
+use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.
+
+```bash
+ncu
+ncu -u
+npm update
+karma start karma.conf.js
+```
 
 
 ## Issues:
 
 - 1. react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
+react-router                ^3.0.0  →  ^4.0.0 
+- 2. Link seems not work, `All` is un-clickable.
 
+
+## Things to TODO
+- http-proxy
+- socket

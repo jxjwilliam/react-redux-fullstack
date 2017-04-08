@@ -1,8 +1,4 @@
 {
-  "presets":[
-    "es2015", 'stage-0', "react"
-  ],
-  "plugins": [
-	  ["transform-object-rest-spread", { "useBuiltIns": true }]
-  ]
+  "presets":[ "es2015", 'stage-0', "react" ],
+  "plugins": [ "transform-object-rest-spread" ]
 }
