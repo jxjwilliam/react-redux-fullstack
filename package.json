@@ -5,7 +5,8 @@
   "main": "server/index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "dev": "node ./server/index"
+    "dev": "node ./server/index",
+    "test": "karma start karma.conf.js"
   },
   "author": "William Jiang",
   "license": "ISC",
@@ -30,6 +31,7 @@
     "node-uuid": "^1.4.8",
     "normalizr": "^3.2.2",
     "prettyjson": "^1.2.1",
+    "prop-types": "^15.5.4",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",

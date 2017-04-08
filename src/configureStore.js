@@ -26,10 +26,11 @@ const configureStore = () => {
   }), 1000);
 
   /**
+   * store.getState():
    * {"todos":[{"id":0,"text":"hi","completed":false},{"id":1,"text":"ho","completed":true}],"visibilityFilter":"SHOW_ALL"}
    * {"todos":[],"visibilityFilter":"SHOW_ALL"}
    */
-  console.info(JSON.stringify(store.getState()));
+
   return store;
 };
 

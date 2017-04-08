@@ -1,3 +1,4 @@
+// used for auto adding log-path.
 (function() {
 	var level = 4;
 	var fp = __filename.split('/').slice(level).join('::').replace(/\.js$/, '::');
