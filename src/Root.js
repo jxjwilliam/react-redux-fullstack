@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { Provider } from 'react-redux'
-import { Router, Route, IndexxRoute, browserHistory } from 'react-router'
+import { Router, Route, browserHistory } from 'react-router'
 import App from './containers/App'
 
 const Root = ({ store }) => (
@@ -10,9 +10,5 @@ const Root = ({ store }) => (
         </Router>
     </Provider>
 );
-
-Root.propTypes = {
-    store: PropTypes.object.isRequired,
-}
 
 export default Root;
