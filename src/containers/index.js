@@ -1,21 +1,21 @@
 import About from './AboutApp'
 import Counter from './CounterApp'
-import Demo from './DemoApp'
+import Contact from './ContactApp'
 import Todos from './TodoApp'
 import Users from './UserApp'
 import Phone from './PhoneApp'
 import Home from './Home'
 import App from './App'
 
-const MyDemo = {
+const MyApp = {
   Home,
   About,
   Counter,
-  Demo,
+  Contact,
   Todos,
   Users,
   Phone,
   App
 }
 
-export default MyDemo;
+export default MyApp;

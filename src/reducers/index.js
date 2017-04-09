@@ -1,20 +1,23 @@
 import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
 import { routerReducer } from 'react-router-redux';
 
-import todos, * as fromTodos from './todos'
+import todos, * as fromTodos from './todosReducer'
 
 import {userList, userDetail} from './userReducer'
+import {CounterReducer} from './counterReducer'
+
 
 // state = {todos:[], userList:[], userDetail: {}, routing: {}
 // routing: routerReducer
-const todoApp = combineReducers({
+const rootReducer = combineReducers({
   todos,
   userList,
   userDetail,
-  router: routerReducer
+  counter: CounterReducer,
+  form: formReducer,
+  routing: routerReducer
 })
 
-export default todoApp
+export default rootReducer
 
-export const getVisibleTodos = (state, filter) =>
-  fromTodos.getVisibleTodos(state.todos, filter);

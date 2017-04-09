@@ -47,7 +47,7 @@ add `node-uuid.v4`, `lodash/Throttle` for subscribe(saveState)
 ### 3. step-3
 
 - seperate js to Root, configureStore
-- use react-router <Link> for hashHistory URL.
+- use react-router `Link` for hashHistory URL.
 - add removeState to reset localStorage's state to prove it work.
 
 ### 4. step-4
@@ -94,7 +94,8 @@ re-cast `getVisibleTodos` to `reducers` as a `selector`, so `mapStateToProps` us
 - karma-test works.
 - re-config the structure, bring (mv) stuff from previous `williamDemo` repository.
   I prefer to make this repository as a template for `react-redux-fullstack`, so step by step to integrate some good stuff.
-
+- [Redux-form](https://github.com/erikras/redux-form)
+- adjust the structure: replace db (todo -> redux), add new schemas. mv all todos name-convenention to redux-...
 
 ### 8. step-8
 

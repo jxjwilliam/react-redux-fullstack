@@ -53,3 +53,6 @@ export const getVisibleTodos = (state, filter) => {
       throw new Error('Unknown filter: ' + filter)
   }
 };
+
+//export const getVisibleTodos = (state, filter) =>
+//    fromTodos.getVisibleTodos(state.todos, filter);
