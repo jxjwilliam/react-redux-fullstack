@@ -16,4 +16,7 @@ class About extends Component {
     )
   }
 }
-export default connect()(About);
+
+About = connect()(About);
+
+export default About

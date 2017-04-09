@@ -11,4 +11,6 @@ class Demo extends Component {
   }
 }
 
-export default connect()(Demo);
+Demo = connect()(Demo);
+
+export default Demo;

@@ -90,7 +90,9 @@ const matchDispatchToProps = (dispatch) => {
   }, dispatch);
 }
 
-export default connect(
+Users = connect(
   mapStateToProps,
   matchDispatchToProps
 )(Users);
+
+export default Users

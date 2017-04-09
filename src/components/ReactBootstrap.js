@@ -1,16 +1,8 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { Tabs, Tab, Button } from 'react-bootstrap';
 import Helmet from 'react-helmet'
-
-//const AppTab = ({ i, tab }) => (
-//  <Tab eventKey={i} title={tab}>{tab}</Tab>
-//)
-//static propTypes = {
-//  children: PropTypes.object.isRequired
-//}
 
 class AppTabs extends Component {
 

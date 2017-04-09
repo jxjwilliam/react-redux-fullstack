@@ -11,4 +11,6 @@ class Todos extends Component {
   }
 }
 
-export default connect()(Todos);
+Todos = connect()(Todos);
+
+export default Todos;

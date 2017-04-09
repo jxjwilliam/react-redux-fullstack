@@ -23,4 +23,6 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home);
+Home = connect()(Home);
+
+export default Home;

@@ -4,9 +4,9 @@ import { render } from 'react-dom'
 import configureStore from './configureStore'
 import Root from './Root';
 
-const store = configureStore()
+const configStore = configureStore()
 
 render(
-  <Root store={store}/>,
+  <Root store={configStore.store} history={configStore.history} />,
   document.getElementById('root')
 )

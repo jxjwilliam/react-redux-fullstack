@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import MyDemo from './containers/'
@@ -17,16 +16,12 @@ const router = (
   </Route>
 );
 
-const Root = ({ store }) => (
+const Root = ({ store, history }) => (
   <Provider store={store}>
-    <Router history={ browserHistory }>
+    <Router history={ history }>
       {router}
     </Router>
   </Provider>
 );
-
-Root.propTypes = {
-  store: PropTypes.object.isRequired,
-}
 
 export default Root;

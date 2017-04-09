@@ -11,4 +11,6 @@ class Phone extends Component {
   }
 }
 
-export default connect()(Phone);
+Phone = connect()(Phone);
+
+export default Phone;

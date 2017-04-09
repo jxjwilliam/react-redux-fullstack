@@ -11,4 +11,5 @@ class Counter extends Component {
   }
 }
 
-export default connect()(Counter);
+Counter = connect()(Counter);
+export default Counter;

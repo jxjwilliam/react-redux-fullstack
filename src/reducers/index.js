@@ -10,7 +10,8 @@ import {userList, userDetail} from './userReducer'
 const todoApp = combineReducers({
   todos,
   userList,
-  userDetail
+  userDetail,
+  router: routerReducer
 })
 
 export default todoApp
