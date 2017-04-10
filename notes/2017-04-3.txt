@@ -1,0 +1,28 @@
+
+1. in life-cycle: componentDidMount, componentDidUpdate, define promise action creator (receiveTools) to dispatch an action.
+
+2. add the action creator in mapDispatchToProps.
+
+/**
+if(typeof argument[1] !== 'function') {
+	return bindActionCreators(argument[1], dispatch)
+}
+*/
+
+for actionsCreators:
+import * as TodoActionCreators from 'actionCreators';
+
+(1) render():
+let boundActionCreators = bindActionCreators(TodoActionCreators, dispatch);
+
+<TodoList todos={todos} {...boundActionCreators} />
+
+(2) componentDidMount():
+ let action = TodoActionCreators.addTodo('Use Redux');
+ dispatch(action);
+
+(3) connect():
+export default connect(
+  state => ({ todos: state.todos }),
+  { onTodoClick: toggleTodo, reveiveTodos }
+)(TodoListContainer)

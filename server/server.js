@@ -36,7 +36,7 @@ db.connect();
 
 
 // 5. config web-server
-app.use(favicon(path.join(__dirname, '..', 'favicon.ico')))
+app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')))
 
 app.use(webpackDevMiddleware(compiler, {
     noInfo: true,

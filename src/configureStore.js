@@ -5,45 +5,69 @@ import todoApp from './reducers'
 //import { loadState, saveState } from './helpers/localStorage'
 //import throttle from 'lodash/throttle';
 
-const addLoggingToDispatch = (store) => {
-  if (!console.group) {
-    return store;
-  }
-  const rawDispatch = store.dispatch;
-  return (action) => {
-    console.group(action.type);
-    console.log('%c pre state', 'color: gray', store.getState());
-    console.log('%c action', 'color: blue', action);
-    const returnValue = rawDispatch(action);
-    console.log('%c next state', 'color: green', store.getState());
-    console.groupEnd(action.type);
-    return returnValue;
-  }
+/**
+ * logger(store) => return store
+ * logger(store)(next) => store.dispatch
+ * logger(store)(next)(action) => dispatch(action) -> state.
+ */
+const logger = (store) => (next) => {
+    if (!console.group) {
+        return next;
+    }
+    return (action) => {
+        if(!action) {
+            return next();
+        }
+        console.group(action.type);
+        console.log('%c pre state', 'color: gray', store.getState());
+        console.log('%c action', 'color: blue', action);
+        const returnValue = next(action);
+        console.log('%c next state', 'color: green', store.getState());
+        console.groupEnd(action.type);
+        return returnValue;
+    }
 }
 
+/**
+ * promise(store) => return store
+ * promise(store)(next) => store.dispatch
+ * promise(store)(next)(action) => dispatch(action) -> state.
+ * @param store
+ * @returns {Function}
+ */
+const promise = (store) => (next) => (action) => {
+    if(!action) {
+        return next();
+    }
+    if (typeof action.then === 'function') {
+        return action.then(next);
+    }
+    return next(action);
+
+}
+
+const wrapDispatchWithMiddlewares = (store, middlewares) => {
+    middlewares.slice().reverse().forEach(middleware => {
+        store.dispatch = middleware(store)(store.dispatch);
+    })
+}
 
 const configureStore = () => {
 
-  //const persistedState = initialState; // loadState();
+    const store = createStore(
+        todoApp,
+        devToolsEnhancer()
+    );
+    let middlewares = [promise];
 
-  const store = createStore(
-    todoApp,
-    devToolsEnhancer()
-  );
+    if (process.env.NODE_ENV !== 'production') {
+        middlewares.push(logger);
+    }
 
-  if(process.env.NODE_ENV !== 'production') {
-    store.dispatch = addLoggingToDispatch(store);
-  }
-  //store.subscribe(throttle(() => {
-  //  saveState({todos: store.getState().todos})
-  //}), 1000);
+    wrapDispatchWithMiddlewares(store, middlewares);
 
-  /**
-   * {"todos":[{"id":0,"text":"hi","completed":false},{"id":1,"text":"ho","completed":true}],"visibilityFilter":"SHOW_ALL"}
-   * {"todos":[],"visibilityFilter":"SHOW_ALL"}
-   */
-  console.info(JSON.stringify(store.getState()));
-  return store;
+    console.info(JSON.stringify(store.getState()));
+    return store;
 };
 
 export default configureStore;
