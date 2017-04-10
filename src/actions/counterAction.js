@@ -30,7 +30,8 @@ export const increment = () => (dispatch, getState) => {
         });
 };
 
-const increment_old = () => ({
+// used for localStage without DB connection
+const increment_local = () => ({
     type: 'INCREMENT'
 });
 

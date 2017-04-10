@@ -99,6 +99,7 @@ re-cast `getVisibleTodos` to `reducers` as a `selector`, so `mapStateToProps` us
 
 - make counter <-> mongo <-> state works. localhost:8081/counter localhost:8081/users work.
 - counter CRUD works. superagent + findOneAndUpdate
+    localhost:8081/counter works as a full-stack behavior. mongodb keeps sync with counter-clicking.
 
 ### 8. step-8
 
