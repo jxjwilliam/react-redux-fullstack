@@ -97,6 +97,9 @@ re-cast `getVisibleTodos` to `reducers` as a `selector`, so `mapStateToProps` us
 - [Redux-form](https://github.com/erikras/redux-form)
 - adjust the structure: replace db (todo -> redux), add new schemas. mv all todos name-convenention to redux-...
 
+- make counter <-> mongo <-> state works. localhost:8081/counter localhost:8081/users work.
+- counter CRUD works. superagent + findOneAndUpdate
+
 ### 8. step-8
 
 ### 9. step-9

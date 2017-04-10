@@ -14,21 +14,30 @@ router.route('/api/counter')
     .get((req, res, next) => {
         Counter.findOne((err, data) => {
             if (err) return next(err)
-            return res.send(200, {"counter":data.counter})
+            return res.status(200).json({"counter": data.counter})
         })
     })
     .put((req, res, next) => {
-        console.log('put->counter->', req.body);
-        res.send(200);
-        Counter.findOneAndUpdate(req.body, {
-            $set: {"counter": req.body.counter}
-        }, {
-            new: true
-        }, (err, counter) => {
-            if (err) return next(err)
-
-            return res.send(counter)
-        })
+        /**
+         * req.body: {"counter":88}
+         * findOneAndUpdate: https://docs.mongodb.com/manual/reference/method/db.collection.findOneAndUpdate/
+         * - Specify an empty document {} to update the first document returned in the collection.
+         * - The $set operator replaces the value of a field with the specified value.
+         */
+        Counter.findOneAndUpdate(
+            {},
+            {
+                $set: {counter: req.body.counter}
+            }, (err, counter) => {
+                if (err) return next(err)
+                // counter: old value, req.body.counter: new updated value.
+                return res.sendStatus(200)
+            })
+    })
+    //post is for create, not for update.
+    .post((req, res, next) => {
+        console.log('post->counter->', req.body);
+        return res.status(200).send('create only.')
     });
 
-module.exports = router
+module.exports = router;

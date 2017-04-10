@@ -1,14 +1,5 @@
 import superagent from 'superagent'
 
-// every-click, a update counter api is triggered.
-const updateCounter = (counter) => {
-    superagent('/apu/counter')
-        .send({counter: counter})
-        .end((err, res) => {
-            console.log('updateCounter:', res);
-        });
-}
-
 export const getCounter = () => (dispatch, getState) => {
     const counter = getState().counter;
     if (!counter || counter === 0) {
@@ -24,10 +15,35 @@ export const getCounter = () => (dispatch, getState) => {
     }
 }
 
-export const increment = () => ({
+// every-click, a update counter api is triggered.
+export const increment = () => (dispatch, getState) => {
+    const counter = getState().counter + 1;
+    superagent
+        .put('/api/counter')
+        .set('Accept', 'application/json')
+        .send({counter: counter})
+        .end((err, res) => {
+            if (err) throw err;
+            dispatch({
+                type: 'INCREMENT'
+            })
+        });
+};
+
+const increment_old = () => ({
     type: 'INCREMENT'
 });
 
-export const decrement = () => ({
-    type: 'DECREMENT'
-});
+export const decrement = () => (dispatch, getState) => {
+    const counter = getState().counter - 1;
+    superagent
+        .put('/api/counter')
+        .set('Accept', 'application/json')
+        .send({counter: counter})
+        .end((err, res) => {
+            if (err) throw err;
+            dispatch({
+                type: 'DECREMENT'
+            })
+        })
+}
