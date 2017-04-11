@@ -3,7 +3,8 @@
 const mongoose = require('mongoose')
 const prettyjson = require('prettyjson');
 
-const DB_URI = process.env.DB_URI || 'mongodb://localhost:27017/todos'
+const DB_URI = process.env.DB_URI || 'mongodb://localhost:27017/redux'
+//const DB_URI = process.env.DB_URI || 'mongodb://localhost:27017/todos'
 
 const db = {
     connect () {

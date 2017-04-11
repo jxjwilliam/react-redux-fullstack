@@ -4,30 +4,26 @@ import promise from 'redux-promise'
 import createLogger from 'redux-logger'
 import { composeWithDevTools, devToolsEnhancer } from 'redux-devtools-extension';
 
-import todoApp from './reducers'
-//import { loadState, saveState } from './helpers/localStorage'
+import rootReducer from './reducers'
+import { loadState, saveState } from './helpers/localStorage'
 //import throttle from 'lodash/throttle';
-
-//Logger must be last middleware in chain, otherwise it will log thunk and promise, not actual actions (#20).
-const logger = createLogger();
 
 // version 1: with npm thunk, promise, logger.
 const configureStore = () => {
-    const reducers = todoApp;
-    const persistedState = []; //loadState()
-    const middlewares= [thunk, promise];
+    const persistedState = loadState();
+    const middlewares = [thunk, promise];
 
+    //Logger must be last middleware in chain, otherwise it will log thunk and promise, not actual actions (#20).
     if (process.env.NODE_ENV === `development`) {
         middlewares.push(createLogger());
     }
 
     return createStore(
-        reducers,
+        rootReducer,
         persistedState,
         compose(applyMiddleware(...middlewares), devToolsEnhancer())
     )
 }
-
 
 
 /**
@@ -62,7 +58,6 @@ const promiseLocal = (store) => (next) => (action) => {
         return action.then(next);
     }
     return next(action);
-
 }
 
 const thunkLocal = (store) => (next) => (action) =>
@@ -80,7 +75,7 @@ const wrapDispatchWithMiddlewares = (store, middlewares) => {
 const configStore = () => {
 
     const store = createStore(
-        todoApp,
+        rootReducer,
         devToolsEnhancer()
     );
     let middlewares = [thunkLocal]; //promise;
@@ -93,12 +88,13 @@ const configStore = () => {
 
     //console.info(JSON.stringify(store.getState()));
     return store;
+
 };
 
 // version 3: currying:
 const createStoreWithMiddleware = (middlewares) => (createStore) => (reducers) => {
     return createStore(
-        reducers,
+        rootReducer,
         applyMiddleware(...middlewares)
     )
 };

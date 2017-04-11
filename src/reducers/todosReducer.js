@@ -69,3 +69,5 @@ export const getVisibleTodos = (state, filter) => {
 
 // How action dispatch({type:'RECEIVE_TODOS'}) ??
 // call getVisibleTodos(state, filter), and return `todos` to visibleTodoList.props.
+//export const getVisibleTodos = (state, filter) =>
+//    fromTodos.getVisibleTodos(state.todos, filter);

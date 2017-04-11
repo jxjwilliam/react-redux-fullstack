@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Footer from '../../../public/partials/Footer'
+import { connect } from 'react-redux'
 
 class About extends Component {
   constructor(props) {
@@ -16,4 +16,7 @@ class About extends Component {
     )
   }
 }
-export default About;
+
+About = connect()(About);
+
+export default About

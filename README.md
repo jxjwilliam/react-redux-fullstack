@@ -81,6 +81,27 @@ work at course-15.
 
 ### 7. step-7
 
+`users` tab works. It uses mongo + redux global state + react component.
+- redux-thunk
+- componentDidMount to call store.dispatch('FETCH_USER')
+- in userAction.js, superagent.get('/api/users') to get the user-list
+- in userReducer.js, state is updated with the user-list
+- in userApp.js, `mapStateToProps` update state.userList
+- in userApp.js, render is trigger coz state.userList is changed.
+
+`http://localhost:8081/users`
+
+- userList clicks and userDetail work.
+- karma-test works.
+- re-config the structure, bring (mv) stuff from previous `williamDemo` repository.
+  I prefer to make this repository as a template for `react-redux-fullstack`, so step by step to integrate some good stuff.
+- [Redux-form](https://github.com/erikras/redux-form)
+- adjust the structure: replace db (todo -> redux), add new schemas. mv all todos name-convenention to redux-...
+
+- make counter <-> mongo <-> state works. localhost:8081/counter localhost:8081/users work.
+- counter CRUD works. superagent + findOneAndUpdate
+    localhost:8081/counter works as a full-stack behavior. mongodb keeps sync with counter-clicking.
+
 ### 8. step-8
 
 checkout -b from step-6, at course-16. 
@@ -93,9 +114,16 @@ checkout -b from step-6, at course-16.
 
 
 
-## new npm modules
+## Unit Test
 
-- redux-devtools
+use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.
+
+```bash
+ncu
+ncu -u
+npm update
+karma start karma.conf.js
+```
 
 
 ## Issues:
@@ -106,3 +134,12 @@ checkout -b from step-6, at course-16.
 ## Reference
 
 ![Redux Life Cycle](./public/redux-life-cycle.png)
+
+- 1. react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
+react-router                ^3.0.0  →  ^4.0.0 
+- 2. Link seems not work, `All` is un-clickable.
+
+
+## Things to TODO
+- http-proxy
+- socket

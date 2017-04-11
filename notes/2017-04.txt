@@ -1,0 +1,23 @@
+1. use mongodb
+
+mongoimport  -d redux -c users  ./etc/data.json --jsonArray
+
+mongoimport --db redux --collection users < ./etc/data.json  --jsonArray
+
+
+2. curl
+
+curl -X POST "http://localhost:8081/api/tasks"  -H "Content-Type: application/x-www-form-urlencoded"  -d 'description=test'
+
+DATA='{"counter":11}'
+curl -X POST "http://localhost:8081/api/counter" -H "Content-Type: application/json" -d "${DATA}"
+
+DATA='{"counter": 66}'
+curl -X PUT "http://localhost:8081/api/counter" -H "Content-Type: application/json" -d "${DATA}"
+
+
+
+
+
+
+

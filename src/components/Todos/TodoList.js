@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Todo from './Todo'
 
 //presentational component
@@ -13,15 +13,5 @@ const TodoList = ({ todos, onTodoClick }) => (
     )}
   </ul>
 )
-
-// id: PropTypes.number.isRequired,
-TodoList.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired
-  }).isRequired).isRequired,
-  onTodoClick: PropTypes.func.isRequired
-}
 
 export default TodoList

@@ -7,6 +7,6 @@ import configureStore from './configureStore'
 const store = configureStore();
 
 render(
-    <Root store={store} />,
-    document.getElementById('root')
+  <Root store={store} />,
+  document.getElementById('root')
 )
