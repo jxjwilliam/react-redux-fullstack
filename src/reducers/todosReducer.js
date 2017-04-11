@@ -1,73 +1,121 @@
 import { combineReducers } from 'redux';
-import todo from './todo'
 
-const byId = (state = {}, action) => {
+const todo = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO':
+      return {
+        id: action.id,
+        text: action.text,
+        completed: false
+      }
     case 'TOGGLE_TODO':
+      if (state.id !== action.id) {
+        return state
+      }
+
       return {
         ...state,
-        [action.id]: todo(state[action.id], action)
+        completed: !state.completed
       }
     default:
       return state
   }
 }
 
-const allIds = (state = [], action) => {
+const byId = (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
-      return [...state, action.id];
-    default:
-      return state;
-  }
-}
-
-const todos = combineReducers({
-  byId,
-  allIds
-})
-
-// cource 11 replaced
-const todos1 = (state = [], action) => {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return [
+    case 'FETCH_TODOS_SUCCESS': // eslint-disable-line no-case-
+      const nextState = {...state};
+      action.response.forEach(todo => {
+        nextState[todo.id] = todo;
+      });
+      return nextState;
+    case 'ADD_TODO_SUCCESS':
+      return {
         ...state,
-        todo(undefined, action)
-      ]
-    case 'TOGGLE_TODO':
-      return state.map(t =>
-          todo(t, action)
-      )
+        [action.response.id]: action.response,
+      }
     default:
       return state
   }
 }
 
-export default todos
+const createList = (filter) => {
 
-const getAllTodos = (state) =>
-  state.allIds.map(id => state.byId[id]);
+  const ids = (state = [], action) => {
+    switch (action.type) {
+      case 'FETCH_TODOS_SUCCESS':
+        return filter === action.filter ?
+          action.response.map(todo => todo.id) :
+          state;
+      case 'ADD_TODO_SUCCESS':
+        return filter !== 'completed' ?
+          [...state, action.response.id] :
+          state;
+      default:
+        return state;
+    }
+  }
+
+  const isFetching = (filter) => (state = false, action) => {
+    if (filter !== action.filter) {
+      return state;
+    }
+    switch (action.type) {
+      case 'FETCH_TODOS_REQUEST':
+        return true;
+      case 'FETCH_TODOS_SUCCESS':
+      case 'FETCH_TODOS_FAILURE':
+        return false;
+      default:
+        return state;
+    }
+  }
+
+  const errorMessage = (state = null, action) => {
+    if (filter !== action.filter) {
+      return state;
+    }
+    switch (action.type) {
+      case 'FETCH_TODOS_FAILURE':
+        return action.message;
+      case 'FETCH_TODOS_REQUEST':
+      case 'FETCH_TODOS_SUCCESS':
+        return null;
+      default:
+        return state;
+    }
+  }
+
+  return combineReducers({
+    ids,
+    isFetching,
+    errorMessage,
+  })
+}
+
+
+const todos = combineReducers({
+  byId,
+  createList,
+})
+
+export default todos
 
 
 // not a reducer, a selector
 export const getVisibleTodos = (state, filter) => {
-  const allTodos = getAllTodos(state);
-  console.log('getVisibleTodos: ', filter);
-  switch (filter) {
-    case 'all':
-      return allTodos;
-    case 'completed':
-      return allTodos.filter(t => t.completed)
-    case 'active':
-      return allTodos.filter(t => !t.completed)
-    default:
-      throw new Error('Unknown filter: ' + filter)
-  }
+  let stateListByFilter = state.listByFilter[filter];
+  const ids = stateListByFilter.id;
+  return ids.map(id => getTodo(state.byId.id));
 };
 
-// How action dispatch({type:'RECEIVE_TODOS'}) ??
-// call getVisibleTodos(state, filter), and return `todos` to visibleTodoList.props.
-//export const getVisibleTodos = (state, filter) =>
-//    fromTodos.getVisibleTodos(state.todos, filter);
+export const getIsFetching = (state, filter) => {
+  let stateListByFilter = state.listByFilter[filter];
+  return stateListByFilter.isFetching;
+}
+
+export const getErrorMessage = (state, filter) => {
+  let stateListByFilter = state.listByFilter[filter];
+  return stateListByFilter.errorMessage;
+}

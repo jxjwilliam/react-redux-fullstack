@@ -1,11 +1,17 @@
 import React, {Component}  from 'react'
 import { connect } from 'react-redux'
+import Footer from '../components/Todos/Footer'
+import AddTodo from './AddTodo'
+import VisibleTodoList from './VisibleTodoList'
+
 
 class Todos extends Component {
   render() {
     return (
       <div>
-        <h2>Todos</h2>
+        <AddTodo />
+        <VisibleTodoList />
+        <Footer />
       </div>
     )
   }

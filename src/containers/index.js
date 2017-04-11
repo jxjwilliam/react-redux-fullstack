@@ -3,7 +3,7 @@ import Counter from './CounterApp'
 import Contact from './ContactApp'
 import Todos from './TodoApp'
 import Users from './UserApp'
-import Phone from './PhoneApp'
+import Delegate from './DelegateApp'
 import Home from './Home'
 import App from './App'
 
@@ -14,7 +14,7 @@ const MyApp = {
   Contact,
   Todos,
   Users,
-  Phone,
+  Delegate,
   App
 }
 

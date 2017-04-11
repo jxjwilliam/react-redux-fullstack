@@ -1,5 +1,6 @@
 import superagent from 'superagent'
 
+// TODO: res.text or res.body???
 export const getUsers = () => {
     return (dispatch, getState) => {
         const users = getState().userList;

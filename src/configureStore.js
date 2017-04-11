@@ -9,9 +9,9 @@ import { loadState, saveState } from './helpers/localStorage'
 //import throttle from 'lodash/throttle';
 
 // version 1: with npm thunk, promise, logger.
-const configureStore = () => {
+const configStore = () => {
     const persistedState = loadState();
-    const middlewares = [thunk, promise];
+    const middlewares = [thunk];
 
     //Logger must be last middleware in chain, otherwise it will log thunk and promise, not actual actions (#20).
     if (process.env.NODE_ENV === `development`) {
@@ -20,7 +20,6 @@ const configureStore = () => {
 
     return createStore(
         rootReducer,
-        persistedState,
         compose(applyMiddleware(...middlewares), devToolsEnhancer())
     )
 }
@@ -72,21 +71,21 @@ const wrapDispatchWithMiddlewares = (store, middlewares) => {
 }
 
 // version 2: with manual loggerLocal, promiseLocal and thunkLocal.
-const configStore = () => {
+const configureStore = () => {
 
     const store = createStore(
         rootReducer,
         devToolsEnhancer()
     );
-    let middlewares = [thunkLocal]; //promise;
+    let middlewares = [thunkLocal, promiseLocal]; //promise;
 
     if (process.env.NODE_ENV !== 'production') {
-        middlewares.push(thunkLocal);
+        middlewares.push(loggerLocal);
     }
 
     wrapDispatchWithMiddlewares(store, middlewares);
 
-    //console.info(JSON.stringify(store.getState()));
+    console.info(JSON.stringify(store.getState()));
     return store;
 
 };

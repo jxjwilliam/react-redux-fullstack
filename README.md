@@ -108,7 +108,24 @@ checkout -b from step-6, at course-16.
 
 - install redux-thunk, in configureStore.js use it.
  The inner function receives the store methods dispatch and getState as parameters.
+     
+- merge step-8 and step-7. currently the tabs: 
+ (1) counter, users, contact works. 
+ (2) app, todos not work. 
+ (3) about, phone not implement yet.
+     
 ### 9. step-9
+
+- https://jsonplaceholder.typicode.com/
+  Fake Online REST API for Testing and Prototyping
+- request
+- Cross Domain issues:
+  Error: Request has been terminated
+  Possible causes: the network is offline, Origin is not allowed by Access-Control-Allow-Origin, the page is being unloaded, etc.
+- http://localhost:8081/api/delegate/github/williamjxj
+- http://localhost:8082/api/delegate/github/williamjxj
+
+
 
 ### 10. step-10
 
@@ -139,7 +156,10 @@ karma start karma.conf.js
 react-router                ^3.0.0  →  ^4.0.0 
 - 2. Link seems not work, `All` is un-clickable.
 
+- https://github.com/WilliamJiang/node-xml-xslt
+
 
 ## Things to TODO
+
 - http-proxy
 - socket
