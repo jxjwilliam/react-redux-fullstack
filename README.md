@@ -108,6 +108,12 @@ checkout -b from step-6, at course-16.
 
 - install redux-thunk, in configureStore.js use it.
  The inner function receives the store methods dispatch and getState as parameters.
+     
+- merge step-8 and step-7. currently the tabs: 
+ (1) counter, users, contact works. 
+ (2) app, todos not work. 
+ (3) about, phone not implement yet.
+     
 ### 9. step-9
 
 ### 10. step-10
@@ -141,5 +147,6 @@ react-router                ^3.0.0  →  ^4.0.0
 
 
 ## Things to TODO
+
 - http-proxy
 - socket
