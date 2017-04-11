@@ -1,23 +1,45 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import promise from 'redux-promise'
+import createLogger from 'redux-logger'
 import { composeWithDevTools, devToolsEnhancer } from 'redux-devtools-extension';
 
 import todoApp from './reducers'
 //import { loadState, saveState } from './helpers/localStorage'
 //import throttle from 'lodash/throttle';
 
+//Logger must be last middleware in chain, otherwise it will log thunk and promise, not actual actions (#20).
+const logger = createLogger();
+
+// version 1: with npm thunk, promise, logger.
+const configureStore = () => {
+    const reducers = todoApp;
+    const persistedState = []; //loadState()
+    const middlewares= [thunk, promise];
+
+    if (process.env.NODE_ENV === `development`) {
+        middlewares.push(createLogger());
+    }
+
+    return createStore(
+        reducers,
+        persistedState,
+        compose(applyMiddleware(...middlewares), devToolsEnhancer())
+    )
+}
+
+
+
 /**
  * logger(store) => return store
  * logger(store)(next) => store.dispatch
  * logger(store)(next)(action) => dispatch(action) -> state.
  */
-const logger = (store) => (next) => {
+const loggerLocal = (store) => (next) => {
     if (!console.group) {
         return next;
     }
     return (action) => {
-        if(!action) {
-            return next();
-        }
         console.group(action.type);
         console.log('%c pre state', 'color: gray', store.getState());
         console.log('%c action', 'color: blue', action);
@@ -35,10 +57,7 @@ const logger = (store) => (next) => {
  * @param store
  * @returns {Function}
  */
-const promise = (store) => (next) => (action) => {
-    if(!action) {
-        return next();
-    }
+const promiseLocal = (store) => (next) => (action) => {
     if (typeof action.then === 'function') {
         return action.then(next);
     }
@@ -46,28 +65,44 @@ const promise = (store) => (next) => (action) => {
 
 }
 
+const thunkLocal = (store) => (next) => (action) =>
+    typeof action === 'function' ?
+        action(store.dispatch, store.getState) :
+        next(action);
+
 const wrapDispatchWithMiddlewares = (store, middlewares) => {
     middlewares.slice().reverse().forEach(middleware => {
         store.dispatch = middleware(store)(store.dispatch);
     })
 }
 
-const configureStore = () => {
+// version 2: with manual loggerLocal, promiseLocal and thunkLocal.
+const configStore = () => {
 
     const store = createStore(
         todoApp,
         devToolsEnhancer()
     );
-    let middlewares = [promise];
+    let middlewares = [thunkLocal]; //promise;
 
     if (process.env.NODE_ENV !== 'production') {
-        middlewares.push(logger);
+        middlewares.push(thunkLocal);
     }
 
     wrapDispatchWithMiddlewares(store, middlewares);
 
-    console.info(JSON.stringify(store.getState()));
+    //console.info(JSON.stringify(store.getState()));
     return store;
 };
+
+// version 3: currying:
+const createStoreWithMiddleware = (middlewares) => (createStore) => (reducers) => {
+    return createStore(
+        reducers,
+        applyMiddleware(...middlewares)
+    )
+};
+
+//createStoreWithMiddleware(thunk, promise, logger)(createStore)(todoApp);
 
 export default configureStore;

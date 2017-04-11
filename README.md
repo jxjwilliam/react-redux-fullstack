@@ -85,6 +85,8 @@ work at course-15.
 
 checkout -b from step-6, at course-16. 
 
+- install redux-thunk, in configureStore.js use it.
+ The inner function receives the store methods dispatch and getState as parameters.
 ### 9. step-9
 
 ### 10. step-10
