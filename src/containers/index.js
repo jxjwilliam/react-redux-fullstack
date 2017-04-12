@@ -4,8 +4,8 @@ import Contact from './ContactApp'
 import Todos from './TodoApp'
 import Users from './UserApp'
 import Delegate from './DelegateApp'
-import Home from './Home'
-import App from './App'
+import Home from './HomeApp'
+import Demo from './DemoApp'
 
 const MyApp = {
   Home,
@@ -15,7 +15,7 @@ const MyApp = {
   Todos,
   Users,
   Delegate,
-  App
+  Demo
 }
 
 export default MyApp;

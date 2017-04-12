@@ -79,7 +79,7 @@ const configureStore = () => {
     rootReducer,
     devToolsEnhancer()
   );
-  let middlewares = [promiseLocal]; //promise;
+  let middlewares = [thunkLocal, promiseLocal]; //promise;
 
   if (process.env.NODE_ENV !== 'production') {
     middlewares.push(loggerLocal);

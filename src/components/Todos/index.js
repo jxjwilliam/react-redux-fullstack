@@ -1,10 +1,9 @@
-/**
- *
- */
 import Footer from './Footer';
 import TodoList from './TodoList';
+import FetchError from './fetchError'
 
-export default {
+export {
+  TodoList,
   Footer,
-  TodoList
+  FetchError
 }
