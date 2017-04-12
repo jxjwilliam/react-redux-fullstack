@@ -1,3 +1,3 @@
 require('babel-register')
-//require('./server')
-require('./server-without-websocket');
+require('./server')
+//require('./server-without-websocket');

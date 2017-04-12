@@ -10,18 +10,18 @@ import { loadState, saveState } from './helpers/localStorage'
 
 // version 1: with npm thunk, promise, logger.
 const configStore = () => {
-    const persistedState = loadState();
-    const middlewares = [thunk];
+  const persistedState = loadState();
+  const middlewares = [thunk];
 
-    //Logger must be last middleware in chain, otherwise it will log thunk and promise, not actual actions (#20).
-    if (process.env.NODE_ENV === `development`) {
-        middlewares.push(createLogger());
-    }
+  //Logger must be last middleware in chain, otherwise it will log thunk and promise, not actual actions (#20).
+  if (process.env.NODE_ENV === `development`) {
+    middlewares.push(createLogger());
+  }
 
-    return createStore(
-        rootReducer,
-        compose(applyMiddleware(...middlewares), devToolsEnhancer())
-    )
+  return createStore(
+    rootReducer,
+    compose(applyMiddleware(...middlewares), devToolsEnhancer())
+  )
 }
 
 
@@ -30,19 +30,21 @@ const configStore = () => {
  * logger(store)(next) => store.dispatch
  * logger(store)(next)(action) => dispatch(action) -> state.
  */
+//My function returns a wrapped dispatch function, so I will use it to return value to override the store.dispatch method.
+// store.dispatch = loggerLocal(store);
 const loggerLocal = (store) => (next) => {
-    if (!console.group) {
-        return next;
-    }
-    return (action) => {
-        console.group(action.type);
-        console.log('%c pre state', 'color: gray', store.getState());
-        console.log('%c action', 'color: blue', action);
-        const returnValue = next(action);
-        console.log('%c next state', 'color: green', store.getState());
-        console.groupEnd(action.type);
-        return returnValue;
-    }
+  if (!console.group) {
+    return next;
+  }
+  return (action) => {
+    console.group(action.type);
+    console.log('%c pre state', 'color: gray', store.getState());
+    console.log('%c action', 'color: blue', action);
+    const returnValue = next(action);
+    console.log('%c next state', 'color: green', store.getState());
+    console.groupEnd(action.type);
+    return returnValue; //action object
+  }
 }
 
 /**
@@ -53,49 +55,49 @@ const loggerLocal = (store) => (next) => {
  * @returns {Function}
  */
 const promiseLocal = (store) => (next) => (action) => {
-    if (typeof action.then === 'function') {
-        return action.then(next);
-    }
-    return next(action);
+  if (typeof action.then === 'function') {
+    return action.then(next);
+  }
+  return next(action);
 }
 
 const thunkLocal = (store) => (next) => (action) =>
-    typeof action === 'function' ?
-        action(store.dispatch, store.getState) :
-        next(action);
+  typeof action === 'function' ?
+    action(store.dispatch, store.getState) :
+    next(action);
 
 const wrapDispatchWithMiddlewares = (store, middlewares) => {
-    middlewares.slice().reverse().forEach(middleware => {
-        store.dispatch = middleware(store)(store.dispatch);
-    })
+  middlewares.slice().reverse().forEach(middleware => {
+    store.dispatch = middleware(store)(store.dispatch);
+  })
 }
 
 // version 2: with manual loggerLocal, promiseLocal and thunkLocal.
 const configureStore = () => {
 
-    const store = createStore(
-        rootReducer,
-        devToolsEnhancer()
-    );
-    let middlewares = [thunkLocal, promiseLocal]; //promise;
+  const store = createStore(
+    rootReducer,
+    devToolsEnhancer()
+  );
+  let middlewares = [promiseLocal]; //promise;
 
-    if (process.env.NODE_ENV !== 'production') {
-        middlewares.push(loggerLocal);
-    }
+  if (process.env.NODE_ENV !== 'production') {
+    middlewares.push(loggerLocal);
+  }
 
-    wrapDispatchWithMiddlewares(store, middlewares);
+  wrapDispatchWithMiddlewares(store, middlewares);
 
-    console.info(JSON.stringify(store.getState()));
-    return store;
+  //console.info(JSON.stringify(store.getState()));
+  return store;
 
 };
 
 // version 3: currying:
 const createStoreWithMiddleware = (middlewares) => (createStore) => (reducers) => {
-    return createStore(
-        rootReducer,
-        applyMiddleware(...middlewares)
-    )
+  return createStore(
+    rootReducer,
+    applyMiddleware(...middlewares)
+  )
 };
 
 //createStoreWithMiddleware(thunk, promise, logger)(createStore)(todoApp);

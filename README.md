@@ -125,7 +125,11 @@ checkout -b from step-6, at course-16.
 - http://localhost:8081/api/delegate/github/williamjxj
 - http://localhost:8082/api/delegate/github/williamjxj
 
-
+- to make promise testable: add `chai-as-promised`, and in karma.conf.js:
+files: [
+  'node_modules/babel-polyfill/dist/polyfill.js',
+  ....
+]
 
 ### 10. step-10
 

@@ -32,7 +32,7 @@ app.use(webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath
 }));
 
-app.use(webpackHotMiddleware(compiler));
+//app.use(webpackHotMiddleware(compiler));
 
 app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')));
 app.use(bodyParser.json());

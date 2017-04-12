@@ -17,7 +17,7 @@ const fakeDatabase = {
     }]
 };
 
-const getFakerData = (no) => {
+export const getFakerData = (no) => {
     let todos = [];
     for (let i = 0; i < no; i++) {
         todos.push({

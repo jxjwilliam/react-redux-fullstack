@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux';
 
+// merge 3: todo.js, todos.js, index.js
+
+// 1. todo reducer:
 const todo = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO':
@@ -22,6 +25,7 @@ const todo = (state, action) => {
   }
 }
 
+// 2. todos reducer
 const byId = (state = {}, action) => {
   switch (action.type) {
     case 'FETCH_TODOS_SUCCESS': // eslint-disable-line no-case-
@@ -94,7 +98,7 @@ const createList = (filter) => {
   })
 }
 
-
+// 3. todos index.js reducer
 const todos = combineReducers({
   byId,
   createList,

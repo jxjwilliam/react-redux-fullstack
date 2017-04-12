@@ -4,19 +4,12 @@ import Footer from '../components/Todos/Footer'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
 
+const Todos = () => (
+  <div>
+    <AddTodo />
+    <VisibleTodoList />
+    <Footer />
+  </div>
+)
 
-class Todos extends Component {
-  render() {
-    return (
-      <div>
-        <AddTodo />
-        <VisibleTodoList />
-        <Footer />
-      </div>
-    )
-  }
-}
-
-Todos = connect()(Todos);
-
-export default Todos;
+export default connect()(Todos);

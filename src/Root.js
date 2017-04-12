@@ -19,9 +19,9 @@ const router = (
 
 /**
  * <Router history={browserHistory} routes={routes} />
- <Route path="posts/new" component={PostsNew} />
- <Route path="posts/:id" component={PostsShow} />
- <Route path="/validateEmail/:token" component={ValidateEmail} />
+   <Route path="posts/new" component={PostsNew} />
+   <Route path="posts/:id" component={PostsShow} />
+   <Route path="/validateEmail/:token" component={ValidateEmail} />
  */
 const Root = ({ store }) => (
     <Provider store={store}>
