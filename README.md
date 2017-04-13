@@ -137,7 +137,7 @@ files: [
 
 ## Unit Test
 
-use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.
+- use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.
 
 ```bash
 ncu
@@ -146,10 +146,15 @@ npm update
 karma start karma.conf.js
 ```
 
+- `chai-as-promised` to test promise: either `return promise` or `done()` will work: test/promise.spec.js.
+
 
 ## Issues:
 
 - react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
+
+- Warning: Accessing PropTypes via the main React package is deprecated. Use the prop-types package from npm instead.
+after `npm i -S prop-types`, the warning is disappear. so fix.
 
 
 ## Reference

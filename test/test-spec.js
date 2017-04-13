@@ -10,8 +10,8 @@ describe('# Component Test', () => {
   });
 });
 
-describe('# Store test', () => {
-  it('store is accessbile', () => {
+describe('# Store Test', () => {
+  it('store is accessible', () => {
     const store = configureStore();
     expect(store.dispatch).to.be.a('function')
     expect(store.subscribe).to.be.a('function')

@@ -37,6 +37,7 @@
     "node-uuid": "^1.4.8",
     "normalizr": "^3.2.2",
     "prettyjson": "^1.2.1",
+    "prop-types": "^15.5.8",
     "react": "^15.5.3",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.5.3",

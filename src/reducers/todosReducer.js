@@ -111,7 +111,7 @@ const todos1 = combineReducers({
   idsByFilter,
 })
 
-const todos1 = (state, action) => {
+const todos = (state, action) => {
   return [{
     "id": "338d623b-7070-4548-8762-9314483d8c09",
     "text": "Aut non quia et est.",
