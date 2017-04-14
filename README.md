@@ -148,6 +148,7 @@ karma start karma.conf.js
 
 - `chai-as-promised` to test promise: either `return promise` or `done()` will work: test/promise.spec.js.
 
+- `immutable` and `chai-immutable installed and test.
 
 ## Issues:
 
@@ -155,6 +156,13 @@ karma start karma.conf.js
 
 - Warning: Accessing PropTypes via the main React package is deprecated. Use the prop-types package from npm instead.
 after `npm i -S prop-types`, the warning is disappear. so fix.
+
+- RESTFul API call Error: Request has been terminated
+  Possible causes: the network is offline, Origin is not allowed by Access-Control-Allow-Origin, the page is being unloaded, etc.
+
+o:  /api/users
+x:  /api/delegate/github/williamjxj
+x:  http://localhost:8081/api/delegate/jsonplaceholder
 
 
 ## Reference

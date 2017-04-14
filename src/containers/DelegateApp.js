@@ -2,7 +2,6 @@ import React, {Component}  from 'react'
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux'
 import superagent from 'superagent'
-//import fetch from 'fetch'
 
 const loadReposAction = (user) => {
 
@@ -14,8 +13,11 @@ const loadReposAction = (user) => {
 
     dispatch(loadingChangedAction(true));
 
-    return superagent(url)
+    superagent
+      .get('/api/delegate/jsonplaceholder')
       .set('Accept', 'application/json')
+//      .get('/api/delegate/github/williamjxj')
+      .withCredentials()
       .set('User-Agent', 'williamjxj')
       .end((err, result) => {
 
@@ -91,6 +93,7 @@ class Delegate extends Component {
     let user = this.input.value.trim();
     this.props.userChangedAction(user);
     this.props.loadReposAction(user);
+    return false;
   }
 
   render() {
