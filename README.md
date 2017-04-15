@@ -131,6 +131,7 @@ files: [
   ....
 ]
 
+
 ### 10. step-10
 
 
@@ -153,6 +154,8 @@ karma start karma.conf.js
 ## Issues:
 
 - react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
+- use react-router-dom instead. remove react-router, and react-router-bootstrap.
+
 
 - Warning: Accessing PropTypes via the main React package is deprecated. Use the prop-types package from npm instead.
 after `npm i -S prop-types`, the warning is disappear. so fix.

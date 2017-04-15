@@ -3,6 +3,11 @@ import ContactForm from '../components/ContactForm';
 import SimpleForm from '../components/SimpleForm'
 
 class Contact extends Component {
+    constructor(props) {
+      super(props);
+      this.submit = this.submit.bind(this);
+    }
+
     submit = (values) => {
         // Do something with the form values
         console.log(values);

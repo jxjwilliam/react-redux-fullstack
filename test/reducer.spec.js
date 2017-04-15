@@ -34,4 +34,4 @@ describe('# Reducer Test', () => {
     expect(countedNames['Bob']).to.be.equal(1);
   });
 
-});
+});b
