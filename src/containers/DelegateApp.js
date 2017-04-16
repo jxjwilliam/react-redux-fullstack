@@ -14,10 +14,10 @@ const loadReposAction = (user) => {
     dispatch(loadingChangedAction(true));
 
     superagent
-      .get('/api/delegate/jsonplaceholder')
+//      .get('/api/delegate/jsonplaceholder')
+      .get('/api/delegate/github/jxjwilliam')
       .set('Accept', 'application/json')
-//      .get('/api/delegate/github/williamjxj')
-      .withCredentials()
+//      .withCredentials()
       .set('User-Agent', 'williamjxj')
       .end((err, result) => {
 

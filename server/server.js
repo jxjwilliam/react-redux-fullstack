@@ -8,7 +8,7 @@ import prettyjson from 'prettyjson'
 import bodyParser from 'body-parser'
 import http from 'http'
 import SocketIo from 'socket.io'
-import cookieParser from 'cookie-parser';
+//import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 // 2. import webpack
@@ -68,7 +68,7 @@ app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')))
 app.use(bodyParser.json())
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
-app.use(cookieParser());
+//app.use(cookieParser());
 
 
 // app.use(routes); `/api/...`
@@ -76,6 +76,7 @@ app.use(routes.todos);
 app.use(routes.users);
 app.use(routes.counter);
 
+//debug('before delegator, set a breakpoint');
 //const staticPath = __dirname + '../public';
 //app.use(express.static(staticPath));
 //

@@ -170,8 +170,7 @@ x:  http://localhost:8081/api/delegate/jsonplaceholder
 
 ## Reference
 
-![Redux Life Cycle](./public/redux-life-cycle.png)
-
+- docs/flow.md
 - 1. react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
 react-router                ^3.0.0  →  ^4.0.0 
 - 2. Link seems not work, `All` is un-clickable.
@@ -183,3 +182,4 @@ react-router                ^3.0.0  →  ^4.0.0
 
 - http-proxy
 - socket
+- node-debug, node-inspector

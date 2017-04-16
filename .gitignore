@@ -1,8 +1,9 @@
 .DS_Store
-*.log
+.idea
 node_modules
 dist
 lib
 es
 coverage
-.idea
+*.log
+*.local.js

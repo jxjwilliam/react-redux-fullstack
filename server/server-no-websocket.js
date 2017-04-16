@@ -3,7 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var cors = require('cors');
+
 
 // 2. import webpack
 import webpack from 'webpack';
@@ -45,8 +45,9 @@ app.use(routes.todos);
 app.use(routes.users);
 app.use(routes.counter);
 
-app.use(cors());
-app.use('/api/delegate/github', delegator.github);
+app.use(delegator.github);
+app.use(delegator.typicode)
+
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
