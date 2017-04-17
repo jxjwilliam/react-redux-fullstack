@@ -1,32 +1,59 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Provider } from 'react-redux'
-
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import MyApp from './containers/'
-//<Route path="/(:filter)" component={App}/>
 
-// <Route path="/todos" component={MyApp.Todos}></Route>
-const router = (
-  <Route path="/" component={MyApp.Home}>
-    <IndexRoute component={MyApp.Todos}></IndexRoute>
-    <Route path="/about" component={MyApp.About}></Route>
-    <Route path="/counter" component={MyApp.Counter}></Route>
-    <Route path="/contact" component={MyApp.Contact}></Route>
-    <Route path="/delegate" component={MyApp.Delegate}></Route>
-    <Route path="/users" component={MyApp.Users}></Route>
-    <Route path="/demo" component={MyApp.Demo}></Route>
-  </Route>
+const Header = () => (
+  <header>
+    <nav className="navbar navbar-inverse navbar-fixed-top">
+      <ul className="nav navbar-nav">
+        <li><Link to="/">App</Link></li>
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/counter">Counter</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
+        <li><Link to="/delegate">Delegate</Link></li>
+        <li><Link to="/todos">Todos</Link></li>
+        <li><Link to="/users">Users</Link></li>
+      </ul>
+    </nav>
+  </header>
+)
+
+const Footer = ({footer}) => (
+  <footer>
+    <div {...footer}>&copy; william jiang - 2017</div>
+  </footer>
+)
+
+const Main = () => (
+  <main style={{marginTop:60}}>
+    <Switch>
+      <Route exact path="/" component={MyApp.Home}/>
+      <Route path="/todos" component={MyApp.Todos}/>
+      <Route path="/about" component={MyApp.About}/>
+      <Route path="/counter" component={MyApp.Counter}/>
+      <Route path="/contact" component={MyApp.Contact}/>
+      <Route path="/delegate" component={MyApp.Delegate}/>
+      <Route path="/users" component={MyApp.Users}/>
+      <Route path="/demo" component={MyApp.Demo}/>
+    </Switch>
+  </main>
 );
 
-/**
- * <Router history={browserHistory} routes={routes} />
- <Route path="posts/new" component={PostsNew} />
- <Route path="posts/:id" component={PostsShow} />
- <Route path="/validateEmail/:token" component={ValidateEmail} />
- */
+const App = () => (
+  <div className="container">
+    <Header />
+    <Main />
+    <Footer />
+  </div>
+)
+
 const Root = ({ store }) => (
   <Provider store={store}>
-    <Router history={ browserHistory } routes={router}/>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>
 );
 

@@ -4,9 +4,15 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
   entry: [
-    path.join(__dirname, 'src', 'index.js')
+    'webpack-hot-middleware/client',
+    'src/index.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),

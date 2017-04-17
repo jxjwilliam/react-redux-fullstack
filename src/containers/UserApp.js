@@ -21,11 +21,6 @@ const UseDetail = ({user}) => {
 }
 
 class Users extends Component {
-
-    constructor(props) {
-        super(props)
-    }
-
     /**
      *  If you need to load data from a remote endpoint, this is a good place to instantiate
      *  the network request. Setting state in this method will trigger a re-rendering.
