@@ -5,7 +5,7 @@ This is the walking steps of Dan Abramov's Redux vedio tutorials.
 `Part 2: Building React Applications with Idiomatic Redux (27 free videos)`
 [https://egghead.io/courses/building-react-applications-with-idiomatic-redux](https://egghead.io/courses/building-react-applications-with-idiomatic-redux)
 
-There are total 10 branches (step-1...step-10) to go through the video episodes.
+There are total 10 branches (step-1...step-9, main) to go through the video episodes.
 
 
 ## Quick Start
@@ -132,8 +132,12 @@ files: [
 ]
 
 
-### 10. step-10
+### 10. Main
 
+- use `react-route-dom` instead of `react-route`
+- use react v15.4.0 instead of v15.5.3 to avoid warning
+- change form `onSubmit={this.props.handleSubmit}` to `onSubmit={(e)=>this.props.handleSubmit(e)}` to fix fetching github repository no-return issue.
+- use '/api/delegate/...' in server-side (`request.js`) to delegate accessing security website work.
 
 
 ## Unit Test
