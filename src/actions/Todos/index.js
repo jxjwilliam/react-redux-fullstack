@@ -1,6 +1,5 @@
 import { getIsFetching } from '../../reducers/todosReducer'
 import * as api from './api'
-import { v4 } from 'node-uuid'; //not use.
 
 // 1. AddTodo component:
 /**

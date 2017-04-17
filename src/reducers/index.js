@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
-import { routerReducer } from 'react-router-redux';
+//import { routerReducer } from 'react-router-redux';
 
 import todos, * as fromTodos from './todosReducer'
 import {userList, userDetail} from './userReducer'
@@ -14,10 +14,9 @@ const rootReducer = combineReducers({
   todos,
   userList,
   userDetail,
-  repos: githubReducer,
+  github: githubReducer,
   counter: CounterReducer,
-  form: formReducer,
-  routing: routerReducer
+  form: formReducer
 })
 
 export default rootReducer
