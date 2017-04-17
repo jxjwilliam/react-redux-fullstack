@@ -1,7 +1,7 @@
 import React, {Component}  from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getUsers, selectUser} from '../actions/UserAction'
+import {getUsers, selectUser} from '../actions/userAction'
 
 const UseDetail = ({user}) => {
     if (user && Object.keys(user).length > 0) {
@@ -30,7 +30,8 @@ class Users extends Component {
      *  If you need to load data from a remote endpoint, this is a good place to instantiate
      *  the network request. Setting state in this method will trigger a re-rendering.
      * for local state, it works properly:
-     * superagent.get('/api/todos').set('Accept', 'application/json').end((err, res) => {this.setState({users: res.body});})
+     * superagent.get('/api/todos').set('Accept', 'application/json').end((err, res) => {
+	 * 	this.setState({users: res.body});})
      */
     componentDidMount() {
         this.props.getUsers(); // store.dispatch({type: 'USER_FETCH'});
@@ -75,7 +76,6 @@ class Users extends Component {
 }
 
 const mapStateToProps = (state, {params}) => ({
-
     userList: state.userList,
     userDetail: state.userDetail
 })

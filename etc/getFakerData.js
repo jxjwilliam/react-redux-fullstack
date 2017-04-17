@@ -3,7 +3,7 @@
 //https://github.com/marak/Faker.js/
 //TODO: write into a file for testing purpose.
 
-var faker = require('faker')
+var faker = require('faker/locale/en')
 var fs = require('fs')
 var path = require('path')
 var prettyjson = require('prettyjson');

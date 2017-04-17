@@ -30,11 +30,6 @@ export const increment = () => (dispatch, getState) => {
         });
 };
 
-// used for localStage without DB connection
-const increment_local = () => ({
-    type: 'INCREMENT'
-});
-
 export const decrement = () => (dispatch, getState) => {
     const counter = getState().counter - 1;
     superagent
@@ -48,3 +43,9 @@ export const decrement = () => (dispatch, getState) => {
             })
         })
 }
+
+
+// deprecated: used for localStage without DB connection
+const increment_local = () => ({
+    type: 'INCREMENT'
+});

@@ -17,9 +17,6 @@ const Footer = () => (
       Completed
     </FilterLink>
     {", "}
-    <FilterLink filter="unknown">
-      Unknown
-    </FilterLink>
   </p>
 );
 

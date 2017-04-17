@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const User = require('../models/user')
 
+//User.findOne({_id: token }, callback);
 router.route('/api/users/')
-
     .get((req, res, next) => {
         User.find((err, users) => {
             if (err) return next(err)
@@ -11,6 +11,13 @@ router.route('/api/users/')
         })
     })
 
+/**
+ * .get('/:username/:password', function(req, res) {
+ * var newUser = newUser();
+ * newUser.username = req.params.username;
+ * newUser.password = req.params.password;
+ * newUser.save(callback)
+ */
     .post((req, res, next) => {
 
         User.create(req.body, (err, user) => {

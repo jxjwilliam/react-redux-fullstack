@@ -3,9 +3,9 @@ import Counter from './CounterApp'
 import Contact from './ContactApp'
 import Todos from './TodoApp'
 import Users from './UserApp'
-import Phone from './PhoneApp'
-import Home from './Home'
-import App from './App'
+import Delegate from './DelegateApp'
+import Home from './HomeApp'
+import Demo from './DemoApp'
 
 const MyApp = {
   Home,
@@ -14,8 +14,8 @@ const MyApp = {
   Contact,
   Todos,
   Users,
-  Phone,
-  App
+  Delegate,
+  Demo
 }
 
 export default MyApp;
