@@ -30,36 +30,6 @@ const loadReposAction = (user) => {
       });
   }
 }
-/**
- * I added 'User-Agent' for "https://api.github.com/users/" + user + "/repos";
- * still *NOT* work.
- * Error: Request has been terminated
- Possible causes: the network is offline, Origin is not allowed by Access-Control-Allow-Origin, the page is being unloaded, etc.
- at Request.crossDomainError (client.js:625)
- at XMLHttpRequest.xhr.onreadystatechange (client.js:733)
-
- * All API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected.
- * We request that you use your GitHub username, or the name of your application, for the User-Agent header value.
- */
-const loadReposAction1 = (user) => {
-  return (dispatch, getState) => {
-
-    //dispatch(loadingChangedAction(true));
-
-    let url = '/api/delegate/github/' + user;
-
-    //url = "https://api.github.com/users/" + user;
-
-    superagent
-      .get('/api/delegate/github/williamjxj')
-      .set('Accept', 'application/json')
-      .set('User-Agent', user)
-      .end((err, res) => {
-        //if (err) throw err;
-        console.log(res);
-      });
-  }
-}
 
 //1. Action creators
 const addReposAction = jsonResult => ({
