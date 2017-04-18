@@ -1,6 +1,6 @@
 import React, {Component}  from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router-dom'
 import * as TodoActions from '../actions/Todos/'
 import * as TodoComponents from '../components/Todos'
 import { getVisibleTodos, getIsFetching, getErrorMessage } from '../reducers/todosReducer'
@@ -54,6 +54,7 @@ class VisibleTodoList extends Component {
 
   render() {
     const { isFetching, errorMessage, toggleTodo, todos } = this.props;
+    debugger;
     if (isFetching && !todos.length) {
       return <p>Loading...</p>
     }
@@ -71,11 +72,19 @@ class VisibleTodoList extends Component {
     )
   }
 }
+
+/**
+ * props: match, location, history, staticContext
+ * match.params = { path: '/todos', url: 'todos' }
+ */
+
 // lifecycle-hook
 // isFetching: getIsFetching(state, filter),
 //  errorMessage: getErrorMessage(state, filter),
-const mapStateToProps = (state, {params}) => {
-  const filter = params.filter || 'all';
+const mapStateToProps = (state, {match}) => {
+  const params = match.params;
+  //debugger;
+  const filter = params.filter ? params.filter : 'all';
   return {
     todos: getVisibleTodos(state, filter),
     filter

@@ -155,8 +155,10 @@ karma start karma.conf.js
 ```
 
 - `chai-as-promised` to test promise: either `return promise` or `done()` will work: test/promise.spec.js.
-
 - `immutable` and `chai-immutable installed and test.
+
+-  `react-bootstrap` throw warning (propTypes) with React ^15.4, ^15.5.
+
 
 ## Issues:
 

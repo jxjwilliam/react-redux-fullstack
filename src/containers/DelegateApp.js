@@ -14,7 +14,6 @@ const loadReposAction = (user) => {
       .set('Accept', 'application/json')
       .end((err, result) => {
         if (err) throw err;
-        console.log(result.body);
         dispatch(loadingChangedAction(false));
         dispatch(addReposAction(result.body));
       });

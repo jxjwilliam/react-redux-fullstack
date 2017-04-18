@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import _ from 'lodash'
 import {getUsers, selectUser} from '../actions/userAction'
-import EditModal from '../helpers/modalForm'
+//import EditModal from '../helpers/modalForm'
 
 const prevAction = (userList) => {
   return {
@@ -183,10 +183,11 @@ class Users extends Component {
           ))}
           </tbody>
         </table>
-
+        {/*
         <div className="modal">
           <EditModal show={this.state.showModal} close={this.close} save={this.save} onUpdate={this.saveUser}/>
         </div>
+         */}
       </div>
     )
   }

@@ -1,39 +1,26 @@
-import { v4 } from 'node-uuid';
-import faker from '../../../node_modules/faker/locale/en'
+import superagent from 'superagent'
 
-const fakeDatabase = {
-  todos: [{
-    id: v4(),
-    text: 'hey',
-    completed: true
-  }, {
-    id: v4(),
-    text: 'hello world',
-    completed: true
-  }, {
-    id: v4(),
-    text: 'bingo',
-    completed: false
-  }]
-};
-
-export const getFakerData = (no) => {
-  let todos = [];
-  for (let i = 0; i < no; i++) {
-    todos.push({
-      id: faker.random.uuid(),
-      text: faker.lorem.sentence(),
-      completed: Math.random() > 0.5
-    })
+export const fetchTodos = (filter) => (dispatch, getState) => {
+  const todos = getState().todos;
+  if (todos.length === 0) {
+    superagent
+      .get('/api/todos')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err) throw err;
+        dispatch({
+          type: 'FETCH_USERS',
+          payload: res.body
+        });
+      });
   }
-  return todos;
 }
 
-const fakeTodosData = getFakerData(6);
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const fakeTodosData = [];
 
-export const fetchTodos = (filter) =>
+const fetchTodos1 = (filter) => {
   delay(500).then(() => {
     //if (Math.random() > 0.5) {
     //  throw new Error('FetchTodos Error!')
@@ -49,6 +36,7 @@ export const fetchTodos = (filter) =>
         throw new Error(`Unknown filter: ${filter}`);
     }
   });
+}
 
 
 export const addTodo = (text) =>
