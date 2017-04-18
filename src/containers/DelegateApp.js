@@ -54,12 +54,9 @@ class Delegate extends Component {
     let user = this.input.value.trim();
     this.props.userChangedAction(user);
     this.props.loadReposAction(user);
-    //return false;
   }
 
-  //componentDidMount() {
-  //  this.props.loadReposAction();
-  //}
+  //this works: componentDidMount() { this.props.loadReposAction();}
 
   render() {
     const {github} = this.props
@@ -85,7 +82,7 @@ class Delegate extends Component {
       <div className="container row">
         <div className="jumbotron">
           <div className="container">
-            <h1>Github Repository</h1>
+            <h3>Github Repository</h3>
           </div>
         </div>
         <div className="container">

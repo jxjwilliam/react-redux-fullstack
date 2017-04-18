@@ -131,14 +131,17 @@ files: [
   ....
 ]
 
-
-### 10. Main
-
 - use `react-route-dom` instead of `react-route`
 - use react v15.4.0 instead of v15.5.3 to avoid warning
 - change form `onSubmit={this.props.handleSubmit}` to `onSubmit={(e)=>this.props.handleSubmit(e)}` to fix fetching github repository no-return issue.
 - use '/api/delegate/...' in server-side (`request.js`) to delegate accessing security website work.
 
+
+### 10. Main
+
+will update todoApp, and models, rxjs in this branch.
+
+- component must be first-letter capitalize: `editModal` not work, `EditModal` work.
 
 ## Unit Test
 
