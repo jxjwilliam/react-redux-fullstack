@@ -2,25 +2,32 @@ import superagent from 'superagent'
 
 // TODO: res.text or res.body???
 export const getUsers = () => {
-    return (dispatch, getState) => {
-        const users = getState().userList;
-        if (users.length === 0) {
-            superagent
-                .get('/api/users')
-                .set('Accept', 'application/json')
-                .end((err, res) => {
-                    if (err) throw err;
-                    dispatch({
-                        type: 'USER_FETCH',
-                        payload: res.text
-                    });
-                });
-        }
+  return (dispatch, getState) => {
+    const users = getState().userList;
+    if (users.length === 0) {
+      superagent
+        .get('/api/users')
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) throw err;
+          /**
+           * res.body is [object], res.string is 'string'
+           */
+          const users = res.body.slice(0, 10);
+          //users.forEach( u => {
+          //  u.dob = u.dob ? u.dob.split(/[A-Z]/)[0] : 'N/A'
+          //});
+          dispatch({
+            type: 'FETCH_USERS',
+            payload: users
+          });
+        });
     }
+  }
 };
 
 export const selectUser = (user) => ({
-    type: 'USER_SELECT',
-    payload: user
+  type: 'SELECT_USER',
+  payload: user
 });
 

@@ -3,6 +3,8 @@ import {bindActionCreators} from 'redux';
 
 export { getCounter, increment, decrement } from './counterAction'
 
-export { fetchTodos } from './Todos/todosAction'
+export { fetchTodos, addTodo,  setVisibilityFilter, toggleTodo } from './todoAction'
 
 export { getUsers, selectUser } from './userAction'
+
+export { loadReposAction } from './delegateAction'

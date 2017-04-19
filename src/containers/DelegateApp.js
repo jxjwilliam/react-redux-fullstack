@@ -1,39 +1,7 @@
 import React, {Component}  from 'react'
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux'
-import superagent from 'superagent'
-
-const loadReposAction = (user) => {
-  return (dispatch) => {
-    //var url = 'https://api.github.com/users/' + user + '/repos';
-    var url = '/api/delegate/github/' + user;
-    dispatch(loadingChangedAction(true));
-
-    superagent
-      .get(url)
-      .set('Accept', 'application/json')
-      .end((err, result) => {
-        if (err) throw err;
-        console.log(result.body);
-        dispatch(loadingChangedAction(false));
-        dispatch(addReposAction(result.body));
-      });
-  }
-}
-
-//1. Action creators
-const addReposAction = jsonResult => ({
-  type: "ADD_TWEETS",
-  repos: jsonResult
-});
-const userChangedAction = value => ({
-  type: "USER_CHANGED",
-  value: value
-});
-const loadingChangedAction = isLoading =>({
-  type: "IS_LOADING",
-  isLoading: isLoading
-});
+import { loadReposAction, addReposAction, userChangedAction, loadingChangedAction } from '../actions/delegateAction'
 
 class Delegate extends Component {
   constructor(props) {
@@ -54,12 +22,9 @@ class Delegate extends Component {
     let user = this.input.value.trim();
     this.props.userChangedAction(user);
     this.props.loadReposAction(user);
-    //return false;
   }
 
-  //componentDidMount() {
-  //  this.props.loadReposAction();
-  //}
+  //this works: componentDidMount() { this.props.loadReposAction();}
 
   render() {
     const {github} = this.props
@@ -85,7 +50,7 @@ class Delegate extends Component {
       <div className="container row">
         <div className="jumbotron">
           <div className="container">
-            <h1>Github Repository</h1>
+            <h3>Github Repository</h3>
           </div>
         </div>
         <div className="container">

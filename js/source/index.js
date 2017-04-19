@@ -3,7 +3,7 @@ import combineReducers from './combineReducers'
 import bindActionCreators from './bindActionCreators'
 import applyMiddleware from './applyMiddleware'
 import compose from './compose'
-import warning from './utils/warning'
+import warning from './warning'
 
 /*
 * This is a dummy function to check if the function name has been altered by minification.

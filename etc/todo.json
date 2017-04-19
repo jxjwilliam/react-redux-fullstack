@@ -1,0 +1,26 @@
+[
+  {
+    "text": "todos",
+    "completed": false
+  },
+  {
+    "text": "user-modal-form",
+    "completed": true
+  },
+  {
+    "text": "ReactiveX RxJs",
+    "completed": true
+  },
+  {
+    "text": "HTML5 History and params",
+    "completed": true
+  },
+  {
+    "text": "websocket and socket.io",
+    "completed": false
+  },
+  {
+    "text": "Node.js RabbitMQ, redis and passport authentication.",
+    "completed": false
+  }
+]

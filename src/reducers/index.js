@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux'
-import { reducer as formReducer } from 'redux-form'
-//import { routerReducer } from 'react-router-redux';
 
-import todos, * as fromTodos from './todosReducer'
-import {userList, userDetail} from './userReducer'
+import todosReducer from './todosReducer'
+import userListReducer from './userReducer'
 import CounterReducer from './counterReducer'
 import githubReducer from './delegateReducer'
+import { reducer as formReducer } from 'redux-form'
 
-
-// state = {todos:[], userList:[], userDetail: {}, routing: {}
-// routing: routerReducer
+/**
+ * state = {todos:{all, active, completed:[], userList:[], userDetail: {}, routing: {}
+ * state only return from `reducer`
+ * when createStore, `reducer` are the 1st parameter, so `store` can get `state`
+ */
 const rootReducer = combineReducers({
-  todos,
-  userList,
-  userDetail,
+  todos: todosReducer,
+  userList: userListReducer,
   github: githubReducer,
   counter: CounterReducer,
   form: formReducer

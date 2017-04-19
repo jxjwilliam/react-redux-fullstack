@@ -5,7 +5,7 @@ This is the walking steps of Dan Abramov's Redux vedio tutorials.
 `Part 2: Building React Applications with Idiomatic Redux (27 free videos)`
 [https://egghead.io/courses/building-react-applications-with-idiomatic-redux](https://egghead.io/courses/building-react-applications-with-idiomatic-redux)
 
-There are total 10 branches (step-1...step-10) to go through the video episodes.
+There are total 10 branches (step-1...step-9, main) to go through the video episodes.
 
 
 ## Quick Start
@@ -131,10 +131,17 @@ files: [
   ....
 ]
 
+- use `react-route-dom` instead of `react-route`
+- use react v15.4.0 instead of v15.5.3 to avoid warning
+- change form `onSubmit={this.props.handleSubmit}` to `onSubmit={(e)=>this.props.handleSubmit(e)}` to fix fetching github repository no-return issue.
+- use '/api/delegate/...' in server-side (`request.js`) to delegate accessing security website work.
 
-### 10. step-10
 
+### 10. Main
 
+will update todoApp, and models, rxjs in this branch.
+
+- component must be first-letter capitalize: `editModal` not work, `EditModal` work.
 
 ## Unit Test
 
@@ -148,8 +155,10 @@ karma start karma.conf.js
 ```
 
 - `chai-as-promised` to test promise: either `return promise` or `done()` will work: test/promise.spec.js.
-
 - `immutable` and `chai-immutable installed and test.
+
+-  `react-bootstrap` throw warning (propTypes) with React ^15.4, ^15.5.
+
 
 ## Issues:
 
@@ -170,12 +179,15 @@ x:  http://localhost:8081/api/delegate/jsonplaceholder
 
 ## Reference
 
-- docs/flow.md
 - 1. react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
-react-router                ^3.0.0  →  ^4.0.0 
+react-router                ^3.0.0  →  ^4.0.0
+ use `react-router-dom` instead.
+ 
 - 2. Link seems not work, `All` is un-clickable.
-
+  use `NavLink` instead.
+  
 - https://github.com/WilliamJiang/node-xml-xslt
+- docs/flow.md
 
 
 ## Things to TODO
@@ -183,3 +195,4 @@ react-router                ^3.0.0  →  ^4.0.0
 - http-proxy
 - socket
 - node-debug, node-inspector
+- normalizr (reference/steps/schema.js)
