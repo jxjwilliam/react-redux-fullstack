@@ -127,7 +127,7 @@ const Footer = () => (
 //////////////////////////////////////////
 //4. combine them together
 const TodoApp = () => (
-  <div>
+  <div className="well">
     <AddTodo />
     <VisibleTodoList />
     <Footer />

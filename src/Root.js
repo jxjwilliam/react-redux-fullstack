@@ -27,7 +27,7 @@ const Footer = ({footer}) => (
 )
 
 const Main = () => (
-  <main style={{marginTop:60}}>
+  <main style={{marginTop:20}}>
     <Switch>
       <Route exact path="/" component={MyApp.Home}/>
       <Route path="/todos" component={MyApp.Todos}/>

@@ -47,13 +47,10 @@ class Delegate extends Component {
     }
 
     return (
-      <div className="container row">
-        <div className="jumbotron">
-          <div className="container">
-            <h3>Github Repository</h3>
-          </div>
-        </div>
-        <div className="container">
+      <div className="container">
+        <h3>Github Repository</h3>
+
+        <div className="row">
           <form onSubmit={(e)=>this.handleSubmit(e)} className="form form-inline row" style={{marginBottom:15}}>
             <div className="form-group">
               <input type="text" placeholder="Enter github username" className="form-control"
