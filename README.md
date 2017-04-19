@@ -179,12 +179,15 @@ x:  http://localhost:8081/api/delegate/jsonplaceholder
 
 ## Reference
 
-- docs/flow.md
 - 1. react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
-react-router                ^3.0.0  →  ^4.0.0 
+react-router                ^3.0.0  →  ^4.0.0
+ use `react-router-dom` instead.
+ 
 - 2. Link seems not work, `All` is un-clickable.
-
+  use `NavLink` instead.
+  
 - https://github.com/WilliamJiang/node-xml-xslt
+- docs/flow.md
 
 
 ## Things to TODO
@@ -192,3 +195,4 @@ react-router                ^3.0.0  →  ^4.0.0
 - http-proxy
 - socket
 - node-debug, node-inspector
+- normalizr (reference/steps/schema.js)

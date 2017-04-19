@@ -18,7 +18,6 @@ const nextAction = (userList) => {
   }
 };
 const sortAction = (sortBy, seq) => {
-  console.log('sortAction: ', sortBy, seq);
   return {
     type: 'SORT_USERS',
     sortBy: sortBy,

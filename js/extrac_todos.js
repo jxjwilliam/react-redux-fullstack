@@ -1,26 +1,9 @@
-import superagent from 'superagent'
-
-export const fetchTodos = (filter) => (dispatch, getState) => {
-  const todos = getState().todos;
-  if (todos.length === 0) {
-    superagent
-      .get('/api/todos')
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err) throw err;
-        dispatch({
-          type: 'FETCH_USERS',
-          payload: res.body
-        });
-      });
-  }
-}
-
+// todos:
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const fakeTodosData = [];
 
-const fetchTodos1 = (filter) => {
+const fetchTodos = (filter) => {
   delay(500).then(() => {
     //if (Math.random() > 0.5) {
     //  throw new Error('FetchTodos Error!')
@@ -37,7 +20,6 @@ const fetchTodos1 = (filter) => {
     }
   });
 }
-
 
 export const addTodo = (text) =>
   delay(500).then(() => {

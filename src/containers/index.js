@@ -5,7 +5,6 @@ import Todos from './TodoApp'
 import Users from './UserApp'
 import Delegate from './DelegateApp'
 import Home from './HomeApp'
-import Demo from './DemoApp'
 
 const MyApp = {
   Home,
@@ -15,7 +14,6 @@ const MyApp = {
   Todos,
   Users,
   Delegate,
-  Demo
 }
 
 export default MyApp;

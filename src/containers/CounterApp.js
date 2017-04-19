@@ -19,7 +19,6 @@ class Counter extends Component {
 
     componentDidMount() {
         this.props.getCounter();
-
     }
 
     incrementIfOdd() {

@@ -1,13 +1,23 @@
 import React from 'react'
-import Todo from './Todo'
+
+const Todo = ({ onClick, completed, text }) => (
+  <li
+    onClick={onClick}
+    style={{
+      textDecoration: completed ? 'line-through' : 'none'
+    }}
+    >
+    {text}
+  </li>
+)
 
 //presentational component
 const TodoList = ({ todos, onTodoClick }) => {
   return (
     <ul>
-      {todos.map(todo =>
+      {todos.map((todo, index) =>
           <Todo
-            key={todo.id}
+            key={index}
             {...todo}
             onClick={() => onTodoClick(todo.id)}
             />
