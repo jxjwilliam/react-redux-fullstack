@@ -11,33 +11,38 @@ const Counter = require('../models/counter');
  * }
  */
 router.route('/api/counter')
-    .get((req, res, next) => {
-        Counter.findOne((err, data) => {
-            if (err) return next(err)
-            return res.status(200).json({"counter": data.counter})
-        })
+  .get((req, res, next) => {
+    Counter.findOne((err, data) => {
+      if (err) return next(err)
+      return res.status(200).json({"counter": data.counter})
     })
-    .put((req, res, next) => {
-        /**
-         * req.body: {"counter":88}
-         * findOneAndUpdate: https://docs.mongodb.com/manual/reference/method/db.collection.findOneAndUpdate/
-         * - Specify an empty document {} to update the first document returned in the collection.
-         * - The $set operator replaces the value of a field with the specified value.
-         */
-        Counter.findOneAndUpdate(
-            {},
-            {
-                $set: {counter: req.body.counter}
-            }, (err, counter) => {
-                if (err) return next(err)
-                // counter: old value, req.body.counter: new updated value.
-                return res.sendStatus(200)
-            })
-    })
-    //post is for create, not for update.
-    .post((req, res, next) => {
-        console.log('post->counter->', req.body);
-        return res.status(200).send('create only.')
-    });
+  })
+  .put((req, res, next) => {
+    /**
+     * req.body: {"counter":88}
+     * findOneAndUpdate: https://docs.mongodb.com/manual/reference/method/db.collection.findOneAndUpdate/
+     * - Specify an empty document {} to update the first document returned in the collection.
+     * - The $set operator replaces the value of a field with the specified value.
+     */
+    console.log('put->counter->', req.body)
+    Counter.findOneAndUpdate({}, {
+        $set: {counter: req.body.counter}
+      }, (err, counter) => {
+        if (err) return next(err)
+        // counter: old value, req.body.counter: new updated value.
+        return res.status(200).send(counter);
+      })
+  })
+  //post is for create, not for update.
+  // for mocha->char-http test.
+  .post((req, res, next) => {
+    console.log('post->counter->', req.body);
+    Counter.findOneAndUpdate({},
+      { $set: {counter: req.body.counter} }, (err, counter) => {
+        if (err) return next(err)
+        // counter: old value, req.body.counter: new updated value.
+        return res.send(counter)
+      })
+  });
 
 module.exports = router;

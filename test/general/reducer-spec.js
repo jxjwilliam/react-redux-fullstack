@@ -3,7 +3,7 @@ import prettyjson from 'prettyjson'
 
 describe('# Reducer Test', () => {
   let flatten, ary;
-  beforeEach(() => {
+  before(() => {
     flatten = ary => ary.reduce((acc, val) => acc.concat(
       Array.isArray(val) ? flatten(val) : val
     ), []);
@@ -34,4 +34,4 @@ describe('# Reducer Test', () => {
     expect(countedNames['Bob']).to.be.equal(1);
   });
 
-});b
+});

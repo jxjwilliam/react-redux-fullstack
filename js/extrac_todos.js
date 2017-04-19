@@ -4,7 +4,7 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const fakeTodosData = [];
 
 const fetchTodos = (filter) => {
-  delay(500).then(() => {
+  return delay(500).then(() => {
     //if (Math.random() > 0.5) {
     //  throw new Error('FetchTodos Error!')
     //}
