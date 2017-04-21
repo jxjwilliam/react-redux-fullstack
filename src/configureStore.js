@@ -11,9 +11,9 @@ const configureStore = () => {
   const middlewares = [thunk, promise];
 
   //Logger must be last middleware in chain, otherwise it will log thunk and promise, not actual actions (#20).
-  if (process.env.NODE_ENV !== 'production') {
-    middlewares.push(createLogger());
-  }
+  //if (process.env.NODE_ENV !== 'production') {
+  //  middlewares.push(createLogger());
+  //}
 
   return createStore(
     rootReducer,

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import _ from 'lodash'
-import {getUsers, selectUser} from '../actions/userAction'
+import {getUsers, updateUser, selectUser} from '../actions/userAction'
 import EditModal from '../components/ModalForm'
 
 const prevAction = (userList) => ({type: 'PREV_USERS', payload: userList});
@@ -107,13 +107,14 @@ class Users extends Component {
   }
 
   editUser(id) {
-    debugger;
     let theUser = this.props.userList.find(user=> user._id === id);
     this.setState({user: theUser, showModal: true});
   }
 
-  saveUser() {
-    console.log('saveUser!');
+  saveUser(values) {
+    var nu = Object.assign(this.state.user, values); //this.props.modelform
+    console.log('saveUser!', values, nu);
+    this.props.updateUser(nu);
     //return this.props.dispatch({
     //  type: 'EDIT_USER',
     //  payload: id
@@ -159,8 +160,7 @@ class Users extends Component {
           </tbody>
         </table>
         <div className="modal">
-          <EditModal show={this.state.showModal} close={this.close} save={this.save} onUpdate={this.saveUser}
-                     user={this.state.user}/>
+          <EditModal show={this.state.showModal} close={this.close} onUpdate={this.saveUser} user={this.state.user}/>
         </div>
       </div>
     )
@@ -168,12 +168,13 @@ class Users extends Component {
 }
 
 const mapStateToProps = (state, {params}) => ({
-  userList: state.userList
+  userList: state.userList,
+  modelform: state.form.editForm
 });
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    selectUser, getUsers,
+    selectUser, getUsers, updateUser,
     prevAction, nextAction, sortAction, addAction, dispatch
   }, dispatch);
 }

@@ -37,6 +37,16 @@ router.route('/api/users/')
     })
   })
 
+  .put((req, res, next) => {
+    console.log('User:findByIdAndUpdate:', req.body);
+    User.findByIdAndUpdate(req.body._id, {
+      $set: req.body
+    }, (err, user) => {
+      if (err) return next(err)
+
+      return res.json(user)
+    })
+  })
   .delete((req, res, next) => {
     // This method is similar to find but instead
     // it removes all the occurrences

@@ -1,6 +1,18 @@
 import superagent from 'superagent'
 
 // TODO: res.text or res.body???
+export const updateUser = (user) => (dispatch, getState) => {
+  debugger;
+  superagent
+    .put('/api/users')
+    .set('Accept', 'application/json')
+    .send(user)
+    .end((err, res) => {
+      if (err) throw err;
+      console.log(res.body)
+    });
+};
+
 export const getUsers = () => {
   return (dispatch, getState) => {
     const users = getState().userList;
