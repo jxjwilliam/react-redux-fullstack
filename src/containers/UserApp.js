@@ -5,36 +5,13 @@ import _ from 'lodash'
 import {getUsers, selectUser} from '../actions/userAction'
 import EditModal from '../components/ModalForm'
 
-const prevAction = (userList) => {
-  return {
-    type: 'PREV_USERS',
-    payload: userList
-  }
-};
-const nextAction = (userList) => {
-  return {
-    type: 'NEXT_USERS',
-    payload: userList
-  }
-};
-const sortAction = (sortBy, seq) => {
-  return {
-    type: 'SORT_USERS',
-    sortBy: sortBy,
-    seq: seq
-  }
-};
-const addAction = () => ({
-  type: 'ADD_USER'
-});
+const prevAction = (userList) => ({type: 'PREV_USERS', payload: userList});
+const nextAction = (userList) => ({type: 'NEXT_USERS', payload: userList});
+const sortAction = (sortBy, seq) => ({type: 'SORT_USERS', sortBy: sortBy, seq: seq});
+const addAction = () => ({type: 'ADD_USER'});
+const deleteUser = (id) => this.props.dispatch({type: 'DELETE_USER', payload: id});
 
-const deleteUser = (id) => {
-  return this.props.dispatch({
-    type: 'DELETE_USER',
-    payload: id
-  });
-}
-
+// merge the 2 sorts into 1.
 const SortingAsc = ({sort, name}) => (
   <a href="#"
      title={'sort by ' + name}
@@ -42,7 +19,6 @@ const SortingAsc = ({sort, name}) => (
     <span className="glyphicon glyphicon-sort-by-alphabet"></span>
   </a>
 )
-
 const SortingDesc = ({sort, name}) => (
   <a href="#"
      title={'sort by ' + name + ' desc'}
@@ -81,7 +57,6 @@ const Header = ({sort, seq}) => (
 )
 
 const Detail = ({idx, user, onEdit, onDelete}) => {
-  //console.log(user);
   return (
     <tr>
       <td scope="row">{idx + 1}</td>
@@ -110,14 +85,14 @@ const Detail = ({idx, user, onEdit, onDelete}) => {
 class Users extends Component {
   constructor(props) {
     super(props);
-    this.state = {showModal: false}
+    this.state = {showModal: false, user: {}}
     this.editUser = this.editUser.bind(this);
     this.saveUser = this.saveUser.bind(this);
     this.close = this.close.bind(this);
   }
 
   close() {
-    this.setState({showModal: false});
+    this.setState({showModal: false, user: {}});
   }
 
   /**
@@ -132,8 +107,9 @@ class Users extends Component {
   }
 
   editUser(id) {
-    console.log('editUser: ', id);
-    this.setState({showModal: true});
+    debugger;
+    let theUser = this.props.userList.find(user=> user._id === id);
+    this.setState({user: theUser, showModal: true});
   }
 
   saveUser() {
@@ -182,11 +158,10 @@ class Users extends Component {
           ))}
           </tbody>
         </table>
-        {
-          <div className="modal">
-            <EditModal show={this.state.showModal} close={this.close} save={this.save} onUpdate={this.saveUser}/>
-          </div>
-        }
+        <div className="modal">
+          <EditModal show={this.state.showModal} close={this.close} save={this.save} onUpdate={this.saveUser}
+                     user={this.state.user}/>
+        </div>
       </div>
     )
   }

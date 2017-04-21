@@ -3,6 +3,7 @@
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const fakeTodosData = [];
 
+// the `return` is a must, otherwise .then() can't cascade.
 const fetchTodos = (filter) => {
   return delay(500).then(() => {
     //if (Math.random() > 0.5) {
