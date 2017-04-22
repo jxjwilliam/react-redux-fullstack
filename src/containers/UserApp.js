@@ -2,14 +2,13 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import _ from 'lodash'
-import {getUsers, updateUser, selectUser} from '../actions/userAction'
+import {getUsers, updateUser, saveUser, deleteUser} from '../actions/userAction'
 import EditModal from '../components/ModalForm'
 
 const prevAction = (userList) => ({type: 'PREV_USERS', payload: userList});
 const nextAction = (userList) => ({type: 'NEXT_USERS', payload: userList});
 const sortAction = (sortBy, seq) => ({type: 'SORT_USERS', sortBy: sortBy, seq: seq});
-const addAction = () => ({type: 'ADD_USER'});
-const deleteUser = (id) => this.props.dispatch({type: 'DELETE_USER', payload: id});
+
 
 // merge the 2 sorts into 1.
 const SortingAsc = ({sort, name}) => (
@@ -86,9 +85,15 @@ class Users extends Component {
   constructor(props) {
     super(props);
     this.state = {showModal: false, user: {}}
-    this.editUser = this.editUser.bind(this);
-    this.saveUser = this.saveUser.bind(this);
+    this.editModal = this.editModal.bind(this);
+    this.doUser = this.doUser.bind(this);
     this.close = this.close.bind(this);
+    this.open = this.open.bind(this);
+    this.deleteModal = this.deleteModal.bind(this);
+  }
+
+  open() {
+    this.setState({showModal: true});
   }
 
   close() {
@@ -106,19 +111,51 @@ class Users extends Component {
     this.props.getUsers(); // store.dispatch({type: 'FETCH_USERS'});
   }
 
-  editUser(id) {
+  editModal(id) {
     let theUser = this.props.userList.find(user=> user._id === id);
     this.setState({user: theUser, showModal: true});
   }
 
-  saveUser(values) {
-    var nu = Object.assign(this.state.user, values); //this.props.modelform
-    console.log('saveUser!', values, nu);
-    this.props.updateUser(nu);
-    //return this.props.dispatch({
-    //  type: 'EDIT_USER',
-    //  payload: id
-    //});
+  deleteModal(id) {
+    let theUser = this.props.userList.find(user=> user._id === id);
+    if (confirm('are you sure to delete this user?')) {
+      this.props.deleteUser(theUser);
+    }
+    else {
+      this.setState({showModal: false, user: {}});
+    }
+  }
+
+  areEqualShallow(a, b) {
+    for (let key in a) {
+      if (!(key in b) || a[key] !== b[key]) {
+        return false;
+      }
+    }
+    for (let key in b) {
+      if (!(key in a)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  doUser(values) {
+    if (this.areEqualShallow(values, this.state.user)) {
+      console.log('doUser - nothing change: values === this.state.user');
+      this.setState({showModal: false, user: {}});
+      return false;
+    }
+
+    if (Object.keys(this.state.user).length === 0) {
+      this.props.saveUser(values);
+    }
+    else {
+      //var newUser = Object.assign(this.state.user, values); //this.props.modelform
+      this.props.updateUser(values);
+    }
+    this.setState({showModal: false, user: {}})
+    // what need to dispatch? return this.props.dispatch();
   }
 
   /**
@@ -136,6 +173,7 @@ class Users extends Component {
 
     return (
       <div className="container row">
+        <button className="btn btn-success" onClick={this.open}>Add User</button>
         <table className="table table-bordered">
           <colgroup>
             <col className="col-md-1"/>
@@ -151,8 +189,8 @@ class Users extends Component {
           {this.props.userList.map((user, i) => (
             <Detail
               key={i}
-              onEdit={this.editUser}
-              onDelete={this.deleteUser}
+              onEdit={this.editModal}
+              onDelete={this.deleteModal}
               user={user}
               idx={i}
               />
@@ -160,22 +198,23 @@ class Users extends Component {
           </tbody>
         </table>
         <div className="modal">
-          <EditModal show={this.state.showModal} close={this.close} onUpdate={this.saveUser} user={this.state.user}/>
+          <EditModal show={this.state.showModal} close={this.close} onUpdate={this.doUser} user={this.state.user}/>
         </div>
       </div>
     )
   }
 }
 
+// the following property works, but no useful.
+//  modelform: state.form.editForm
 const mapStateToProps = (state, {params}) => ({
   userList: state.userList,
-  modelform: state.form.editForm
 });
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    selectUser, getUsers, updateUser,
-    prevAction, nextAction, sortAction, addAction, dispatch
+    getUsers, updateUser, saveUser, deleteUser,
+    prevAction, nextAction, sortAction, dispatch
   }, dispatch);
 }
 

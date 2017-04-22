@@ -9,8 +9,42 @@ export const updateUser = (user) => (dispatch, getState) => {
     .end((err, res) => {
       if (err) throw err;
       console.log(res.body)
+      dispatch({
+        type: 'UPDATE_USER',
+        payload: res.body
+      });
     });
 };
+
+export const saveUser = (user) => (dispatch, getState) => {
+  superagent
+    .post('/api/users')
+    .set('Accept', 'application/json')
+    .send(user)
+    .end((err, res) => {
+      if (err) throw err;
+      console.log(res.body)
+      dispatch({
+        type: 'UPDATE_USER',
+        payload: res.body
+      });
+    });
+}
+
+export const deleteUser = (user) => (dispatch, getState) => {
+  superagent
+    .delete('/api/users')
+    .set('Accept', 'application/json')
+    .send(user)
+    .end((err, res) => {
+      if (err) throw err;
+      console.log(user)
+      dispatch({
+        type: 'DELETE_USER',
+        payload: user._id
+      });
+    });
+}
 
 export const getUsers = () => {
   return (dispatch, getState) => {
@@ -37,8 +71,4 @@ export const getUsers = () => {
   }
 };
 
-export const selectUser = (user) => ({
-  type: 'SELECT_USER',
-  payload: user
-});
 

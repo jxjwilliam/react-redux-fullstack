@@ -61,14 +61,12 @@ router.route('/api/users/')
   .delete((req, res, next) => {
     // This method is similar to find but instead
     // it removes all the occurrences
-    User.remove((err) => {
+    User.remove({_id: req.body._id}, (err) => {
       if (err) return next(err)
 
-      return res.status(204).end()
+      return res.status(204).json(req.body._id)
     })
-
-    res.status(204).end()
-  })
+  });
 
 router.param('id', (req, res, next, id) => {
   // Handle to find the requested resouce
@@ -85,7 +83,7 @@ router.param('id', (req, res, next, id) => {
 
     return next(err)
   })
-})
+});
 
 router.route('/api/users/:id')
 
@@ -127,9 +125,10 @@ router.route('/api/users/:id')
   })
 
   .delete((req, res, next) => {
-    User.findByIdAndRemove(req.user.id, (err) => {
+    User.findByIdAndRemove(req.user._id, (err) => {
       if (err) return next(err)
 
+      console.log('should not be here...');
       res.status(204).end()
     })
   })
