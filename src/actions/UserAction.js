@@ -71,4 +71,11 @@ export const getUsers = () => {
   }
 };
 
+export const prevAction = (userList) => ({type: 'PREV_USERS', payload: userList});
+
+export const nextAction = (userList) => ({type: 'NEXT_USERS', payload: userList});
+
+export const sortAction = (sortBy, seq) => ({type: 'SORT_USERS', sortBy: sortBy, seq: seq});
+
+
 

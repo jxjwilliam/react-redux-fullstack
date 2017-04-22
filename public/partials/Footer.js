@@ -4,7 +4,6 @@ class Footer extends Component {
     constructor() {
         super()
     }
-
     render() {
         return (
             <p class="text-center text-muted">© Copyright 2017 William Jiang</p>

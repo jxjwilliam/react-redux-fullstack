@@ -3,9 +3,9 @@
 //1. reducer to create a state.errors shared by different components
 function errors(state = [], action) {
   switch (action.type) {
-    case ADD_ERROR:
+    case 'ADD_ERROR':
       return state.concat([action.error]);
-    case REMOVE_ERROR:
+    case 'REMOVE_ERROR':
       return state.filter((error, i) => i !== action.index);
     default:
       return state;
@@ -17,7 +17,7 @@ function App({errors}) {
   return (
     <div>
       {errors &&
-      <UserErrors errors={errors} />
+      <UserErrors errors={errors}/>
       }
       <AppToolbar />
       <Clients />

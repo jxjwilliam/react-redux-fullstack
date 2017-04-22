@@ -2,13 +2,8 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import _ from 'lodash'
-import {getUsers, updateUser, saveUser, deleteUser} from '../actions/userAction'
+import {getUsers, updateUser, saveUser, deleteUser, prevAction, nextAction, sortAction } from '../actions/userAction'
 import EditModal from '../components/ModalForm'
-
-const prevAction = (userList) => ({type: 'PREV_USERS', payload: userList});
-const nextAction = (userList) => ({type: 'NEXT_USERS', payload: userList});
-const sortAction = (sortBy, seq) => ({type: 'SORT_USERS', sortBy: sortBy, seq: seq});
-
 
 // merge the 2 sorts into 1.
 const SortingAsc = ({sort, name}) => (
@@ -118,11 +113,8 @@ class Users extends Component {
 
   deleteModal(id) {
     let theUser = this.props.userList.find(user=> user._id === id);
-    if (confirm('are you sure to delete this user?')) {
+    if (confirm('Are you sure to delete ' + user.firstName + ' ' + user.lastName + '?')) {
       this.props.deleteUser(theUser);
-    }
-    else {
-      this.setState({showModal: false, user: {}});
     }
   }
 
@@ -173,7 +165,18 @@ class Users extends Component {
 
     return (
       <div className="container row">
-        <button className="btn btn-success" onClick={this.open}>Add User</button>
+        <button className="btn btn-success" onClick={this.open}><span className="glyphicon glyphicon-plus"></span>Add
+          User
+        </button>
+        <a href="#" aria-label="Previous"
+           onClick={this.props.prevAction}>
+          <span aria-hidden="true">&laquo;</span>Prev<span aria-hidden="true">&laquo;</span>
+        </a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="#" aria-label="Next"
+           onClick={this.props.nextAction}>
+          <span aria-hidden="true">&raquo;</span>Next<span aria-hidden="true">&raquo;</span>
+        </a>
+
         <table className="table table-bordered">
           <colgroup>
             <col className="col-md-1"/>

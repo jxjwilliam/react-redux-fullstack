@@ -1,9 +1,12 @@
 const router = require('express').Router()
 const User = require('../models/user')
 
+const offset = 10;
+const limit = 10;
 //User.findOne({_id: token }, callback);
 router.route('/api/users/')
   .get((req, res, next) => {
+    //User.find().skip(offset).limit(limit).exec((err, users) => {}
     User.find((err, users) => {
       if (err) return next(err)
 

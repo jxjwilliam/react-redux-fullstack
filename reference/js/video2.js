@@ -5,6 +5,12 @@ export function thunk({ dispatch, getState }) {
       next(action)
 }
 
+const promise = (store) => (next) => (action) => {
+  if (typeof action.then === 'function') {
+    return action.then(next);
+  }
+  return next(action);
+}
 
 export default (initialState) => {
   const store = compose(
@@ -31,13 +37,6 @@ const logger = (store) => (next) => (action) => {
     console.groupEnd(action.type);
     return returnValue;
   }
-}
-
-const promise = (store) => (next) => (action) => {
-  if (typeof action.then === 'function') {
-    return action.then(next);
-  }
-  return next(action);
 }
 
 // when need to use superagent, should applyMiddleware(thunk) first

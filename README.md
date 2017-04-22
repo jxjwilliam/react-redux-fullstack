@@ -55,8 +55,6 @@ add `node-uuid.v4`, `lodash/Throttle` for subscribe(saveState)
 - debug: devtool: 'inline-source-map',
 - FilterLink not work correct. (step-3 either)
 
-### 5. step-5
-
 ### 6. step-6
 
 - favicon
@@ -139,9 +137,13 @@ files: [
 
 ### 10. Main
 
-will update todoApp, and models, rxjs in this branch.
-
 - component must be first-letter capitalize: `editModal` not work, `EditModal` work.
+
+- usersList: CRUD works (redux-form + react-bootstrap-modal)
+- the tabs `todoApp`, `users`, `counter` all interact with MongoDB data.
+
+- `rxjs@5.3.0`, `redux-observable` will be used in input-search
+
 
 ## Unit Test
 
@@ -156,7 +158,6 @@ karma start karma.conf.js
 
 - `chai-as-promised` to test promise: either `return promise` or `done()` will work: test/promise.spec.js.
 - `immutable` and `chai-immutable installed and test.
-
 -  `react-bootstrap` throw warning (propTypes) with React ^15.4, ^15.5.
 
 
