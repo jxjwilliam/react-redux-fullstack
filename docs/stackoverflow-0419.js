@@ -38,7 +38,7 @@ didLogin$.subscribe({
 //2. container:
 connect(mapStateToProps)(component)
 //3. actioncreator:
-function changeColor(){
+function changeColor() {
   return {type: 'CHANGE_COLOR'}
 }
 //4. reducer:
@@ -69,3 +69,51 @@ const ConnectedRepo = connect(
   })
 )(Repo);
 
+
+//////// CONNECT //////
+
+export default connect(
+    state => ({todos: state.todos}),
+  {onTodoClick: toggleTodo, reveiveTodos}
+)(TodoListContainer)
+
+
+connect = Object.assign({}, ownProps, stateProps, dispatchProps);
+
+//react-redux-mapdispatchtoprops-not-receiving-mapstatetoprops
+connect({
+  mapStateToProps,
+  null, // passing null instead of mapDispatchToProps will return an object with the dispatch method
+  mergeProps
+})(ToggleFollowButton)
+
+export
+connect(
+  (state, ownProps) => ({}),
+  (dispatch, ownProps) => ({})
+)(_Table);
+
+
+//react-redux-architecting-table-actions-and-reducers
+//<Th key={key} onClickSort={onClickSort(col.id)}>{col.name}</Th>
+const Th = ({onClickSort, children}) => (
+  <th>
+    <a href="#sort" onClickSort={event => {
+      event.preventDefault();
+      onClickSort(event);
+    }}>{children}</a>
+  </th>
+);
+
+connect(
+  mapStateToProps,
+  (dispatch, {tableId}) => ({
+    onClickSort: columnId => event => {
+      dispatch(actions.tableSortColumn(tableId, columnId));
+      // example: if user clicks 'last_name' column in customers table
+      // dispatch(actions.tableSortColumn('customers', 'last_name'));
+    },
+    onClickNextPage: event => {
+      dispatch(actions.tableNextPage(tableId))
+    }
+  })

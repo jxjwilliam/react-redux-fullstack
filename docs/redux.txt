@@ -20,9 +20,3 @@ let boundActionCreators = bindActionCreators(TodoActionCreators, dispatch);
 (2) componentDidMount():
  let action = TodoActionCreators.addTodo('Use Redux');
  dispatch(action);
-
-(3) connect():
-export default connect(
-  state => ({ todos: state.todos }),
-  { onTodoClick: toggleTodo, reveiveTodos }
-)(TodoListContainer)

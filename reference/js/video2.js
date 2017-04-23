@@ -5,12 +5,23 @@ export function thunk({ dispatch, getState }) {
       next(action)
 }
 
+// when need to use superagent, should applyMiddleware(thunk) first
+const thunk = (store) => (next) => (action) =>
+  typeof action === 'function' ? action(store.dispatch) : next(action);
+
 const promise = (store) => (next) => (action) => {
   if (typeof action.then === 'function') {
     return action.then(next);
   }
   return next(action);
 }
+
+const transition = store => next => action => {
+  if(!action.redirect) return next(action);
+  history.replaceState(null, action.redirect);
+}
+
+
 
 export default (initialState) => {
   const store = compose(
@@ -38,10 +49,6 @@ const logger = (store) => (next) => (action) => {
     return returnValue;
   }
 }
-
-// when need to use superagent, should applyMiddleware(thunk) first
-const thunk = (store) => (next) => (action) =>
-  typeof action === 'function' ? action(store.dispatch) : next(action);
 
 
 const wrapDispatchWithMiddlewares = (store, middlewares) => {

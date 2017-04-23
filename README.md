@@ -13,9 +13,8 @@ There are total 10 branches (step-1...step-9, main) to go through the video epis
 ```bash
 cd `this-folder`
 npm install
-ncu
 ncu -u
-npm update
+npm install
 webpack-dev-server
 ```
 
@@ -143,7 +142,11 @@ files: [
 - the tabs `todoApp`, `users`, `counter` all interact with MongoDB data.
 
 - `rxjs@5.3.0`, `redux-observable` will be used in input-search
+- `isomorphic-fetch` to use fetch alongside with superagent, for caching and performance reason.
 
+```javascript
+connect = Object.assign({}, ownProps, stateProps, dispatchProps);
+```
 
 ## Unit Test
 
