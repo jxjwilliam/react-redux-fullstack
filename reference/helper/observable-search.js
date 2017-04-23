@@ -70,3 +70,13 @@ dispatch({type: 'FETCH_USER_ABORT'});
 // directly. Sometimes you want to abort all of these,
 // sometimes just this single one.
 subscription.unsubscribe();
+
+/**
+ * When you want complex async dependencies, just use Bacon, Rx, channels, sagas, or another asynchronous abstraction.
+ * You can use them with or without Redux. Example with Redux:
+ */
+observeSomething()
+  .flatMap(someTransformation)
+  .filter(someFilter)
+  .map(createActionSomehow)
+  .subscribe(store.dispatch);

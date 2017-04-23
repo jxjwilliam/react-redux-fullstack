@@ -148,6 +148,12 @@ files: [
 connect = Object.assign({}, ownProps, stateProps, dispatchProps);
 ```
 
+- in `Users` tab, add `search user` input box, to search user 'fistName' or 'lastName'
+- add `redux-observable` for `search` criteria
+    so this works: react + redux + rxjs (redux-observable)
+- add `debounceTime` for fetchUserEpic
+- add more search logic, update onChange when search-criteria is empty 
+     
 ## Unit Test
 
 - use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.

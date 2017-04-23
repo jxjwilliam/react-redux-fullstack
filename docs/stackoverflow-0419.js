@@ -87,7 +87,12 @@ connect({
   mergeProps
 })(ToggleFollowButton)
 
-export
+function mapDispatchToProps(dispatch) {
+  return {
+    myAction: () => dispatch(actions.myAction()),
+  };
+};
+
 connect(
   (state, ownProps) => ({}),
   (dispatch, ownProps) => ({})
