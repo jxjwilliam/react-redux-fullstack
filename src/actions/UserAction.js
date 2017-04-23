@@ -1,16 +1,16 @@
 import superagent from 'superagent'
 import Rx from 'rxjs';
 import { ajax } from 'rxjs/observable/dom/ajax';
+import {debounceTime} from 'rxjs/operator/debounceTime';
 
 // TODO: res.text or res.body???
-export const updateUser = (user) => (dispatch, getState) => {
+export const updateUser = (user) => (dispatch) => {
     superagent
         .put('/api/users')
         .set('Accept', 'application/json')
         .send(user)
         .end((err, res) => {
             if (err) throw err;
-            console.log(res.body)
             dispatch({
                 type: 'UPDATE_USER',
                 payload: res.body
@@ -27,7 +27,7 @@ export const saveUser = (user) => (dispatch, getState) => {
             if (err) throw err;
             console.log(res.body)
             dispatch({
-                type: 'UPDATE_USER',
+                type: 'ADD_USER',
                 payload: res.body
             });
         });

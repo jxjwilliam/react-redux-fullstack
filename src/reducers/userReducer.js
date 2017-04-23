@@ -1,3 +1,5 @@
+import orderBy from 'lodash/orderBy'
+
 const userListReducer = (state = [], action) => {
     switch (action.type) {
         case 'FETCH_USERS':
@@ -8,9 +10,11 @@ const userListReducer = (state = [], action) => {
             return action.payload;
         case 'SORT_USERS':
             //e.g.: _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
-            return _.orderBy(state, [action.sortBy], [action.seq]);
+            return orderBy(state, [action.sortBy], [action.seq]);
         case 'UPDATE_USER':
-            return [...state, action.payload]
+            return state.map(s => s._id === action.payload._id ? action.payload : s)
+        case 'ADD_USER':
+            return [action.payload].concat(state)
         case 'DELETE_USER':
             return state.filter(s => s._id !== action.payload);
         case 'SEARCH_USERS_FULFILLED':

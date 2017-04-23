@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import _ from 'lodash'
 import { getUsers, updateUser, saveUser, deleteUser, prevAction, nextAction, sortAction, searchUser } from '../actions/userAction'
 import EditModal from '../components/ModalForm'
 
@@ -28,7 +27,7 @@ class UserSearch extends Component {
     }
 
     handleClick(e) {
-        const {dispatch, searchUser, getUsers} = this.props;
+        const {dispatch} = this.props;
         let username = e.target.value.trim();
         if (username) {
             dispatch(searchUser(username));
@@ -54,11 +53,11 @@ class UserSearch extends Component {
         )
     }
 }
-UserSearch = connect(
-    null,
-    (dispatch) => bindActionCreators({dispatch, searchUser, getUsers}, dispatch)
-)(UserSearch);
-
+// 3 options:
+//1. (dispatch) => bindActionCreators({dispatch, searchUser, getUsers}, dispatch)
+//2. UserSearch = connect(null,(dispatch) => ({dispatch, searchUser, getUsers}))(UserSearch);
+//3. simplier:
+UserSearch = connect()(UserSearch);
 
 const Header = ({sort, seq}) => (
     <thead>
