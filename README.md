@@ -13,9 +13,8 @@ There are total 10 branches (step-1...step-9, main) to go through the video epis
 ```bash
 cd `this-folder`
 npm install
-ncu
 ncu -u
-npm update
+npm install
 webpack-dev-server
 ```
 
@@ -54,8 +53,6 @@ add `node-uuid.v4`, `lodash/Throttle` for subscribe(saveState)
 
 - debug: devtool: 'inline-source-map',
 - FilterLink not work correct. (step-3 either)
-
-### 5. step-5
 
 ### 6. step-6
 
@@ -139,10 +136,24 @@ files: [
 
 ### 10. Main
 
-will update todoApp, and models, rxjs in this branch.
-
 - component must be first-letter capitalize: `editModal` not work, `EditModal` work.
 
+- usersList: CRUD works (redux-form + react-bootstrap-modal)
+- the tabs `todoApp`, `users`, `counter` all interact with MongoDB data.
+
+- `rxjs@5.3.0`, `redux-observable` will be used in input-search
+- `isomorphic-fetch` to use fetch alongside with superagent, for caching and performance reason.
+
+```javascript
+connect = Object.assign({}, ownProps, stateProps, dispatchProps);
+```
+
+- in `Users` tab, add `search user` input box, to search user 'fistName' or 'lastName'
+- add `redux-observable` for `search` criteria
+    so this works: react + redux + rxjs (redux-observable)
+- add `debounceTime` for fetchUserEpic
+- add more search logic, update onChange when search-criteria is empty 
+     
 ## Unit Test
 
 - use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.
@@ -156,7 +167,6 @@ karma start karma.conf.js
 
 - `chai-as-promised` to test promise: either `return promise` or `done()` will work: test/promise.spec.js.
 - `immutable` and `chai-immutable installed and test.
-
 -  `react-bootstrap` throw warning (propTypes) with React ^15.4, ^15.5.
 
 

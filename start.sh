@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export ENV_SIMPLE=1
+#export ENV_SIMPLE=1
 
 npm run dev
 

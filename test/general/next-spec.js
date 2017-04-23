@@ -15,7 +15,7 @@ const combineReducer = (reducers) => {
 describe('# combineReducer Test', () => {
   let store, log;
 
-  beforeEach(() => {
+  before(() => {
     store = createStore(CounterReducer);
   });
 

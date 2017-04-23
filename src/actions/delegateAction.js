@@ -16,6 +16,15 @@ export const loadingChangedAction = isLoading =>({
   isLoading: isLoading
 });
 
+/**
+ * 1. dispatch({type: FETCH_RESOURCES});
+ * 2. http-promise
+ * 3. then: dispatch({type: FETCH_RESOURCES_SUCCESS, data: res.body}
+ * 4. catch:  dispatch({type: FETCH_RESOURCES_FAIL});
+ *        can dispatch more: the generic "global errors" action
+ * @param user
+ * @returns {Function}
+ */
 export const loadReposAction = (user) => {
   return (dispatch) => {
     //var url = 'https://api.github.com/users/' + user + '/repos';

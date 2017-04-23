@@ -10,4 +10,4 @@ describe('# JSON-data Test', () => {
     expect(data[0]).to.have.ownProperty('phone');
     expect(data[0]).to.have.ownProperty('dob');
   });
-})
+});

@@ -23,8 +23,6 @@ describe('immutability', () => {
     });
   });
 
-
-
   describe('A List', () => {
 
     function addMovie(currentState, movie) {
@@ -47,6 +45,4 @@ describe('immutability', () => {
     });
 
   });
-
-
 });

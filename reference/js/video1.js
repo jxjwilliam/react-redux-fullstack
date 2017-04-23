@@ -41,18 +41,3 @@ const combineReducer = (reducers) => {
   }
 }
 
-
-// typical mapStateToProps, mapDispatchToProps:
-const mapStateToProps = (state, props) => {
-  return {
-    todos: getTodos(state.todos, action),
-    active: props.filter === state.filter
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onTodoClick: (id) => dispatch({type: 'TOGGLE_TODO', id}),
-    onClick: () => dispatch({type: 'ADD_TODO'})
-  }
-}
