@@ -139,6 +139,16 @@ files: [
 - component must be first-letter capitalize: `editModal` not work, `EditModal` work.
 
 - usersList: CRUD works (redux-form + react-bootstrap-modal)
+
+- redux-form:
+  -- use `initialValues` to fill up the edit-form.
+  -- `Field` should have `onChange`, otherwise the input can't edit, even nothing to do:
+  ```javascript
+    onChange={()=>{}}
+  ```
+  -- rewrite add/edit userReucer, use map, concat.
+  -- pass user._id as hidden: <input name="_id" type="hidden" />
+    
 - the tabs `todoApp`, `users`, `counter` all interact with MongoDB data.
 
 - `rxjs@5.3.0`, `redux-observable` will be used in input-search
@@ -152,8 +162,13 @@ connect = Object.assign({}, ownProps, stateProps, dispatchProps);
 - add `redux-observable` for `search` criteria
     so this works: react + redux + rxjs (redux-observable)
 - add `debounceTime` for fetchUserEpic
-- add more search logic, update onChange when search-criteria is empty 
-     
+- add more search logic: put onChange event in search component instead of its parent; update onChange when search-criteria is empty 
+- update server/routes/users.js for `/api/users/search?search_criteria`:
+     ```javascript
+        '$or': [ {firstName: regexp}, {lastName: regexp} ]
+     ```
+- move `import orderBy from 'lodash/orderBy'` to reducer file which it is called.  
+   
 ## Unit Test
 
 - use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.

@@ -25,13 +25,13 @@ const beforeSubmit = (values) => {
   console.log(values);
 };
 //<Field component={(props)=><input type="text" placeholder="Last Name" value={props.user.lastName} onChange={()=>{}} .../>
-const renderField = ({input, label, fieldValue}) => {
+const renderField = ({input, label}) => {
   return (
     <div>
       <label>{label}</label>
 
       <div>
-        <input type="text" {...input} placeholder={label} value={fieldValue}/>
+        <input type="text" {...input} placeholder={label} />
       </div>
     </div>
   )
@@ -47,10 +47,11 @@ let EditForm = (props) => {
     <div className="row well" style={{marginTop:20}}>
       <form onSubmit={ handleSubmit }>
         <div>
-          <Field name="firstName" fieldValue={user.firstName} label="First Name" component={renderField}/>
-          <Field name="lastName" fieldValue={user.lastName} label="Last Name" component={renderField}/>
-          <Field name="email" fieldValue={user.email} label="Email" component={renderField}/>
-          <Field name="dob" fieldValue={user.dob} label="Date of Birth" component={renderField}/>
+          <Field name="firstName" label="First Name" component={renderField} onChange={()=>{}}/>
+          <Field name="lastName"  label="Last Name" component={renderField} onChange={()=>{}}/>
+          <Field name="email" label="Email" component={renderField} onChange={()=>{}}/>
+          <Field name="phone" label="Phone" component={renderField} onChange={()=>{}}/>
+          <Field name="dob" label="Date of Birth" component={renderField} onChange={()=>{}}/>
           <Field name="id" user={user} component={props=><input type="hidden" name="id" value={user._id} />}/>
         </div>
         <div>
@@ -65,7 +66,6 @@ let EditForm = (props) => {
 };
 
 function mapStateToProps(state, ownProps) {
-
   return {
     initialValues: ownProps.user
   }

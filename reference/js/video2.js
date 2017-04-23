@@ -21,7 +21,19 @@ const transition = store => next => action => {
   history.replaceState(null, action.redirect);
 }
 
+//this.props.onOptionsChange(newOptions).then(() => {...}
+const thenMiddleware = store => next => action => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(next(action));
+    }
+    catch(e) {
+      reject(e);
+    }
+  })
+}
 
+//////////////////////////////////
 
 export default (initialState) => {
   const store = compose(
