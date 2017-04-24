@@ -1,39 +1,44 @@
 const router = require('express').Router()
 const User = require('../models/user')
 
-const offset = 10;
+//total items:
+router.route('/api/users/total')
+    .get((req, res, next) => {
+        User.count({}, (err, count) => {
+            if (err) return next(err)
+            return res.json({total: count})
+        })
+    });
+
+// pagination: /api/users/page/1, /api/user/page/2...
 const limit = 10;
-//User.findOne({_id: token }, callback);
+router.route('/api/users/page/:page')
+    .get((req, res, next) => {
+        const offset = req.params.page-1;
+        User.find().skip(offset*limit).limit(limit).exec((err, users) => {
+            if (err) return next(err)
+            return res.json(users)
+        })
+    })
+
+// works but deprecated, not use anymore.
 router.route('/api/users/')
     .get((req, res, next) => {
-
-        //User.find().skip(offset).limit(limit).exec((err, users) => {}
+        //User.findOne({_id: token }, callback);
         User.find((err, users) => {
             if (err) return next(err)
-
-            //TODO: pagination: /api/users/page/1, /api/user/page/n...
-            //const userList = users.slice(0, 10);
-            /**
-             2017-04-03T04:00:00.000Z 'Kimberly' 'object'
-             undefined 'Joshua' 'undefined'
-             userList.forEach(u => {
-          console.log(u.dob, u.firstName, typeof u.dob);
-          u.dob = u.dob ? u.dob.split(/[A-Z]/)[0] : 'N/A'
-        });
-             */
             return res.json(users)
         })
     })
 
 /**
  * .get('/:username/:password', function(req, res) {
- * var newUser = newUser();
- * newUser.username = req.params.username;
- * newUser.password = req.params.password;
- * newUser.save(callback)
- */
+     * var newUser = newUser();
+     * newUser.username = req.params.username;
+     * newUser.password = req.params.password;
+     * newUser.save(callback)
+     */
     .post((req, res, next) => {
-
         User.create(req.body, (err, user) => {
             if (err) return next(err)
 
@@ -72,23 +77,6 @@ router.route('/api/users/')
         })
     });
 
-router.param('id', (req, res, next, id) => {
-    // Handle to find the requested resouce
-    User.findById(id, (err, user) => {
-        if (err) return next(err)
-
-        // If the user is not found then the app returns a 404
-        if (!user) {
-            err = new Error('User not found')
-            err.status = 404
-        } else {
-            req.user = user
-        }
-
-        return next(err)
-    })
-});
-
 router.route('/api/users/search/:username')
     .get((req, res, next) => {
 
@@ -105,40 +93,24 @@ router.route('/api/users/search/:username')
         })
     });
 
+//TODO:
+router.param('id', (req, res, next, id) => {
+    // Handle to find the requested resouce
+    User.findById(id, (err, user) => {
+        if (err) return next(err)
+
+        // If the user is not found then the app returns a 404
+        if (!user) {
+            err = new Error('User not found')
+            err.status = 404
+        } else {
+            req.user = user
+        }
+
+        return next(err)
+    })
+});
 router.route('/api/users/:uid')
-    .put((req, res, next) => {
-        // I'm not using req.user.update() because
-        // that method doesn't return the user on the callback
-        User.findByIdAndUpdate(req.user.id, {
-            $set: req.body
-        }, {
-            // Returns the updated user
-            new: true,
-            // Set the whole document even if we are not
-            // receiving all the properties
-            overwrite: true,
-            // Run validations if we have them
-            runValidators: true
-        }, (err, user) => {
-            if (err) return next(err)
-
-            return res.json(user)
-        })
-    })
-
-    .patch((req, res, next) => {
-        User.findByIdAndUpdate(req.user.id, {
-            $set: req.body
-        }, {
-            new: true,
-            runValidators: true
-        }, (err, user) => {
-            if (err) return next(err)
-
-            return res.json(user)
-        })
-    })
-
     .delete((req, res, next) => {
         User.findByIdAndRemove(req.user._id, (err) => {
             if (err) return next(err)

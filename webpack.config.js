@@ -28,11 +28,9 @@ module.exports = {
           presets: ['react', 'stage-0', 'es2015']
         }
       },
-      // CSS
       {
         test: /\.styl$/,
-        include: path.join(__dirname, 'src/styles'),
-        loader: 'style-loader!css-loader!stylus-loader'
+        loader: 'style-loader!css-loader'
       },
       {
         test: /\.css$/,

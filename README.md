@@ -168,6 +168,13 @@ connect = Object.assign({}, ownProps, stateProps, dispatchProps);
         '$or': [ {firstName: regexp}, {lastName: regexp} ]
      ```
 - move `import orderBy from 'lodash/orderBy'` to reducer file which it is called.  
+
+- add optional parameter for URL `react-router-dom-v4`: <Route path="/to/page/:pathParam?" component={MyPage} />
+
+- add sub-menu (sub-navigator) in `Topics`
+
+- add options to input counter from URL-params, like: http://localhost:8081/counter/18
+   
    
 ## Unit Test
 
@@ -204,13 +211,12 @@ x:  http://localhost:8081/api/delegate/jsonplaceholder
 
 ## Reference
 
-- 1. react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
+- react-router version: V4 not work. Video use V2.4, I use ^3.0, then `npm update`
 react-router                ^3.0.0  →  ^4.0.0
- use `react-router-dom` instead.
- 
-- 2. Link seems not work, `All` is un-clickable.
-  use `NavLink` instead.
-  
+
+Use `react-router-dom` instead:
+[https://reacttraining.com/react-router](https://reacttraining.com/react-router/web/api/Route/Route-render-methods)
+- use `Link, NavLink` from `react-router-dom`.
 - https://github.com/WilliamJiang/node-xml-xslt
 - docs/flow.md
 

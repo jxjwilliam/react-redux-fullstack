@@ -3,22 +3,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { getUsers, updateUser, saveUser, deleteUser, prevAction, nextAction, sortAction, searchUser } from '../actions/userAction'
 import EditModal from '../components/ModalForm'
+import fetch from 'isomorphic-fetch';
 
-// merge the 2 sorts into 1.
-const SortingAsc = ({sort, name}) => (
-    <a href="#"
-       title={'sort by ' + name}
-       onClick={() => { sort(name, 'asc') }}>
-        <span className="glyphicon glyphicon-sort-by-alphabet"></span>
-    </a>
-)
-const SortingDesc = ({sort, name}) => (
-    <a href="#"
-       title={'sort by ' + name + ' desc'}
-       onClick={() => { sort(name, 'desc') }}>
-        <span className="glyphicon glyphicon-sort-by-alphabet-alt"></span>
-    </a>
-)
 
 class UserSearch extends Component {
     constructor(props) {
@@ -54,8 +40,8 @@ class UserSearch extends Component {
     }
 }
 // 3 options:
-//1. (dispatch) => bindActionCreators({dispatch, searchUser, getUsers}, dispatch)
-//2. UserSearch = connect(null,(dispatch) => ({dispatch, searchUser, getUsers}))(UserSearch);
+//1. (dispatch) => bindActionCreators({dispatch,...}, dispatch)
+//2. UserSearch = connect(null,(dispatch) => ({dispatch, ...}))(UserSearch);
 //3. simplier:
 UserSearch = connect()(UserSearch);
 
@@ -113,16 +99,39 @@ const Detail = ({idx, user, onEdit, onDelete}) => {
     )
 }
 
+// merge the 2 sorts into 1.
+const SortingAsc = ({sort, name}) => (
+    <a href="#"
+       title={'sort by ' + name}
+       onClick={() => { sort(name, 'asc') }}>
+        <span className="glyphicon glyphicon-sort-by-alphabet"></span>
+    </a>
+)
+const SortingDesc = ({sort, name}) => (
+    <a href="#"
+       title={'sort by ' + name + ' desc'}
+       onClick={() => { sort(name, 'desc') }}>
+        <span className="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+    </a>
+)
 
 class Users extends Component {
     constructor(props) {
         super(props);
-        this.state = {showModal: false, user: {}}
+        this.state = {
+            showModal: false,
+            user: {},
+            curr_page: 1,
+            total_page: 1,
+            total_users: 0
+        };
         this.editModal = this.editModal.bind(this);
         this.doUser = this.doUser.bind(this);
         this.close = this.close.bind(this);
         this.open = this.open.bind(this);
         this.deleteModal = this.deleteModal.bind(this);
+        this.next = this.next.bind(this);
+        this.prev = this.prev.bind(this);
     }
 
     open() {
@@ -131,17 +140,6 @@ class Users extends Component {
 
     close() {
         this.setState({showModal: false, user: {}});
-    }
-
-    /**
-     *  If you need to load data from a remote endpoint, this is a good place to instantiate
-     *  the network request. Setting state in this method will trigger a re-rendering.
-     * for local state, it works properly:
-     * superagent.get('/api/todos').set('Accept', 'application/json').end((err, res) => {
-	 * 	this.setState({userList: res.body});})
-     */
-    componentDidMount() {
-        this.props.getUsers(); // store.dispatch({type: 'FETCH_USERS'});
     }
 
     editModal(id) {
@@ -170,6 +168,7 @@ class Users extends Component {
         return true;
     }
 
+    //process add/edit Modal dialog.
     doUser(values) {
         if (this.areEqualShallow(values, this.state.user)) {
             console.log('doUser - nothing change: values === this.state.user');
@@ -186,6 +185,47 @@ class Users extends Component {
         }
         this.setState({showModal: false, user: {}})
         // what need to dispatch? return this.props.dispatch();
+    }
+
+
+    /**
+     *  If you need to load data from a remote endpoint, this is a good place to instantiate
+     *  the network request. Setting state in this method will trigger a re-rendering.
+     * for local state, it works properly:
+     * superagent.get('/api/todos').set('Accept', 'application/json').end((err, res) => {
+	 * 	this.setState({userList: res.body});})
+     */
+    componentDidMount() {
+        this.props.getUsers(); // store.dispatch({type: 'FETCH_USERS'});
+
+        // how many pages: {"total":96}: 10 items per page.
+        fetch('/api/users/total')
+            .then(res => res.json())
+            .then(data => this.setState({total_users: data.total, total_page: Math.ceil(data.total / 10)}))
+    }
+
+    prev() {
+        let page = this.state.curr_page;
+        if (page > 1) {
+            page = page - 1;
+            this.setState({curr_page: page});
+            this.props.prevAction(page)
+        }
+        else {
+            console.log('current page: ' + page + ', cannot prev');
+        }
+    }
+
+    next() {
+        let page = this.state.curr_page;
+        if (page < this.state.total_page) {
+            page = page + 1;
+            this.setState({curr_page: page});
+            this.props.nextAction(page);
+        }
+        else {
+            console.log('current page: ' + page + ', cannot next');
+        }
     }
 
     /**
@@ -215,15 +255,18 @@ class Users extends Component {
                     </div>
                     <div className="col-md-1">
                         <a href="#" aria-label="Previous"
-                           onClick={this.props.prevAction}>
+                           onClick={this.prev}>
                             <span aria-hidden="true"> &laquo;</span>Prev<span aria-hidden="true"> &laquo;</span>
                         </a>
                     </div>
                     <div className="col-md-1">
                         <a href="#" aria-label="Next"
-                           onClick={this.props.nextAction}>
+                           onClick={this.next}>
                             <span aria-hidden="true">&raquo; </span>Next<span aria-hidden="true"> &raquo;</span>
                         </a>
+                    </div>
+                    <div className="col-md-3">
+                        <span>{this.state.curr_page}, {this.state.total_page}, {this.state.total_users}</span>
                     </div>
                 </div>
                 <div className="row">
