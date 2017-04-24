@@ -10,7 +10,7 @@ class About extends Component {
     const {about} = this.props;
     return (
       <section className={about}>
-        <h2>About</h2>
+        <h2>About - {this.props.match.params.name}</h2>
         {this.props.children}
       </section>
     )

@@ -1,7 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import MyApp from './containers/'
 
 const Header = () => (
@@ -15,15 +14,10 @@ const Header = () => (
         <li><Link to="/todos">Todos</Link></li>
         <li><Link to="/users">Users</Link></li>
         <li><Link to="/about">About</Link></li>
+        <li><Link to="/topics">Topics</Link></li>
       </ul>
     </nav>
   </header>
-)
-
-const Footer = ({footer}) => (
-  <footer>
-    <div {...footer}>&copy; william jiang - 2017</div>
-  </footer>
 )
 
 const Main = () => (
@@ -31,14 +25,21 @@ const Main = () => (
     <Switch>
       <Route exact path="/" component={MyApp.Home}/>
       <Route path="/todos" component={MyApp.Todos}/>
-      <Route path="/about" component={MyApp.About}/>
-      <Route path="/counter" component={MyApp.Counter}/>
+      <Route path="/about/" component={MyApp.About}/>
+      <Route path="/counter/:counts?" component={MyApp.Counter}/>
       <Route path="/contact" component={MyApp.Contact}/>
       <Route path="/delegate" component={MyApp.Delegate}/>
       <Route path="/users" component={MyApp.Users}/>
+      <Route path="/topics" component={MyApp.Topics}/>
     </Switch>
   </main>
 );
+
+const Footer = ({footer}) => (
+    <footer>
+      <div {...footer}>&copy; william jiang - 2017</div>
+    </footer>
+)
 
 const App = () => (
   <div className="container">
