@@ -6,21 +6,15 @@ import {debounceTime} from 'rxjs/operator/debounceTime';
 export const getUsers = (page = 1) => {
   return (dispatch, getState) => {
     const users = getState().userList;
-    if (users.length === 0) {
-    }
     superagent
       .get(`/api/users/page/${page}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) throw err;
         // res.body is [object], res.string is 'string'
-        const users = res.body;
-        //users.forEach( u => {
-        //  u.dob = u.dob ? u.dob.split(/[A-Z]/)[0] : 'N/A'
-        //});
         dispatch({
           type: 'FETCH_USERS',
-          payload: users
+          payload: res.body
         });
       });
   }

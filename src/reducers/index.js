@@ -6,6 +6,27 @@ import CounterReducer from './counterReducer'
 import githubReducer from './delegateReducer'
 import { reducer as formReducer } from 'redux-form'
 
+//for Login: {username,password}
+import { v4 } from 'node-uuid';
+const initialLogin = {
+  loggedIn: false,
+  shouldRedirect: false,
+  errorMessage: null
+}
+const loginReducer = (state = initialLogin, action) => {
+  switch (action.type) {
+    case 'LOGIN_SUCCESS':
+      //should return a token?
+      return Object.assign({}, action.payload, {loggedIn: true, shouldRedirect: true, tokenId: v4()});
+    case 'LOGOUT_SUCCESS':
+      return {logout: false}
+    case 'LOGIN_FAILED':
+    case 'LOGOUT_FAILED':
+      return Object.assign({}, state, {loggedIn: false, shouldRedirect: false, errorMessage: action.error});
+  }
+  return state;
+}
+
 /**
  * state = {todos:{all, active, completed:[], userList:[], userDetail: {}, routing: {}
  * state only return from `reducer`
@@ -16,6 +37,7 @@ const rootReducer = combineReducers({
   userList: userListReducer,
   github: githubReducer,
   counter: CounterReducer,
+  token: loginReducer,
   form: formReducer
 })
 

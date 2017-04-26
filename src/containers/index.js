@@ -6,6 +6,7 @@ import Users from './UserApp'
 import Delegate from './DelegateApp'
 import Home from './HomeApp'
 import Topics from './TopicApp'
+import Login from './LoginApp'
 
 const MyApp = {
   Home,
@@ -15,7 +16,8 @@ const MyApp = {
   Todos,
   Users,
   Delegate,
-  Topics
+  Topics,
+  Login
 }
 
 export default MyApp;

@@ -170,12 +170,17 @@ connect = Object.assign({}, ownProps, stateProps, dispatchProps);
 - move `import orderBy from 'lodash/orderBy'` to reducer file which it is called.  
 
 - add optional parameter for URL `react-router-dom-v4`: <Route path="/to/page/:pathParam?" component={MyPage} />
-
 - add sub-menu (sub-navigator) in `Topics`
-
 - add options to input counter from URL-params, like: http://localhost:8081/counter/18
    
    
+- add .scss, .gif `style-loader`
+- add loginApp logic
+- add `Redirect`
+- add actionCreator and reducers for `login` and `logout`
+- add server-side routes `auth` for login fetch.
+- user `token` property for future extension.
+ 
 ## Unit Test
 
 - use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.
@@ -208,6 +213,9 @@ o:  /api/users
 x:  /api/delegate/github/williamjxj
 x:  http://localhost:8081/api/delegate/jsonplaceholder
 
+- ERROR in ./~/css-loader!./~/sass-loader/lib/loader.js!./src/style.scss: Module build failed: Error: Cannot find module 'node-sass'
+npm i -D node-sass (npm rebuild node-sass)
+It works. What's the relationship btw `sass` and `scss`?
 
 ## Reference
 
