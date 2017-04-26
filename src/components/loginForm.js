@@ -1,53 +1,43 @@
 import React, { Component } from 'react'
-import { Field, reduxForm, SubmissionError } from 'redux-form'
+import { Field, reduxForm } from 'redux-form'
 const { DOM: { input } } = React
-//const { DOM: { input, select, textarea } } = React;
-//import 'react-widgets/dist/css/react-widgets.css'
-
-const validateUsers = ['william', 'bill', 'admin', 'root'];
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-function submit(values) {
-    return sleep(1000) // simulate server latency
-        .then(() => {
-            if (![ 'john', 'paul', 'george', 'ringo' ].includes(values.username)) {
-                throw new SubmissionError({ username: 'User does not exist', _error: 'Login failed!' })
-            } else if (values.password !== 'redux-form') {
-                throw new SubmissionError({ password: 'Wrong password', _error: 'Login failed!' })
-            } else {
-                window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
-            }
-        })
-}
-
+import 'react-widgets/dist/css/react-widgets.css'
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
     <div>
-        <label>{label}</label>
-        <div>
-            <input {...input} placeholder={label} type={type}/>
-            {touched && error && <span>{error}</span>}
-        </div>
+      <input {...input} placeholder={label} type={type} className="form-control"/>
+      {touched && error && <span>{error}</span>}
     </div>
+  </div>
 )
 
 const SubmitValidationForm = (props) => {
-    const { error, handleSubmit, pristine, reset, submitting } = props
-    return (
-        <form onSubmit={handleSubmit(submit)}>
-            <Field name="username" type="text" component={renderField} label="Username"/>
-            <Field name="password" type="password" component={renderField} label="Password"/>
-            {error && <strong>{error}</strong>}
-            <div>
-                <button type="submit" disabled={submitting}>Log In</button>
-                <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
-            </div>
-        </form>
-    )
+  const { error, handleSubmit, pristine, reset, submitting } = props
+  return (
+    <form onSubmit={handleSubmit(props.onSubmit)} className="login-form form-inline">
+      <div className="form-group">
+        <Field name="username" type="text" component={renderField} label="Username"/>
+      </div>
+      <div className="form-group">
+        <Field name="password" type="password" component={renderField} label="Password"/>
+      </div>
+      <div className="form-group">
+        {error && <strong>{error}</strong>}
+      </div>
+      <div className="form-group">
+        <button type="submit" disabled={submitting} className="btn btn-success">Log In</button>
+        <button type="button" disabled={pristine || submitting} onClick={reset} className="btn btn-warning">Clear
+          Values
+        </button>
+      </div>
+    </form>
+  )
 }
 
 
 export default reduxForm({
-    form: 'submitValidation'  // a unique identifier for this form
+  form: 'submitValidation',
+  fields: ['username', 'password'] // we send only field names here
 })(SubmitValidationForm)

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ContactForm from '../components/ContactForm';
-import LoginForm from '../components/LoginForm'
 
 class Contact extends Component {
     constructor(props) {
@@ -20,11 +19,6 @@ class Contact extends Component {
 
                 <div className="row">
                     <ContactForm onSubmit={this.submit}/>
-                </div>
-                <h3><a href=" http://redux-form.com/6.6.1/examples/simple/">Redux LoginForm</a></h3>
-
-                <div className="row">
-                    <LoginForm onSubmit={this.submit}/>
                 </div>
             </div>
         );

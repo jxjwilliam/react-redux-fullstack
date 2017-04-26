@@ -77,6 +77,7 @@ app.use(cookieParser());
 app.use(routes.todos);
 app.use(routes.users);
 app.use(routes.counter);
+app.use(routes.auth);
 
 //debug('before delegator, set a breakpoint');
 //const staticPath = __dirname + '../public';
