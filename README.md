@@ -180,6 +180,9 @@ connect = Object.assign({}, ownProps, stateProps, dispatchProps);
 - add actionCreator and reducers for `login` and `logout`
 - add server-side routes `auth` for login fetch.
 - user `token` property for future extension.
+
+- add `react-bootstrap`, `react-router-bootstrap` for responsive menu.
+
  
 ## Unit Test
 
