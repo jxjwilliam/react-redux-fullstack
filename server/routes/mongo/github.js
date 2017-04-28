@@ -1,7 +1,8 @@
 const request = require('request');
 const router = require('express').Router();
 
-router.route('/api/delegate/github/:user')
+///api/delegate/github/:user
+router.route('/github/:user')
   .get((req, res) => {
     const user = req.params.user;
 

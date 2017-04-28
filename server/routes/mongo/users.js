@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const User = require('../models/user')
+const User = require('../../models/user')
 
 //total items:
-router.route('/api/users/total')
+router.route('/total')
     .get((req, res, next) => {
         User.count({}, (err, count) => {
             if (err) return next(err)
@@ -12,7 +12,7 @@ router.route('/api/users/total')
 
 // pagination: /api/users/page/1, /api/user/page/2...
 const limit = 10;
-router.route('/api/users/page/:page')
+router.route('/page/:page')
     .get((req, res, next) => {
         const offset = req.params.page-1;
         User.find().skip(offset*limit).limit(limit).exec((err, users) => {
@@ -22,7 +22,7 @@ router.route('/api/users/page/:page')
     })
 
 // works but deprecated, not use anymore.
-router.route('/api/users/')
+router.route('/')
     .get((req, res, next) => {
         //User.findOne({_id: token }, callback);
         User.find((err, users) => {
@@ -77,7 +77,7 @@ router.route('/api/users/')
         })
     });
 
-router.route('/api/users/search/:username')
+router.route('/search/:username')
     .get((req, res, next) => {
 
         var reg = new RegExp(req.params.username, 'i');
@@ -110,7 +110,7 @@ router.param('id', (req, res, next, id) => {
         return next(err)
     })
 });
-router.route('/api/users/:uid')
+router.route('/:uid')
     .delete((req, res, next) => {
         User.findByIdAndRemove(req.user._id, (err) => {
             if (err) return next(err)

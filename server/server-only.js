@@ -11,13 +11,8 @@ import webpackConfig from '../webpack.config';
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 
-// 3. import React-Redux
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { Provider } from 'react-redux'
 
-var routes = require('./routes/index');
-var delegator = require('./delegator/index');
+var routes = require('./routes/mongo/');
 
 const compiler = webpack(webpackConfig);
 
@@ -34,19 +29,19 @@ app.use(webpackDevMiddleware(compiler, {
 
 //app.use(webpackHotMiddleware(compiler));
 
-app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '..', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client')));
 
-
-app.use(routes.todos);
-app.use(routes.users);
-app.use(routes.counter);
-
-app.use(delegator.github);
-app.use(delegator.typicode)
+//TODO:
+app.use('/api/todos', routes.todos);
+app.use('/api/users', routes.users);
+app.use('/api/counter', routes.counter);
+app.use('/api/github', routes.github);
+app.use('/api/auth', routes.auth);
+app.use('/api/delegate/github/', routes.github);
 
 
 app.get('/*', (req, res) => {

@@ -3,7 +3,7 @@
 const request = require('request');
 const router = require('express').Router();
 
-router.route('/api/delegate/jsonplaceholder')
+router.route('/jsonplaceholder')
   .get((req, res) => {
     const options = {
       url: 'https://jsonplaceholder.typicode.com/posts',

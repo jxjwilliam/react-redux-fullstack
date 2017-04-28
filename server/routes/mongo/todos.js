@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const Todo = require('../models/todo')
+const Todo = require('../../models/todo')
 
-router.route('/api/todos/')
+router.route('/')
   .get((req, res, next) => {
     Todo.find((err, todos) => {
       if (err) return next(err)
@@ -41,7 +41,7 @@ router.param('todoId', (req, res, next, id) => {
   })
 })
 
-router.route('/api/todos/:todoId')
+router.route('/:todoId')
 
   .get((req, res, next) => {
     return res.json(req.todo)

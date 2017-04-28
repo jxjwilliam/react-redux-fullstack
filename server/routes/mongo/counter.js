@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Counter = require('../models/counter');
+const Counter = require('../../models/counter');
 
 /**
  * {
@@ -10,7 +10,7 @@ const Counter = require('../models/counter');
 	"__v" : 0
  * }
  */
-router.route('/api/counter')
+router.route('/')
   .get((req, res, next) => {
     Counter.findOne((err, data) => {
       if (err) return next(err)

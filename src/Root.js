@@ -8,7 +8,7 @@ import MyApp from './containers/'
 
 let Header = (props) => {
   const { token: {username, tokenId}, handleLogout } = props;
-  console.log('22222', props);
+  //console.log('props: states+actions: ', props);
   return (
     <header className="app">
       <Navbar fixedTop>
