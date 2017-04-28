@@ -246,8 +246,7 @@ class Users extends Component {
         <div className="row">
           <div className="col-md-2">
             <button className="btn btn-success" onClick={this.open}><span
-              className="glyphicon glyphicon-plus"></span>Add
-              User
+              className="glyphicon glyphicon-plus"></span>Add User
             </button>
           </div>
           <div className="col-md-3">

@@ -33,15 +33,15 @@ module.exports = {
         loader: 'style-loader!css-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.css/,
         loader: 'style-loader!css-loader'
       },
       {
-        test: /\.scss$/,
+        test: /\.scss/,
         loader: 'style-loader!css-loader!sass-loader'
       },
       {
-        test: /\.gif$/,
+        test: /\.(gif|png)$/,
         loader: "url-loader?mimetype=image/png"
       },
       {
