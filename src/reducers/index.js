@@ -19,10 +19,10 @@ const loginReducer = (state = initialLogin, action) => {
       //should return a token?
       return Object.assign({}, action.payload, {loggedIn: true, shouldRedirect: true, tokenId: v4()});
     case 'LOGOUT_SUCCESS':
-      return {logout: false}
+      return Object.assign({}, initialLogin);
     case 'LOGIN_FAILED':
     case 'LOGOUT_FAILED':
-      return Object.assign({}, state, {loggedIn: false, shouldRedirect: false, errorMessage: action.error});
+      return Object.assign({}, state, initialLogin, {errorMessage: action.error});
   }
   return state;
 }
