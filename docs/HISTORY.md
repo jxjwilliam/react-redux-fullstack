@@ -166,6 +166,16 @@ connect = Object.assign({}, ownProps, stateProps, dispatchProps);
 
 - add `react-bootstrap`, `react-router-bootstrap` for responsive menu.
 
+- add toggle login/logout works: add `state.token` in Root.js, just like in LoginApp.js, so these 2 parts are sync when login/logout.
+react-redux-universal-hot-example:
+```javascript
+export function logout() {
+  return {
+    types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
+    promise: (client) => client.get('/logout')
+  };
+}
+```
  
 ## Unit Test
 
