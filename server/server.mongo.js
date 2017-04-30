@@ -1,9 +1,8 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 // 2. import webpack
 import webpack from 'webpack';
@@ -11,14 +10,13 @@ import webpackConfig from '../webpack.config';
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 
-
-var routes = require('./routes/mongo/');
+import {WebServer} from '../etc/config'
+const routes = require('./routes/mongo/');
 
 const compiler = webpack(webpackConfig);
+const app = express();
 
-var app = express();
-
-import db from './db'
+import db from './mongo_db'
 db.connect();
 
 
@@ -27,13 +25,13 @@ app.use(webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath
 }));
 
-//app.use(webpackHotMiddleware(compiler));
+app.use(webpackHotMiddleware(compiler));
 
 app.use(favicon(path.join(__dirname, '..', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, 'src')));
 
 //TODO:
 app.use('/api/todos', routes.todos);
@@ -48,11 +46,12 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
-
-app.listen(8082, error => {
+const port = WebServer.PORT;
+const url = WebServer.getHTTPUrl();
+app.listen(port, error => {
   if (error) {
     console.error(error)
   } else {
-    console.info(`==> 🌎  Listening on port 8082. Open up http://localhost:8082/ in your browser.`)
+    console.info(`==> 🌎  Listening on port ${port}. Open up ${url} in your browser.`)
   }
 });

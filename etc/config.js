@@ -49,12 +49,12 @@ const Redis = {};
 const RabbitMQ = {};
 
 const config = {
-  'WebServer': WebServer,
-  'WebSocket': WebSocket,
-  'Mongo': Mongo,
-  'Pg': Pg,
-  'Redis': Redis,
-  'RabbitMQ': RabbitMQ
+  WebServer,
+  WebSocket,
+  Mongo,
+  Pg,
+  Redis,
+  RabbitMQ
 }
 
 module.exports = config;

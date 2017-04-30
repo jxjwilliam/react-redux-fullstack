@@ -24,6 +24,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 
 import routes from './routes/mongo/';
 import pg_routes from './routes/pg/'
+import {WebServer} from '../etc/config'
 
 
 const port = process.env.PORT ? process.env.PORT : 8081
@@ -89,11 +90,14 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
+const port = WebServer.PORT;
+const url = WebServer.getHTTPUrl();
+
 const runnable = app.listen(port, error => {
   if (error) {
     console.error(prettyjson.render(error))
   } else {
-    console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
+    console.info(`==> 🌎  Listening on port ${port}. Open up ${url} in your browser.`)
   }
 });
 

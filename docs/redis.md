@@ -13,3 +13,9 @@ https://github.com/NodeRedis/node_redis
 ```bash
 $ npm install redis -S
 ```
+
+
+
+###
+
+In order to send chat messages to users across servers we will update our server to use Redis as a PubSub service (along with session store). Redis natively supports pub-sub operations. 

@@ -7,7 +7,7 @@ var args = process.argv.slice(2);
 
 //server, server-psql, server.socket, server-only
 if (args[0]) {
-  require('./server-' + args[0])
+  require('./server.' + args[0])
 }
 else {
   require('./server');
