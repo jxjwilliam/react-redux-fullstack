@@ -2,10 +2,14 @@ import * as types from '../constants/ActionTypes'
 import fetch from 'isomorphic-fetch'
 
 
-export const addTodo = text => dispach => {
-  return fetch('/api/pg/todos/' + id, {
-    method: 'POST',
-    body: {text: text},
+export const addTodo = text => dispatch => {
+  return fetch('/api/pg/todos', {
+    method: 'post',
+    body: JSON.stringify({text: text}),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
   })
     .then(res => res.json())
     .then(data => {

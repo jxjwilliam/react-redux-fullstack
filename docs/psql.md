@@ -62,7 +62,7 @@ CREATE TABLE items(id SERIAL PRIMARY KEY, text VARCHAR(40) not null, complete BO
 
 ```
 
-### RESTFul API:
+### RESTFul APIs:
 
   Function	URL	                            Action
   --------  ----------------------  ----------------------
@@ -71,10 +71,22 @@ CREATE TABLE items(id SERIAL PRIMARY KEY, text VARCHAR(40) not null, complete BO
   UPDATE	  /api/v1/todos/:todo_id	Update a single todo
   DELETE	  /api/v1/todos/:todo_id	Delete a single todo
 
-###
-- items id integer
+
+- CRD: work.
+
+### improvement
+
+- items -> id -> integer
 
 ```sql
 CREATE SEQUENCE item_id_seq;
 ALTER TABLE items ALTER id SET DEFAULT NEXTVAL('item_id_seq');
+
+﻿ALTER TABLE items ADD CONSTRAINT item_id_seq UNIQUE(id)
+
+SELECT setval('item_id_seq', (SELECT MAX(id) FROM items)+1);
+
 ```
+
+- duplicated sequenced-index
+- primary key / max-id

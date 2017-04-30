@@ -10,7 +10,8 @@ router.route('/todos')
   })
 
   .post((req, res, next) => {
-    const data = {text: req.body ? req.body.text : 'react-redux-fullstack-todomvc', complete: false};
+    console.log('todomvc post:', req.body, req.params);
+    const data = {text: req.body.text ? req.body.text : 'react-redux-fullstack-todomvc', complete: false};
     pool.query('INSERT INTO items(text, complete) values($1, $2)',
       [data.text, data.complete], (err, data) => {
         if (err) return next(err)
