@@ -41,7 +41,6 @@ router.route('/')
     .post((req, res, next) => {
         User.create(req.body, (err, user) => {
             if (err) return next(err)
-
             return res.status(201).json(user)
         })
     })

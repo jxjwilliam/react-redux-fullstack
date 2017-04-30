@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Todo = require('../../models/todo')
 
-router.route('/total')
+Router.route('/total')
   .get((req, res, next) => {
     Todo.count({}, (err, count) => {
       if (err) return next(err)
@@ -22,7 +22,15 @@ router.route('/')
       return res.status(201).json(todo)
     })
   })
+  .delete((req, res, next) => {
+    Todo.remove((err) => {
+      if (err) return next(err)
 
+      return res.status(204).end()
+    })
+
+    res.status(204).end()
+  })
 
 router.param('todoId', (req, res, next, id) => {
   // Handle to find the requested resouce
@@ -42,6 +50,7 @@ router.param('todoId', (req, res, next, id) => {
 })
 
 router.route('/:todoId')
+
   .get((req, res, next) => {
     return res.json(req.todo)
   })

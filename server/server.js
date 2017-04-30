@@ -23,18 +23,19 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 //import { Provider } from 'react-redux'
 
 import routes from './routes/mongo/';
+import pg_routes from './routes/pg/'
+
 
 const port = process.env.PORT ? process.env.PORT : 8081
 const compiler = webpack(webpackConfig);
 const app = express();
 
 // 4. extends:
-
 const server = new http.Server(app);
 const io = new SocketIo(server);
 io.path('/ws');
 
-import db from './db'
+import db from './mongo_db'
 db.connect();
 
 
@@ -77,6 +78,8 @@ app.use('/api/counter', routes.counter);
 app.use('/api/github', routes.github);
 app.use('/api/auth', routes.auth);
 app.use('/api/delegate/github/', routes.github);
+
+app.use('/api/pg/', pg_routes.todos);
 
 /**
  *  app.use('/api/new/*', express.static(staticPath));

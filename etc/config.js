@@ -22,30 +22,39 @@ const WebSocket = {
 const Mongo = {
   HOST: 'localhost',
   PORT: '27017',
-  DATABASE: 'redux',
+  DB: 'redux',
   getDBString: function () {
-    return 'mongodb://' + this.DB.HOST + ':' + this.DB.PORT + '/' + this.DB.DATABASE;
+    return 'mongodb://' + this.HOST + ':' + this.PORT + '/' + this.DB;
   }
 }
 
-
-const PostgreSQL = {
-  getDBString: () => {
-    return ''
+const Pg = {
+  HOST: 'localhost',
+  PORT: 5433,
+  USER: 'psql',
+  PASSWORD: 'psql',
+  DB: 'react_redux',
+  //postgres://localhost:5433/react-redux
+  getDBString: function () {
+    return 'postgres://' + this.HOST + ':' + this.PORT + '/' + this.DB
+  },
+  //postgres://brian:mypassword@localhost:5432/dev
+  getDBFullString: function () {
+    return 'postgres://' + this.USER + ':' + this.PASSWORD + '@' + this.HOST + ':' + this.PORT + '/' + this.DB
   }
 }
 
-const Redis = {}
+const Redis = {};
 
-const RabbitMQ = {}
+const RabbitMQ = {};
 
-const config = Object.assign({},
-  WebServer,
-  WebSocket,
-  Mongo,
-  PostgreSQL,
-  Redis,
-  RabbitMQ
-)
+const config = {
+  'WebServer': WebServer,
+  'WebSocket': WebSocket,
+  'Mongo': Mongo,
+  'Pg': Pg,
+  'Redis': Redis,
+  'RabbitMQ': RabbitMQ
+}
 
 module.exports = config;
