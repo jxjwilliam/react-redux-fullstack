@@ -57,7 +57,7 @@ class Login extends Component {
   //loggedIn: true, shouldRedirect: true, tokenId:
   render() {
     const {tokenId, username, errorMessage, shouldRedirect} = this.props.token;
-    console.log('11111', this.props);
+    //console.log('props: states+actions', this.props);
     if (shouldRedirect) {
       //return this.delay(5000).then(()=> <Redirect to='/'/>)
       var no_return_undefined = new Promise(resolve => setTimeout(resolve, 5000)).then(() => {

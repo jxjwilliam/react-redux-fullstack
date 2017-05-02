@@ -6,6 +6,10 @@ import CounterReducer from './counterReducer'
 import githubReducer from './delegateReducer'
 import { reducer as formReducer } from 'redux-form'
 
+//optional, for psql:
+import todomvcReducer from '../psql/reducers'
+
+
 //for Login: {username,password}
 import { v4 } from 'node-uuid';
 const initialLogin = {
@@ -38,7 +42,8 @@ const rootReducer = combineReducers({
   github: githubReducer,
   counter: CounterReducer,
   token: loginReducer,
-  form: formReducer
+  form: formReducer,
+  todomvc: todomvcReducer
 })
 
 export default rootReducer

@@ -1,19 +1,33 @@
-// ENV_SIMPLE: server without websocker.
-// ENV_ALL: websocker + db + ...
 // or: use webpack-dev-server
 // or use pm2???
 
-if (process.env.ENV_SIMPLE) {
-	require('babel-register')
-	require('./server-no-websocket');
-}
-else if(process.env.ENV_ALL) {
-	require('babel-core/register');
-	require('./server');
+require('babel-core/register');
+
+var args = process.argv.slice(2);
+
+//server, server.psql, server.mongo, server.socket
+if (args[0]) {
+  require('./server.' + args[0])
 }
 else {
-	console.log('no env setting match: use webpack-dev-server from command.');
-
-	require('babel-core/register');
-	require('./server');
+  require('./server');
 }
+
+
+/**
+ switch (process.env.ENV) {
+   case 'express':
+     require('./server');
+     return;
+   case 'websocket':
+   case 'redis':
+   case 'rabbitmq':
+   case 'psql':
+   case 'mysql':
+   case 'mongodb':
+     require('./server');
+     return;
+   default:
+     require('./server');
+ }
+ */

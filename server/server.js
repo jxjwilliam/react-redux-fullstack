@@ -18,24 +18,25 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 
 // 3. import React-Redux
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { Provider } from 'react-redux'
+//import React from 'react'
+//import { renderToString } from 'react-dom/server'
+//import { Provider } from 'react-redux'
 
-import routes from './routes';
-import delegator from './delegator'
+import routes from './routes/mongo/';
+import pg_routes from './routes/pg/'
+import {WebServer} from '../etc/config'
+
 
 const port = process.env.PORT ? process.env.PORT : 8081
 const compiler = webpack(webpackConfig);
 const app = express();
 
 // 4. extends:
-
 const server = new http.Server(app);
 const io = new SocketIo(server);
 io.path('/ws');
 
-import db from './db'
+import db from './mongo_db'
 db.connect();
 
 
@@ -48,11 +49,11 @@ app.use(webpackHotMiddleware(compiler));
 
 
 // 5. config web-server
-app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')))
+app.use(favicon(path.join(__dirname, '..', 'favicon.ico')))
 
 
 // view engine setup
-//app.set('views', path.join(__dirname, '../public'));
+//app.set('views', path.join(__dirname, '../client'));
 //app.set('view engine', 'ejs');
 
 // This setting is important for test purpose (mocha, chai-http):
@@ -72,35 +73,31 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(cookieParser());
 
+app.use('/api/todos', routes.todos);
+app.use('/api/users', routes.users);
+app.use('/api/counter', routes.counter);
+app.use('/api/github', routes.github);
+app.use('/api/auth', routes.auth);
+app.use('/api/delegate/github/', routes.github);
 
-// app.use(routes); `/api/...`
-app.use(routes.todos);
-app.use(routes.users);
-app.use(routes.counter);
-app.use(routes.auth);
-
-//debug('before delegator, set a breakpoint');
-//const staticPath = __dirname + '../public';
-//app.use(express.static(staticPath));
-//
-//app.use(cors());
-// localhost:8081/api/delegate/github/:user
-app.use(delegator.github);
-app.use(delegator.typicode)
+app.use('/api/pg/', pg_routes.todos);
 
 /**
- *  app.use('/new/*', express.static(staticPath));
- *  app.use('/validateEmail/*', express.static(staticPath));
+ *  app.use('/api/new/*', express.static(staticPath));
+ *  app.use('/api/validateEmail/*', express.static(staticPath));
  */
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
+const port = WebServer.PORT;
+const url = WebServer.getHTTPUrl();
+
 const runnable = app.listen(port, error => {
   if (error) {
     console.error(prettyjson.render(error))
   } else {
-    console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
+    console.info(`==> 🌎  Listening on port ${port}. Open up ${url} in your browser.`)
   }
 });
 
