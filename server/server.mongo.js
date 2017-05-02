@@ -19,7 +19,6 @@ const app = express();
 import db from './mongo_db'
 db.connect();
 
-
 app.use(webpackDevMiddleware(compiler, {
   noInfo: true,
   publicPath: webpackConfig.output.publicPath

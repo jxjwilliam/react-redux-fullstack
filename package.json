@@ -1,7 +1,7 @@
 {
-  "name": "todos-advanced-react-redux-express-mongo-websocket",
+  "name": "react-redux-fullstack",
   "version": "2.0.0",
-  "description": "william wrote the steps of react-redux 26-cources.",
+  "description": "implement and extend Dan Abramov react-redux 26-courses.",
   "main": "server/index.js",
   "scripts": {
     "start": "webpack-dev-server",
@@ -13,16 +13,12 @@
   "license": "ISC",
   "keywords": [
     "react",
-    "isomorphic",
-    "universal",
-    "webpack",
-    "express",
-    "hot reloading",
-    "react-hot-reloader",
     "redux",
-    "starter",
-    "boilerplate",
-    "babel"
+    "isomorphic",
+    "mongodb",
+    "postgresql",
+    "redis",
+    "rabbitmq"
   ],
   "dependencies": {
     "amqplib": "^0.5.1",

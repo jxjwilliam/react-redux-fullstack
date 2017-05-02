@@ -6,6 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Helmet from 'react-helmet';
 import MyApp from './containers/'
 import PSQL from './psql/'
+import SocketRedisChat from './socket-redis/SocketRedisChat'
 
 let Header = (props) => {
   const { token: {username, tokenId}, handleLogout } = props;
@@ -55,7 +56,13 @@ let Header = (props) => {
 
             <NavDropdown key={8} title="socket" id="basic-nav-socket">
               <LinkContainer to="/socket">
-                <MenuItem key={8.1}>socket</MenuItem>
+                <MenuItem key={8.1}>Socket-Redis</MenuItem>
+              </LinkContainer>
+            </NavDropdown>
+
+            <NavDropdown key={9} title="rabbitmq" id="basic-nav-rebbitmq">
+              <LinkContainer to="/rabbitmq">
+                <MenuItem key={9.1}>RabbitMQ</MenuItem>
               </LinkContainer>
             </NavDropdown>
 
@@ -127,13 +134,19 @@ const Main = () => (
       <Route path="/topics" component={MyApp.Topics}/>
       <Route path="/login" component={MyApp.Login}/>
       <Route path="/logout" component={MyApp.Login}/>
-      <Route path="/psql"  component={PSQL} />
+      <Route path="/psql" component={PSQL}/>
+      <Route path="/socket" component={SocketRedisChat}/>
     </Switch>
   </main>
 );
 
 const Footer = ({footer}) => (
   <footer>
+    <div className="flex-container">
+      <div className="flex-item">flex item 1</div>
+      <div className="flex-item">flex item 2</div>
+      <div className="flex-item">flex item 3</div>
+    </div>
     <div {...footer}>&copy; william jiang - 2017</div>
   </footer>
 )

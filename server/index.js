@@ -5,7 +5,7 @@ require('babel-core/register');
 
 var args = process.argv.slice(2);
 
-//server, server-psql, server.socket, server-only
+//server, server.psql, server.mongo, server.socket
 if (args[0]) {
   require('./server.' + args[0])
 }

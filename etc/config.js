@@ -44,7 +44,12 @@ const Pg = {
   }
 }
 
-const Redis = {};
+const Redis = {
+  'user': '',
+  'password': '',
+  'host': '',
+  'port': 6379
+};
 
 const RabbitMQ = {};
 

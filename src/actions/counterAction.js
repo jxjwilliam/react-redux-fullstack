@@ -7,9 +7,11 @@ export const getCounter = () => (dispatch, getState) => {
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) throw err;
+        // in case of mongod not running and connection not build.
+        let counter = res.body && typeof res.body.counter==='number' ? res.body.counter : 0;
         dispatch({
           type: 'LOAD_COUNTER',
-          payload: res.body.counter
+          payload: counter
         });
       });
   }

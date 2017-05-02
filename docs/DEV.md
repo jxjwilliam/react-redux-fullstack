@@ -24,7 +24,7 @@
   
 ### 1. etc/config.js
 
-Hold all the config information, e.g. db config, webserver config.
+Hold all the config information, e.g. db config, web-server config.
 ```javascript
  import { WebServer } from '../etc/config'
  WebServer.PORT
@@ -33,3 +33,12 @@ Hold all the config information, e.g. db config, webserver config.
 
 So the web-server PORT, URL are united from same config file.
 
+
+### 2. add flexbox in <Footer/>
+
+It is useful when valign the <div/>
+
+
+### 3. improve media-query for Responsive Web Design
+
+assets/style.scss
