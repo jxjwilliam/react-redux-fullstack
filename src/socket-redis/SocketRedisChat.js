@@ -30,7 +30,7 @@ class SocketRedisChat extends Component {
   render() {
     return (
       <div className="container">
-        <h2>Node.js + Socket.io + Redis Chat</h2>
+        <h2>Using Redis as PubSub over Socket.IO</h2>
 
         <div className="join-chat">
           <label htmlFor="username">Username:</label>

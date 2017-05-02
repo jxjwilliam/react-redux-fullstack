@@ -27,6 +27,10 @@ const port = WebServer.PORT;
 
 
 const client = redis.createClient('redis://' + Redis.user + ':' + Redis.password + '@' + Redis.host + ':' + Redis.port);
+/**
+ * var pub = redis.createClient();
+ * var sub = redis.createClient();
+ */
 
 // Redis Client Ready
 client.once('ready', function () {
