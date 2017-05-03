@@ -27,7 +27,6 @@ import pg_routes from './routes/pg/'
 import {WebServer} from '../etc/config'
 
 
-const port = process.env.PORT ? process.env.PORT : 8081
 const compiler = webpack(webpackConfig);
 const app = express();
 

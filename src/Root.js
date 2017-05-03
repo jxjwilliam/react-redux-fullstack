@@ -58,6 +58,10 @@ let Header = (props) => {
               <LinkContainer to="/socket">
                 <MenuItem key={8.1}>Socket-Redis</MenuItem>
               </LinkContainer>
+              <LinkContainer to="/chat">
+                <MenuItem key={3.4}>Chat</MenuItem>
+              </LinkContainer>
+
             </NavDropdown>
 
             <NavDropdown key={9} title="rabbitmq" id="basic-nav-rebbitmq">
@@ -136,6 +140,7 @@ const Main = () => (
       <Route path="/logout" component={MyApp.Login}/>
       <Route path="/psql" component={PSQL}/>
       <Route path="/socket" component={SocketRedisChat}/>
+      <Route path="/chat" component={MyApp.Chat}/>
     </Switch>
   </main>
 );

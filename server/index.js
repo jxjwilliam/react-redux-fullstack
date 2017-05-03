@@ -22,7 +22,7 @@ else {
    case 'websocket':
    case 'redis':
    case 'rabbitmq':
-   case 'psql':
+   case 'pg':
    case 'mysql':
    case 'mongodb':
      require('./server');

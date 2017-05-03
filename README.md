@@ -26,7 +26,7 @@ There are multiple webserver which can be switched to run by different purpose.
 
 - server.js: current
 - server.mongo.js: webserver + mongo
-- server.psql.js:  webserver + psql
+- server.pg.js:  webserver + postgre-sql
 - server.redis.socket.js: webserver + redis+socket
 - server.rabbitmq.js: webserver + rabbitmq
 - server.mini.js: only webserver
@@ -39,5 +39,5 @@ $ npm run server/index.js mongo
 
 To start postgresql-webserver
 ```bash
-$ npm run server/index.js psql
+$ npm run server/index.js pg
 ```

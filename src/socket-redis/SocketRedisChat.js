@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import "./chat.css"
 
 class SocketRedisChat extends Component {
   constructor(props) {

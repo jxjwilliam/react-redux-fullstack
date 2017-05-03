@@ -2,8 +2,8 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser'
 import favicon from 'serve-favicon';
-import redis from 'redis';
-import {Redis, WebServer} from '../etc/config'
+import {WebServer} from '../etc/config'
+import redis_client from './redis'
 
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config';
@@ -25,33 +25,6 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = WebServer.PORT;
 
-
-const client = redis.createClient('redis://' + Redis.user + ':' + Redis.password + '@' + Redis.host + ':' + Redis.port);
-/**
- * var pub = redis.createClient();
- * var sub = redis.createClient();
- */
-
-// Redis Client Ready
-client.once('ready', function () {
-
-  // Flush Redis DB
-  // client.flushdb();
-
-  // Initialize Chatters
-  client.get('chat_users', function (err, reply) {
-    if (reply) {
-      chatters = JSON.parse(reply);
-    }
-  });
-
-  // Initialize Messages
-  client.get('chat_app_messages', function (err, reply) {
-    if (reply) {
-      chat_messages = JSON.parse(reply);
-    }
-  });
-});
 
 // Start the Server
 http.listen(port, function () {
@@ -81,7 +54,7 @@ app.post('/join', function (req, res) {
   var username = req.body.username;
   if (chatters.indexOf(username) === -1) {
     chatters.push(username);
-    client.set('chat_users', JSON.stringify(chatters));
+    redis_client.set('chat_users', JSON.stringify(chatters));
     res.send({
       'chatters': chatters,
       'status': 'OK'
@@ -97,7 +70,7 @@ app.post('/join', function (req, res) {
 app.post('/leave', function (req, res) {
   var username = req.body.username;
   chatters.splice(chatters.indexOf(username), 1);
-  client.set('chat_users', JSON.stringify(chatters));
+  redis_client.set('chat_users', JSON.stringify(chatters));
   res.send({
     'status': 'OK'
   });
@@ -111,7 +84,7 @@ app.post('/send_message', function (req, res) {
     'sender': username,
     'message': message
   });
-  client.set('chat_app_messages', JSON.stringify(chat_messages));
+  redis_client.set('chat_app_messages', JSON.stringify(chat_messages));
   res.send({
     'status': 'OK'
   });

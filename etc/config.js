@@ -44,11 +44,12 @@ const Pg = {
   }
 }
 
+//The URL of the Redis server. Format: [redis:]//[[user][:password@]][host][:port][/db-number]
 const Redis = {
-  'user': '',
-  'password': '',
-  'host': '',
-  'port': 6379
+  user: '',
+  password: '',
+  host: 'localhost',
+  port: 6379
 };
 
 const RabbitMQ = {};

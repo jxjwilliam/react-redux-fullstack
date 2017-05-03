@@ -1,3 +1,16 @@
+.chat {
+  input {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  form {
+    margin: 30px 0;
+    :global(.btn) {
+      margin-left: 10px;
+    }
+  }
+}
 
 .messages {
   border: 1px solid darkgrey;
@@ -9,10 +22,6 @@
 #message {
   width: 100%;
   background-color: #f9f9f9;
-}
-
-.chat {
-  display: none;
 }
 
 .msg {
