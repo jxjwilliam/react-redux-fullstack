@@ -17,7 +17,7 @@ Then:
 open http://localhost:8080
 ```
 
-For more details, check [here](./docs/HISTORY.md)
+For more details, check [here](./docs/HISTORY.md) and [here](./docs/DEV.md)
 
 ## Improvement
 
