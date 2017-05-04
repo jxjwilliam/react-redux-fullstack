@@ -4,7 +4,7 @@ const WebServer = {
   VERSION: 1,
   URL: 'http://127.0.0.1',
   API_PATH: '/api',
-  PORT: process.env.PORT || 8080,
+  PORT: process.env.PORT || 8088,
   getHTTPUrl: function () {
     return 'http://' + this.URL + ":" + this.PORT;
   }

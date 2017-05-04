@@ -30,11 +30,19 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
+
+// Redis Pub/Sub
+const rurl = Redis.getUrlString();
+const pub = redis.createClient(rurl);
+const sub = redis.createClient(rurl);
+
+// socket `Chat` config
 const bufferSize = 100;
 const messageBuffer = new Array(bufferSize);
 let messageIndex = 0;
 
 io.on('connection', (socket) => {
+  // this seems not fired.
   socket.emit('news', {msg: `'Hello World!' from server`});
 
   socket.on('history', () => {
@@ -54,33 +62,29 @@ io.on('connection', (socket) => {
     io.emit('msg', data);
   });
 
-  socket.on('socketredis', (data) => {
-    setTimeout(() => {
-      socket.emit('twits', {
-        reach: 20,
-        category: 'blue'
-      })
-    }, 2000)
-    socket.emit('twits', {
-      reach: 10,
-      category: 'red'
-    })
-  })
+  socket.on('socket-redis', (data) => {
+    sub.subscribe('redis_twits');
+  });
+})
 
+sub.on('subscribe', (channel) => {
+  pub.publish(channel, "red"); //"redis_twits"
+  setTimeout(()=> pub.publish('twits', 'blue'), 2000)
 });
-
-// Redis Pub/Sub
-const rurl = Redis.getUrlString();
-const pub = redis.createClient(rurl);
-const sub = redis.createClient(rurl);
 
 sub.on('message', (chan, msg) => {
-  pub.hgetall(msg, (err, res) => {
+  //console.log('I am in message', chan, msg); //redis_twits, red
+
+  // refer to socket.d
+  //res: { field1: 'red', field2: 'blue' } 'object' true
+  pub.hgetall('smoothie', (err, res) => {
+    console.log(res, typeof io.sockets, typeof io.sockets.emit === 'function');
     res.key = msg;
+
+    // in browser, the res: {field1: "red", field2: "blue", key: "red"}
     io.sockets.emit('twits', res);
-  });
-});
-sub.subscribe(('redis_twits'));
+  })
+})
 
 // Start the Server
 http.listen(port, () => {
