@@ -4,7 +4,7 @@ const WebServer = {
   VERSION: 1,
   URL: 'http://127.0.0.1',
   API_PATH: '/api',
-  PORT: process.env.PORT || 8080,
+  PORT: process.env.PORT || 8088,
   getHTTPUrl: function () {
     return 'http://' + this.URL + ":" + this.PORT;
   }
@@ -44,11 +44,15 @@ const Pg = {
   }
 }
 
+//The URL of the Redis server. Format: [redis:]//[[user][:password@]][host][:port][/db-number]
 const Redis = {
-  'user': '',
-  'password': '',
-  'host': '',
-  'port': 6379
+  user: '',
+  password: '',
+  host: 'localhost',
+  port: 6379,
+  getUrlString: function () {
+    return 'redis://' + this.user + '@' + this.host + ':' + this.port
+  }
 };
 
 const RabbitMQ = {};

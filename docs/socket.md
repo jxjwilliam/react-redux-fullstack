@@ -28,8 +28,16 @@
 
 - Pub/Sub or Message Queue
 
+### Processing flow
 
-### 
+1. in browser, when React Component is rendered, in `componentDidMount` fires a `socket.emit`,
+1. in server, `socket.on` is triggered and does `redis publish`
+1. in server, `redis.on` does redis-stuff (hgetall...)
+1. in server, `redis.on` fires `socket.emit()` to pass/broadcast data to browser.
+1. in browser, `socket.on` is triggered to process the data, and render the components.
+
+
+### Reference
 
 - Forever Iframe
 - XMLHttpRequest Long Polling

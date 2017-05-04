@@ -4,4 +4,4 @@
 
 npm run dev
 
-# node server/index.js psql
+# node server/index.js pg

@@ -33,3 +33,9 @@ $ npm install amqplib
 - rabbitmqctl stop
 - rabbitmqctl status
 - rabbitmqctl restart
+
+- sudo rabbitmqctl list_queues
+
+### Reference
+
+https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/javascript-nodejs

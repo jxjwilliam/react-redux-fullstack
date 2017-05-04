@@ -9,7 +9,7 @@ class Delegate extends Component {
     this.state = {
       url: "https://api.github.com/users/",
       repo: {
-        full_name: '',
+        name: '',
         stargazers_count: 0,
         open_issues: 0
       }
@@ -32,13 +32,17 @@ class Delegate extends Component {
     if (github.repos && github.repos.length > 0) {
       list = github.repos.map((r, i) => (
         <li className="list-group-item" key={r.id}>
-          <h4><a href={r.html_url}>{r.full_name}</a></h4>
+          <div className="row">
+            <div className="col-offset-1 col-md-1"><img src={r.owner.avatar_url} style={{height:50, width:60}}/></div>
+            <div className="col-md-10"><h4><a href={r.html_url}>{r.name}</a></h4>
 
-          <p>{r.description}</p>
+              <p>{r.description}</p>
+            </div>
+          </div>
         </li>
       ))
     }
-    else if (github.repos.length === 0) {
+    else if (github.repos && github.repos.length === 0) {
       list = (
         <li className="list-group-item">
           <h3 className="alert alert-danger"> No Repository.</h3>

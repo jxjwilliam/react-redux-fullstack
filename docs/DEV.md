@@ -3,7 +3,7 @@
 - [Node](./node.md)
 - [Redis](./redis.md)
 - [Rabbit MQ](./rabbitmq.md)
-- [Postgre SQL](./psql.md)
+- [Postgre SQL](./pg.md)
 - [Docker](./docker.md)
 - [mongo](./mongo.md)
 - [React](./react.md)
@@ -17,8 +17,17 @@
 - [History](./HISTORY.md)
 
 
-- [PostgreSQL + redux/todoMVC](../src/psql/README.md)
+- [PostgreSQL + redux/todoMVC](../src/pg/README.md)
 
+- Tiny pub/sub by jQuery
+```javascript
+(function($) {
+  var o         = $({});
+  $.subscribe   = o.on.bind(o);
+  $.unsubscribe = o.off.bind(o);
+  $.publish     = o.trigger.bind(o);
+}(jQuery));
+```
 
 ## Improvement
   
@@ -42,3 +51,11 @@ It is useful when valign the <div/>
 ### 3. improve media-query for Responsive Web Design
 
 assets/style.scss
+
+### 4. add Chat tab, make socket.io work.
+
+Initialize `socket.io` in src/index.js as global variable, and in `Chat.js`, send message to server and ready to receive message from server.
+
+### 5. add Redis tab
+
+### 6. add RabbmitMQ tab
