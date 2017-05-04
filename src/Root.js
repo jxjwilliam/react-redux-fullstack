@@ -139,7 +139,7 @@ const Main = () => (
       <Route path="/login" component={MyApp.Login}/>
       <Route path="/logout" component={MyApp.Login}/>
       <Route path="/psql" component={PSQL}/>
-      <Route path="/socket" component={SocketRedis.SocketRedisChat}/>
+      <Route path="/socket" component={SocketRedis.SocketRedisPubSub}/>
       <Route path="/chat" component={SocketRedis.Chat}/>
     </Switch>
   </main>

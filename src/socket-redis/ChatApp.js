@@ -49,7 +49,8 @@ class Chat extends Component {
   }
 
   render() {
-    const {username} = this.props.token;
+    let {username} = this.props.token;
+    if(!username) username = 'Anonymous'
     return (
       <div className='chat container'>
         {username &&

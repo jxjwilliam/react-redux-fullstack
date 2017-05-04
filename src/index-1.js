@@ -10,3 +10,7 @@ render(
   <Root store={store} />,
   document.getElementById('root')
 )
+
+/**
+ * this is the version without socket.io
+ */

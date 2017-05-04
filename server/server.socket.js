@@ -1,9 +1,10 @@
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser'
-import favicon from 'serve-favicon';
-import {WebServer} from '../etc/config'
-import redis_client from './redis'
+import favicon from 'serve-favicon'
+import {WebServer, Redis} from '../etc/config'
+import redis from 'redis'
+//import redis_client from './redis'
 
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config';
@@ -25,93 +26,63 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = WebServer.PORT;
 
-
-// Start the Server
-http.listen(port, function () {
-  console.log('Server Started. Listening on *:' + port);
-});
-
-// Store people in chatroom
-var chatters = [];
-
-// Store messages in chatroom
-var chat_messages = [];
-
-// Express Middleware
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-app.use(favicon(path.join(__dirname, '..', 'favicon.ico')));
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
+const bufferSize = 100;
+const messageBuffer = new Array(bufferSize);
+let messageIndex = 0;
 
-// API - Join Chat
-app.post('/join', function (req, res) {
-  var username = req.body.username;
-  if (chatters.indexOf(username) === -1) {
-    chatters.push(username);
-    redis_client.set('chat_users', JSON.stringify(chatters));
-    res.send({
-      'chatters': chatters,
-      'status': 'OK'
-    });
-  } else {
-    res.send({
-      'status': 'FAILED'
-    });
-  }
-});
+io.on('connection', (socket) => {
+  socket.emit('news', {msg: `'Hello World!' from server`});
 
-// API - Leave Chat
-app.post('/leave', function (req, res) {
-  var username = req.body.username;
-  chatters.splice(chatters.indexOf(username), 1);
-  redis_client.set('chat_users', JSON.stringify(chatters));
-  res.send({
-    'status': 'OK'
-  });
-});
-
-// API - Send + Store Message
-app.post('/send_message', function (req, res) {
-  var username = req.body.username;
-  var message = req.body.message;
-  chat_messages.push({
-    'sender': username,
-    'message': message
-  });
-  redis_client.set('chat_app_messages', JSON.stringify(chat_messages));
-  res.send({
-    'status': 'OK'
-  });
-});
-
-// API - Get Messages
-app.get('/get_messages', function (req, res) {
-  res.send(chat_messages);
-});
-
-// API - Get Chatters
-app.get('/get_chatters', function (req, res) {
-  res.send(chatters);
-});
-
-// Socket Connection
-// UI Stuff
-io.on('connection', function (socket) {
-
-  // Fire 'send' event for updating Message list in UI
-  socket.on('message', function (data) {
-    io.emit('send', data);
+  socket.on('history', () => {
+    for (let index = 0; index < bufferSize; index++) {
+      const msgNo = (messageIndex + index) % bufferSize;
+      const msg = messageBuffer[msgNo];
+      if (msg) {
+        socket.emit('msg', msg);
+      }
+    }
   });
 
-  // Fire 'count_chatters' for updating Chatter Count in UI
-  socket.on('update_chatter_count', function (data) {
-    io.emit('count_chatters', data);
+  socket.on('msg', (data) => {
+    data.id = messageIndex;
+    messageBuffer[messageIndex % bufferSize] = data;
+    messageIndex++;
+    io.emit('msg', data);
   });
 
+  socket.on('socketredis', (data) => {
+    setTimeout(() => {
+      socket.emit('twits', {
+        reach: 20,
+        category: 'blue'
+      })
+    }, 2000)
+    socket.emit('twits', {
+      reach: 10,
+      category: 'red'
+    })
+  })
+
+});
+
+// Redis Pub/Sub
+const rurl = Redis.getUrlString();
+const pub = redis.createClient(rurl);
+const sub = redis.createClient(rurl);
+
+sub.on('message', (chan, msg) => {
+  pub.hgetall(msg, (err, res) => {
+    res.key = msg;
+    io.sockets.emit('twits', res);
+  });
+});
+sub.subscribe(('redis_twits'));
+
+// Start the Server
+http.listen(port, () => {
+  console.log('Server Started. Listening on *:' + port);
 });

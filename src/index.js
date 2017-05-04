@@ -18,7 +18,6 @@ function initSocket() {
   });
   return socket;
 }
-
 global.socket = initSocket();
 
 render(

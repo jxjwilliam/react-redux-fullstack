@@ -1,9 +1,9 @@
 import Chat from './ChatApp'
-import SocketRedisChat from './SocketRedisChatApp'
+import SocketRedisPubSub from './SocketRedisPubSubApp'
 
 const SocketRedis = {
   Chat,
-  SocketRedisChat
+  SocketRedisPubSub
 }
 
 export default SocketRedis;

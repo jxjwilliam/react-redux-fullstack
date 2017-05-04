@@ -1,6 +1,6 @@
 const redis = require('redis')
 const sub = redis.createClient();
-const  pub = redis.createClient();
+const pub = redis.createClient();
 let msg_count = 0;
 
 sub.on('subscribe', (channel, count) => {
@@ -10,7 +10,7 @@ sub.on('subscribe', (channel, count) => {
 });
 
 sub.on('message', (channel, message) => {
-  console.log("sub channel " + channel + ": " + message);
+  console.log("[sub channel] " + channel + ": " + message);
   msg_count += 1;
   if (msg_count === 3) {
     sub.unsubscribe();

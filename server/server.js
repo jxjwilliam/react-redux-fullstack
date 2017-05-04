@@ -9,6 +9,7 @@ import bodyParser from 'body-parser'
 import http from 'http'
 import SocketIo from 'socket.io'
 import cookieParser from 'cookie-parser';
+import redis from 'redis'
 //import cors from 'cors';
 
 // 2. import webpack
@@ -24,7 +25,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 
 import routes from './routes/mongo/';
 import pg_routes from './routes/pg/'
-import {WebServer} from '../etc/config'
+import {WebServer, Redis} from '../etc/config'
 
 
 const compiler = webpack(webpackConfig);
@@ -57,7 +58,7 @@ app.use(favicon(path.join(__dirname, '..', 'favicon.ico')))
 
 // This setting is important for test purpose (mocha, chai-http):
 // I used mocha-chai test and fix: LOG: Error{crossDomain: true, status: undefined, method: 'put', url: 'http://localhost:8081/api/counter'}, undefined
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Request-Headers", "*");
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -100,11 +101,19 @@ const runnable = app.listen(port, error => {
   }
 });
 
+
+// Redis Pub/Sub
+const rurl = Redis.getUrlString();
+const pub = redis.createClient(rurl);
+const sub = redis.createClient(rurl);
+
+// socket `Chat` config
 const bufferSize = 100;
 const messageBuffer = new Array(bufferSize);
 let messageIndex = 0;
 
 io.on('connection', (socket) => {
+  // this seems not fired.
   socket.emit('news', {msg: `'Hello World!' from server`});
 
   socket.on('history', () => {
@@ -123,6 +132,29 @@ io.on('connection', (socket) => {
     messageIndex++;
     io.emit('msg', data);
   });
+
+  socket.on('socket-redis', (data) => {
+    sub.subscribe('redis_twits');
+  });
+})
+
+sub.on('subscribe', (channel) => {
+  pub.publish(channel, "red"); //"redis_twits"
+  setTimeout(()=> pub.publish('twits', 'blue'), 2000)
 });
+
+sub.on('message', (chan, msg) => {
+  //console.log('I am in message', chan, msg); //redis_twits, red
+
+  // refer to socket.d
+  //res: { field1: 'red', field2: 'blue' } 'object' true
+  pub.hgetall('smoothie', (err, res) => {
+    console.log(res, typeof io.sockets, typeof io.sockets.emit==='function');
+    res.key = msg;
+
+    // in browser, the res: {field1: "red", field2: "blue", key: "red"}
+    io.sockets.emit('twits', res);
+  })
+})
 
 io.listen(runnable);

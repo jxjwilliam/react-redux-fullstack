@@ -33,9 +33,27 @@ $ npm install redis -S
 ###4. Steps
 
 - add test unit in test/tdd/
-- add a tab socket-redis and a component src/socket-redis/SocketRedisChatApp.js
+- add a tab socket-redis and a component src/socket-redis/SocketRedisPubSubApp.js
 - add pub/sub clients
 
+- set `smoothie` to initialize redis `smoothie`, to test persistant store.
+
+```bash
+$ redis-cli
+127.0.0.1:6379> hset smoothie field1 'red'
+(integer) 1
+127.0.0.1:6379> hset smoothie field2 'blue'
+(integer) 1
+127.0.0.1:6379> hgetall smoothie
+1) "field1"
+2) "red"
+3) "field2"
+4) "blue"
+```
+- after the set, in `server.js`, this is available:
+```javascript
+  pub.hgetall('smoothie', callback);
+```
 
 ###5. Redis-backed Pub/Sub
 

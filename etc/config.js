@@ -49,7 +49,10 @@ const Redis = {
   user: '',
   password: '',
   host: 'localhost',
-  port: 6379
+  port: 6379,
+  getUrlString: function () {
+    return 'redis://' + this.user + '@' + this.host + ':' + this.port
+  }
 };
 
 const RabbitMQ = {};

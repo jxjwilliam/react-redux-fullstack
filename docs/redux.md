@@ -42,6 +42,10 @@ so that you can update the UI of your application.
   connect == subscribe
 ```
 
+```javascript
+  store.subscribe(render);
+```
+
 ### 3. Pub/Sub
 
 - on → subscribe
