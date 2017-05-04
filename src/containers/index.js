@@ -7,7 +7,6 @@ import Delegate from './DelegateApp'
 import Home from './HomeApp'
 import Topics from './TopicApp'
 import Login from './LoginApp'
-import Chat from './ChatApp'
 
 const MyApp = {
   Home,
@@ -18,8 +17,7 @@ const MyApp = {
   Users,
   Delegate,
   Topics,
-  Login,
-  Chat
+  Login
 }
 
 export default MyApp;

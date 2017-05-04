@@ -33,7 +33,7 @@ $ npm install redis -S
 ###4. Steps
 
 - add test unit in test/tdd/
-- add a tab socket-redis and a component src/socket-redis/SocketRedisChat.js
+- add a tab socket-redis and a component src/socket-redis/SocketRedisChatApp.js
 - add pub/sub clients
 
 

@@ -6,7 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Helmet from 'react-helmet';
 import MyApp from './containers/'
 import PSQL from './psql/'
-import SocketRedisChat from './socket-redis/SocketRedisChat'
+import SocketRedis from './socket-redis/'
 
 let Header = (props) => {
   const { token: {username, tokenId}, handleLogout } = props;
@@ -32,15 +32,15 @@ let Header = (props) => {
               <NavItem key={2}>Todos</NavItem>
             </LinkContainer>
 
-            <NavDropdown key={3} title="Dropdown" id="basic-nav-dropdown">
-              <LinkContainer to="/contact">
-                <MenuItem key={3.1}>Contact</MenuItem>
+            <NavDropdown key={3} title="Topics" id="basic-nav-topics">
+              <LinkContainer to="/delegate">
+                <MenuItem key={3.1}>GitHub</MenuItem>
               </LinkContainer>
               <LinkContainer to="/about">
                 <MenuItem key={3.2}>About</MenuItem>
               </LinkContainer>
               <LinkContainer to="/topics">
-                <MenuItem key={3.3}>Topics</MenuItem>
+                <MenuItem key={3.3}>sub menu</MenuItem>
               </LinkContainer>
               <MenuItem divider/>
               <LinkContainer to="/more">
@@ -139,20 +139,35 @@ const Main = () => (
       <Route path="/login" component={MyApp.Login}/>
       <Route path="/logout" component={MyApp.Login}/>
       <Route path="/psql" component={PSQL}/>
-      <Route path="/socket" component={SocketRedisChat}/>
-      <Route path="/chat" component={MyApp.Chat}/>
+      <Route path="/socket" component={SocketRedis.SocketRedisChat}/>
+      <Route path="/chat" component={SocketRedis.Chat}/>
     </Switch>
   </main>
 );
 
+//works, more option? <Redirect>, .push, <LinkContainer>
+const getRedirect = (anchor) => (e) => {
+  e.preventDefault();
+  window.location.assign(anchor);
+}
+
 const Footer = ({footer}) => (
   <footer>
     <div className="flex-container">
-      <div className="flex-item">flex item 1</div>
-      <div className="flex-item">flex item 2</div>
-      <div className="flex-item">flex item 3</div>
+      <div className="flex-item">
+        <button className="btn btn-default" onClick={getRedirect('/about')}>
+          <i className="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;About
+        </button>
+      </div>
+      <div className="flex-item" onClick={getRedirect('/contact')}>
+        <button className="btn btn-default"><i className="fa fa-flag" aria-hidden="true"></i>&nbsp;Contact</button>
+      </div>
+      <div className="flex-item" onClick={getRedirect('/resource')}>
+        <button className="btn btn-default"><i className="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Resource
+        </button>
+      </div>
     </div>
-    <div {...footer}>&copy; william jiang - 2017</div>
+    <div {...footer}>&copy; William Jiang - 2017</div>
   </footer>
 )
 

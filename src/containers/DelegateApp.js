@@ -38,7 +38,7 @@ class Delegate extends Component {
         </li>
       ))
     }
-    else if (github.repos.length === 0) {
+    else if (github.repos && github.repos.length === 0) {
       list = (
         <li className="list-group-item">
           <h3 className="alert alert-danger"> No Repository.</h3>
