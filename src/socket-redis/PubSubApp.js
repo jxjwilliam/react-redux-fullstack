@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SmoothieComponent from 'react-smoothie'
 
-class SocketRedisPubSub extends Component {
+class RedisPubSub extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,8 +70,8 @@ class SocketRedisPubSub extends Component {
   }
 }
 
-SocketRedisPubSub = connect(
+RedisPubSub = connect(
     state => ({token: state.token})
-)(SocketRedisPubSub);
+)(RedisPubSub);
 
-export default SocketRedisPubSub;
+export default RedisPubSub;

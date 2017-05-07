@@ -13,7 +13,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 
 import {WebServer} from '../etc/config'
-import pg_routes from './routes/pg/'
+import routes from './routes/pg/'
 
 const compiler = webpack(webpackConfig);
 const app = express();
@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 
-app.use('/api/pg/', pg_routes.todos);
+app.use('/api/pg/', routes.todos);
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 app.get('/*', (req, res) => {

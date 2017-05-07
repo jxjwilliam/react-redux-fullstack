@@ -224,6 +224,13 @@ Use `react-router-dom` instead:
 - https://github.com/WilliamJiang/node-xml-xslt
 - docs/flow.md
 
+- react-boilerplate:
+
+```bash
+  $ npm install -g create-react-app
+  $ create-react-app demo-app
+  $ cd demo-app
+```
 
 ## Things to TODO
 

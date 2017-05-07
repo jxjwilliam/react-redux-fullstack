@@ -45,7 +45,7 @@ So the web-server PORT, URL are united from same config file.
 
 ### 2. add flexbox in <Footer/>
 
-It is useful when valign the <div/>
+It is useful when align the <div/>s, like menu, tabs, footer lists.
 
 
 ### 3. improve media-query for Responsive Web Design
@@ -58,4 +58,20 @@ Initialize `socket.io` in src/index.js as global variable, and in `Chat.js`, sen
 
 ### 5. add Redis tab
 
+Redis Pub/Sub with socket.io, works fine. Can be multiple-subscribers for redis extensions.
+
 ### 6. add RabbmitMQ tab
+
+1. work queue.
+
+
+### 7. add NotFound component.
+
+1. If there is a wrong router, e.g. /users-nyc/, it should return NotFound remindering.
+1. If RESTFul APIs, e.g. /api/users/, it should return rest-json data from server.
+1. generally react-router-dom-v4 `Route` return 3 `props`:
+  { match, location, history }
+  - match.url, match.params
+  - location.pathname
+1. currently work fine, as expected.  
+  

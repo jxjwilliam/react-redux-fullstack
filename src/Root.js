@@ -5,6 +5,7 @@ import { Navbar, Nav, NavItem, MenuItem, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap';
 import Helmet from 'react-helmet';
 import MyApp from './containers/'
+import NotFound from './components/NotFound'
 import PSQL from './psql/'
 import SocketRedis from './socket-redis/'
 
@@ -56,7 +57,7 @@ let Header = (props) => {
 
             <NavDropdown key={8} title="socket" id="basic-nav-socket">
               <LinkContainer to="/socket">
-                <MenuItem key={8.1}>Socket-Redis</MenuItem>
+                <MenuItem key={8.1}>Redis Pub/Sub</MenuItem>
               </LinkContainer>
               <LinkContainer to="/chat">
                 <MenuItem key={3.4}>Chat</MenuItem>
@@ -139,8 +140,9 @@ const Main = () => (
       <Route path="/login" component={MyApp.Login}/>
       <Route path="/logout" component={MyApp.Login}/>
       <Route path="/psql" component={PSQL}/>
-      <Route path="/socket" component={SocketRedis.SocketRedisPubSub}/>
+      <Route path="/socket" component={SocketRedis.RedisPubSub}/>
       <Route path="/chat" component={SocketRedis.Chat}/>
+      <Route component={NotFound}/>
     </Switch>
   </main>
 );

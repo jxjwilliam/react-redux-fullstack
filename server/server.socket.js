@@ -1,10 +1,12 @@
+/**
+ * this is the version only combine basic webserver + socket.io
+ * TODO: isomorphic
+ */
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser'
 import favicon from 'serve-favicon'
-import {WebServer, Redis} from '../etc/config'
-import redis from 'redis'
-//import redis_client from './redis'
+import {WebServer} from '../etc/config'
 
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config';
@@ -29,12 +31,6 @@ const port = WebServer.PORT;
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
-
-
-// Redis Pub/Sub
-const rurl = Redis.getUrlString();
-const pub = redis.createClient(rurl);
-const sub = redis.createClient(rurl);
 
 // socket `Chat` config
 const bufferSize = 100;
@@ -62,31 +58,11 @@ io.on('connection', (socket) => {
     io.emit('msg', data);
   });
 
-  socket.on('socket-redis', (data) => {
-    sub.subscribe('redis_twits');
-  });
 })
 
-sub.on('subscribe', (channel) => {
-  pub.publish(channel, "red"); //"redis_twits"
-  setTimeout(()=> pub.publish('twits', 'blue'), 2000)
-});
-
-sub.on('message', (chan, msg) => {
-  //console.log('I am in message', chan, msg); //redis_twits, red
-
-  // refer to socket.d
-  //res: { field1: 'red', field2: 'blue' } 'object' true
-  pub.hgetall('smoothie', (err, res) => {
-    console.log(res, typeof io.sockets, typeof io.sockets.emit === 'function');
-    res.key = msg;
-
-    // in browser, the res: {field1: "red", field2: "blue", key: "red"}
-    io.sockets.emit('twits', res);
-  })
-})
 
 // Start the Server
 http.listen(port, () => {
   console.log('Server Started. Listening on *:' + port);
 });
+

@@ -102,7 +102,7 @@ const runnable = app.listen(port, error => {
 });
 
 
-// Redis Pub/Sub
+// Redis Pub/Sub, can be multiple subscribers.
 const rurl = Redis.getUrlString();
 const pub = redis.createClient(rurl);
 const sub = redis.createClient(rurl);
