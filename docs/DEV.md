@@ -9,7 +9,6 @@
 - [React](./react.md)
 - [Redux](./redux.md)
 
-
 - [git](./git.md)
 - [flow](./flow.md)
 - [curl](./curl.md)
@@ -42,7 +41,6 @@ Hold all the config information, e.g. db config, web-server config.
 
 So the web-server PORT, URL are united from same config file.
 
-
 ### 2. add flexbox in <Footer/>
 
 It is useful when align the <div/>s, like menu, tabs, footer lists.
@@ -52,13 +50,19 @@ It is useful when align the <div/>s, like menu, tabs, footer lists.
 
 assets/style.scss
 
+add `media-object` in About component, 
+
 ### 4. add Chat tab, make socket.io work.
 
 Initialize `socket.io` in src/index.js as global variable, and in `Chat.js`, send message to server and ready to receive message from server.
 
+add socket-login-users counters, 
+
 ### 5. add Redis tab
 
 Redis Pub/Sub with socket.io, works fine. Can be multiple-subscribers for redis extensions.
+
+update redis pub/sub
 
 ### 6. add RabbmitMQ tab
 
@@ -75,3 +79,4 @@ Redis Pub/Sub with socket.io, works fine. Can be multiple-subscribers for redis 
   - location.pathname
 1. currently work fine, as expected.  
   
+1. update auth login to mongo.
