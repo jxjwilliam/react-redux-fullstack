@@ -55,6 +55,10 @@ $ redis-cli
   pub.hgetall('smoothie', callback);
 ```
 
+- redis-cli> INFO 
+- set login_number 10; get, incr, decr, del
+-
+
 ###5. Redis-backed Pub/Sub
 
 - 2 clients required: 1 for pub, 1 for sub

@@ -43,21 +43,24 @@ class Chat extends Component {
     this.setState({message: ''});
 
     socket.emit('msg', {
-      from: this.props.token.username,
+      from: this.props.token.account,
       text: msg
     });
   }
 
   render() {
-    let {username} = this.props.token;
-    if(!username) username = 'Anonymous'
+    let {account} = this.props.token;
+    if (!account) account = 'Anonymous'
     return (
       <div className='chat container'>
-        {username &&
+        {account &&
         <div>
           <ul className="list-group">
             {this.state.messages.map((msg) => {
-              return <li className="list-group-item" key={`chat.msg.${msg.id}`}>{msg.from}: {msg.text}</li>;
+              return (
+                <li className="list-group-item" key={`chat.msg.${msg.id}`}>
+                  <strong>{msg.from ? msg.from : 'Anonymous'}</strong>: {msg.text}
+                </li>);
             })}
           </ul>
           <form className="login-form" onSubmit={this.handleSubmit}>

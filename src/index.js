@@ -5,22 +5,28 @@ import Root from './Root';
 import configureStore from './configureStore'
 
 import io from 'socket.io-client'
-
-const store = configureStore();
-
 function initSocket() {
   const socket = io('', {path: '/ws'});
   socket.on('news', (data) => {
-    socket.emit('socket emit in on news', { my: 'data from client - index-socket'})
+    socket.emit('socket emit in on news', {my: 'data from client - index-socket'})
   });
   socket.on('msg', (data) => {
-    console.log(data)
+    console.log('msg:', data)
   });
+
+  // socket + redux's state
+  socket.on('state', state =>
+      store.dispatch(setState(state))
+  );
+
   return socket;
 }
 global.socket = initSocket();
 
+// createStore use `socket` as middleware.
+const store = configureStore();
+
 render(
-  <Root store={store} />,
+  <Root store={store}/>,
   document.getElementById('root')
 )

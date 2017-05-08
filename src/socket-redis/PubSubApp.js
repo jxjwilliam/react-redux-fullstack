@@ -42,7 +42,7 @@ class RedisPubSub extends Component {
     if (socket) {
       socket.on('twits', (msg) => {
         //{field1: "red", field2: "blue", key: "red"}
-        console.log('redis-smoothie-socket:', msg);
+        //console.log('redis-smoothie-socket:', msg);
         this.drawGraph(msg)
       });
 

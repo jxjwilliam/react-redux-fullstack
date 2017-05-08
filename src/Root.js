@@ -8,10 +8,12 @@ import MyApp from './containers/'
 import NotFound from './components/NotFound'
 import PSQL from './psql/'
 import SocketRedis from './socket-redis/'
+import {VotingContainer, ResultsContainer} from './votes/container';
 
 let Header = (props) => {
-  const { token: {username, tokenId}, handleLogout } = props;
+  const { token: {account, tokenId}, handleLogout } = props;
   //console.log('props: states+actions: ', props);
+
   return (
     <header className="app">
       <Navbar fixedTop>
@@ -56,13 +58,15 @@ let Header = (props) => {
             </NavDropdown>
 
             <NavDropdown key={8} title="socket" id="basic-nav-socket">
-              <LinkContainer to="/socket">
+              <LinkContainer to="/socket-redis">
                 <MenuItem key={8.1}>Redis Pub/Sub</MenuItem>
               </LinkContainer>
               <LinkContainer to="/chat">
-                <MenuItem key={3.4}>Chat</MenuItem>
+                <MenuItem key={3.2}>Chat</MenuItem>
               </LinkContainer>
-
+              <LinkContainer to="/vote">
+                <MenuItem key={3.3}>Vote</MenuItem>
+              </LinkContainer>
             </NavDropdown>
 
             <NavDropdown key={9} title="rabbitmq" id="basic-nav-rebbitmq">
@@ -85,8 +89,10 @@ let Header = (props) => {
             </LinkContainer>}
           </Nav>
 
+          <p className="navbar-text">Total <strong><span id="loginCounts"></span></strong></p>
+
           {tokenId &&
-          <p className="navbar-text">Logged in as <strong>{username}</strong>.</p>}
+          <p className="navbar-text">Logged in as <strong>{account}</strong>.</p>}
 
           <Nav navbar pullRight>
             <NavItem key={1} target="_blank" title="View on Github"
@@ -111,7 +117,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 });
 Header = connect(
-  (state) => ({token: state.token}),
+  (state) => ({token: state.token, online: state.online}),
   mapDispatchToProps
 )(Header);
 
@@ -131,7 +137,7 @@ const Main = () => (
     <Switch>
       <Route exact path="/" component={MyApp.Home}/>
       <Route path="/todos" component={MyApp.Todos}/>
-      <Route path="/about/" component={MyApp.About}/>
+      <Route path="/about/:name?" component={MyApp.About}/>
       <Route path="/counter/:counts?" component={MyApp.Counter}/>
       <Route path="/contact" component={MyApp.Contact}/>
       <Route path="/delegate" component={MyApp.Delegate}/>
@@ -140,8 +146,12 @@ const Main = () => (
       <Route path="/login" component={MyApp.Login}/>
       <Route path="/logout" component={MyApp.Login}/>
       <Route path="/psql" component={PSQL}/>
-      <Route path="/socket" component={SocketRedis.RedisPubSub}/>
+      <Route path="/socket-redis" component={SocketRedis.RedisPubSub}/>
       <Route path="/chat" component={SocketRedis.Chat}/>
+
+      <Route path="/votes/results" component={ResultsContainer}/>
+      <Route path="/vote" component={VotingContainer}/>
+
       <Route component={NotFound}/>
     </Switch>
   </main>
@@ -157,7 +167,7 @@ const Footer = ({footer}) => (
   <footer>
     <div className="flex-container">
       <div className="flex-item">
-        <button className="btn btn-default" onClick={getRedirect('/about')}>
+        <button className="btn btn-default" onClick={getRedirect('/about/me')}>
           <i className="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;About
         </button>
       </div>

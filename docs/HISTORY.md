@@ -180,6 +180,9 @@ export function logout() {
 ## Unit Test
 
 - use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.
+- in package.json `scripts`:
+  "immutable": "mocha --compilers js:babel-core/register --require ./test/helper.js  --recursive"
+  does the same thing as karma.conf.js
 
 ```bash
 ncu

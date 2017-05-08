@@ -1,5 +1,5 @@
 import {expect} from 'chai'
-import data from '../etc/data.json'
+import data from '../etc/users.json'
 
 describe('# JSON-data Test', () => {
   it('should be accessible', () => {

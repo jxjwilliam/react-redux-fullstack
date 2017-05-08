@@ -1,13 +1,13 @@
 {
   "name": "react-redux-fullstack",
   "version": "2.0.0",
-  "description": "implement and extend Dan Abramov react-redux 26-courses.",
+  "description": "implement and extend from Dan Abramov react-redux 26-courses.",
   "main": "server/index.js",
   "scripts": {
     "start": "webpack-dev-server",
     "dev": "node ./server/index",
     "test": "karma start karma.conf.js",
-    "immutable": "mocha --compilers js:babel-core/register --require ./test/test_helper.js  --recursive"
+    "immutable": "mocha --compilers js:babel-core/register --require ./test/helper.js ./test/**/*.spec.js --recursive"
   },
   "author": "William Jiang",
   "license": "ISC",

@@ -179,7 +179,6 @@ router.post('/posts/validate/fields', function(req, res, next) {
         } else {
             return res.json({});
         }
-
     });
 });
 
