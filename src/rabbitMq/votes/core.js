@@ -1,11 +1,11 @@
-import {List, Map} from 'immutable';
+import entries from './entries.json'
 
-export const INITIAL_STATE = Map();
+export const INITIAL_STATE = entries;
 
-export function setEntries(state, entries) {
-  const list = List(entries);
-  return state.set('entries', list)
-    .set('initialEntries', list);
+export const setEntries = (state, entries) => {
+  state.entries = entries
+  state.initialEntries = entries
+  return state;
 }
 
 function getWinners(vote) {

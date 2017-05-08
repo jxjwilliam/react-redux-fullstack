@@ -1,3 +1,5 @@
-/**
- * Created by user on 5/6/17.
- */
+import BasicRMQ from './Basic'
+
+export {
+  BasicRMQ,
+}

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import * as actionCreators from './action'
+import entries from './entries.json'
 
 const pair = ['Trainspotting', '28 Days Later'];
 
@@ -11,15 +12,25 @@ const Winner = ({props}) => (
 );
 
 export class Vote extends Component {
+  constructor(props) {
+    super(props)
+    this.getPair = this.getPair.bind(this);
+    this.isDisabled = this.isDisabled.bind(this);
+    this.hasVotedFor = this.hasVotedFor.bind(this)
+  }
+
   getPair() {
     return this.props.pair || [];
   }
+
   isDisabled() {
     return !!this.props.hasVoted;
   }
+
   hasVotedFor(entry) {
     return this.props.hasVoted === entry;
   }
+
   render() {
     return <div className="voting">
       {this.getPair().map(entry =>
@@ -34,25 +45,21 @@ export class Vote extends Component {
       )}
     </div>;
   }
-};
-
-export const Voting = React.createClass({
-  render() {
-    return <div>
-      {this.props.winner ?
-        <Winner ref="winner" winner={this.props.winner}/> :
-        <Vote {...this.props} />}
-    </div>;
-  }
-});
-
-function mapStateToProps(state) {
-  return {
-    pair: state.getIn(['vote', 'pair']),
-    hasVoted: state.get('hasVoted'),
-    winner: state.get('winner')
-  };
 }
+;
+
+export const Voting = ({props}) => ( <div>
+    {this.props.winner ?
+      <Winner ref="winner" winner={this.props.winner}/> :
+      <Vote {...this.props} />}
+  </div>
+);
+
+const mapStateToProps = (state) => ({
+  pair: state.getIn(['vote', 'pair']),
+  hasVoted: state.get('hasVoted'),
+  winner: state.get('winner')
+})
 
 export const VotingContainer = connect(
   mapStateToProps,
@@ -61,6 +68,12 @@ export const VotingContainer = connect(
 
 
 class Results extends Component {
+  constructor(props) {
+    super(props)
+    this.getPair = this.getPair.bind(this)
+    this.getVotes = this.getVotes.bind(this)
+  }
+
   getPair() {
     return this.props.pair || [];
   }
@@ -98,16 +111,13 @@ class Results extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    pair: state.getIn(['vote', 'pair']),
-    tally: state.getIn(['vote', 'tally']),
-    winner: state.get('winner')
-  }
-}
-
-
 export const ResultsContainer = connect(
-  mapStateToProps,
+  (state) => {
+    return {
+      pair: state.getIn(['vote', 'pair']),
+      tally: state.getIn(['vote', 'tally']),
+      winner: state.get('winner')
+    }
+  },
   actionCreators
 )(Results);

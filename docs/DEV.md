@@ -80,3 +80,11 @@ update redis pub/sub
 1. currently work fine, as expected.  
   
 1. update auth login to mongo.
+
+### Improve
+
+- set-up `/etc/footer-config`, use it to loop footer flexbox instead of hard-code.
+- in Rooter->Footer, nest `<Link/>` inside `<Button/>`
+
+- Move socket 'onlineLoggedIn' from LoginApp.js to Header.js, when user login/logout, the `header` login number will update auto. 
+- Use `Header->state.totalLogins` to display the total-login-number.

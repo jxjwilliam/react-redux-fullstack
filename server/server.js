@@ -107,22 +107,21 @@ const messageBuffer = new Array(bufferSize);
 let messageIndex = 0;
 
 io.on('connection', (socket) => {
-  // this seems not fired.
-  socket.emit('news', {msg: `'Hello World!' from server`});
 
+  redis.client.get('loginCounts', (err, count) => io.emit('onlineLoggedIn', count))
   /**
    * what's the difference btw `socket.emit` and `io.emit`?
    */
   socket.on('login', () => {
     redis.client.incr('loginCounts');
-    redis.client.get('loginCounts', (err, data) => {
-      io.emit('online', data)
+    redis.client.get('loginCounts', (err, count) => {
+      io.emit('onlineLoggedIn', count)
     })
   });
   socket.on('logout', () => {
     redis.client.decr('loginCounts');
-    redis.client.get('loginCounts', (err, data) => {
-      io.emit('online', data);
+    redis.client.get('loginCounts', (err, count) => {
+      io.emit('onlineLoggedIn', count);
     })
   });
 

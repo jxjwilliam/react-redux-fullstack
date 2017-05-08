@@ -55,7 +55,9 @@ const Redis = {
   }
 };
 
-const RabbitMQ = {};
+const RabbitMQ = {
+  url: 'amqp://localhost'
+};
 
 const config = {
   WebServer,

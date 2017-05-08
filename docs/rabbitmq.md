@@ -27,14 +27,21 @@ NODENAME=rabbit@localhost
 $ npm install amqplib
 ```
 
-### Manage
+### Commands
 
 - rabbitmqctl start
 - rabbitmqctl stop
 - rabbitmqctl status
 - rabbitmqctl restart
-
 - sudo rabbitmqctl list_queues
+
+## Q&A
+
+take advantage of your web server in between RabbitMQ and Socket.io.
+
+When a message is done processing and ready to be delivered to the user, the web server can use socket.io to check if the user is online. if they are, send the message to the user. if they are not currently connected to socket.io, store the message in a database.
+
+when the user reconnects, check the database to see if there are any messages waiting for that user and send them at that point.
 
 ### Reference
 

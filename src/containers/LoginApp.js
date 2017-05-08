@@ -31,14 +31,6 @@ class Login extends Component {
     this.handleLogout = this.handleLogout.bind(this)
   }
 
-  componentDidMount() {
-    if (socket) {
-      socket.on('online', (data) => {
-        document.getElementById('loginCounts').innerHTML = data
-      })
-    }
-  }
-
   handleLogin(values, dispatch) {
     this.props.fetchLogin(values)
       .then(data => {
