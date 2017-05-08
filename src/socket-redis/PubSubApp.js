@@ -62,7 +62,7 @@ class RedisPubSub extends Component {
   render() {
     return (
       <div className="row">
-        <h3>Twitter Reach</h3>
+        <h2>Socket.io + Redis for Twitter Reach</h2>
 
         <SmoothieComponent ref="chart" width="600" height="200"/>;
       </div>

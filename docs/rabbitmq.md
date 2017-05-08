@@ -33,7 +33,7 @@ $ npm install amqplib
 - rabbitmqctl stop
 - rabbitmqctl status
 - rabbitmqctl restart
-- sudo rabbitmqctl list_queues
+- rabbitmqctl list_queues
 
 ## Q&A
 

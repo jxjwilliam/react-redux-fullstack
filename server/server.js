@@ -10,6 +10,7 @@ import http from 'http'
 import SocketIo from 'socket.io'
 import cookieParser from 'cookie-parser';
 import redis from './redis'
+import rabbitmq from './rabbitmq'
 //import cors from 'cors';
 
 // 2. import webpack
@@ -143,12 +144,19 @@ io.on('connection', (socket) => {
   });
 
   socket.on('socket-redis', (data) => {
-    // false object true
+    // false, object, true
     //console.log(io.sockets == socket, typeof io.sockets, typeof io.sockets.emit === 'function');
 
     redis.sub.subscribe('redis_twits');
   });
+
+  socket.on('rabbitmq', data => {
+    rabbitmq.send(data)
+  })
 })
+
+rabbitmq.receive(io);
+
 
 //TODO: how to move this to ./redis.js?
 redis.sub.on('message', (chan, msg) => {
