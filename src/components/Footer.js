@@ -19,7 +19,7 @@ const Footer = ({footer}) => {
   ))
 
   return (
-    <footer>
+    <footer style={{marginTop:20}}>
       <div className="flex-container">
         {items}
       </div>
@@ -28,4 +28,4 @@ const Footer = ({footer}) => {
   )
 }
 
-export default Footer;
+export default Footer

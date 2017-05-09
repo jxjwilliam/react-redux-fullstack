@@ -46,19 +46,18 @@ export class Vote extends Component {
     </div>;
   }
 }
-;
 
 export const Voting = ({props}) => ( <div>
     {this.props.winner ?
       <Winner ref="winner" winner={this.props.winner}/> :
       <Vote {...this.props} />}
   </div>
-);
+)
 
 const mapStateToProps = (state) => ({
-  pair: state.getIn(['vote', 'pair']),
-  hasVoted: state.get('hasVoted'),
-  winner: state.get('winner')
+  pair: state.vote.pair,
+  hasVoted: state.hasVoted,
+  winner: 'state.get-winner'
 })
 
 export const VotingContainer = connect(
@@ -114,9 +113,9 @@ class Results extends Component {
 export const ResultsContainer = connect(
   (state) => {
     return {
-      pair: state.getIn(['vote', 'pair']),
-      tally: state.getIn(['vote', 'tally']),
-      winner: state.get('winner')
+      pair: state.vote.pair,
+      tally: state.vote.tally,
+      winner: 'state.winner'
     }
   },
   actionCreators

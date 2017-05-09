@@ -7,6 +7,22 @@ const receive = (io) => {
 
   amqp.connect(RabbitMQ.url, (err, conn) => {
 
+    if(err) {
+      console.error('[AMQP]', err.message);
+      return setTimeout(receive, 10000)
+    }
+
+    conn.on("error", function(err) {
+      if (err.message !== "Connection closing") {
+        console.error("[AMQP] conn error", err.message);
+      }
+    });
+
+    conn.on("close", function() {
+      console.error("[AMQP] reconnecting");
+      return setTimeout(receive, 1000);
+    });
+
     conn.createChannel((err, ch) => {
 
       ch.assertQueue(queue_name, {durable: false});
@@ -20,6 +36,7 @@ const receive = (io) => {
   });
 }
 
+//publisher
 const send = (msg) => {
 
   amqp.connect(RabbitMQ.url, (err, conn) => {

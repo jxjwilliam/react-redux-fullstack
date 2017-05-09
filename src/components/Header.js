@@ -57,7 +57,7 @@ class Header extends Component {
                   <MenuItem key={3.2}>About</MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/topics">
-                  <MenuItem key={3.3}>sub menu</MenuItem>
+                  <MenuItem key={3.3}>Submenu</MenuItem>
                 </LinkContainer>
                 <MenuItem divider/>
                 <LinkContainer to="/more">
