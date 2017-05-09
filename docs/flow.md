@@ -22,27 +22,3 @@
 
 ![building notification system in node.js](./imgs/building-notification-system-in-nodejs-redis-11-1024.jpg)
 
-
-### Chat + Socket.io
-<img src="./imgs/chat.png" width="360">
-
-### Login + MongoDB
-<img src="./imgs/login.png" width="360">
-
-### PostgreSQL
-<img src="./imgs/postgresql.png" width="360">
-
-### React-routers
-<img src="./imgs/routes+flexbox.png" width="360">
-
-### Server delegate + Redux-Form 
-<img src="./imgs/server-side-delegate+redux-form.png" width="360">
-
-### Socket + redis + canvas
-<img src="./imgs/socket-redis+cavas.png" width="360">
-
-### User CRUD + bootstrap-modal
-<img src="./imgs/user-crud+bootstrap-modal.png" width="360">
-
-### User Search + MongoDB + Rxjs
-<img src="./imgs/user-search+mongodb+rxjs.png" width="360">
