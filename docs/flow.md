@@ -1,21 +1,19 @@
 ### Redux Life Cycle
-
 <img src="./imgs/redux-life-cycle.png" width="360">
 
-
 ### Node.js Architecture & Inner Workings
-![Node.js - in motion](./imgs/node-1.png)
+<img src="./imgs/node-1.png" width="360">
 
-![Node.js - under the hood](./imgs/node-2.png)
+<img src="./imgs/node-2.png" width="360">
 
 
 ### JWT Token(client-side) vs Session Cookie(server-side)
 
 [JSON Web Tokens vs. Session Cookies: In Practice](https://ponyfoo.com/articles/json-web-tokens-vs-session-cookies)
 
-![Token JWT](./imgs/token-authentication-flow.png)
+<img src="./imgs/token-authentication-flow.png" width="360">
 
-![Session Cookie](./imgs/sessions-authentication-flow.png)
+<img src="./imgs/sessions-authentication-flow.png" width="360">
 
 
 ### socket.io, redis
@@ -25,26 +23,26 @@
 ![building notification system in node.js](./imgs/building-notification-system-in-nodejs-redis-11-1024.jpg)
 
 
-#### Chat + Socket.io
-![chat](./imgs/chat.png)
+### Chat + Socket.io
+<img src="./imgs/chat.png" width="360">
 
-#### Login + MongoDB
-![login](./imgs/login.png)
+### Login + MongoDB
+<img src="./imgs/login.png" width="360">
 
-#### PostgreSQL
-![postgresql](./imgs/postgresql.png)
+### PostgreSQL
+<img src="./imgs/postgresql.png" width="360">
 
-#### React-routers
-![routes+flexbox](./imgs/routes+flexbox.png)
+### React-routers
+<img src="./imgs/routes+flexbox.png" width="360">
 
-#### Server delegate + Redux-Form 
-![server-side-delegate+redux-form](./imgs/server-side-delegate+redux-form.png)
+### Server delegate + Redux-Form 
+<img src="./imgs/server-side-delegate+redux-form.png" width="360">
 
-#### Socket + redis + canvas
-![socket-redis+canvas](./imgs/socket-redis+cavas.png)
+### Socket + redis + canvas
+<img src="./imgs/socket-redis+cavas.png" width="360">
 
-#### User CRUD + bootstrap-modal
-![user-crud+bootstrap-modal](./imgs/user-crud+bootstrap-modal.png)
+### User CRUD + bootstrap-modal
+<img src="./imgs/user-crud+bootstrap-modal.png" width="360">
 
-#### User Search + MongoDB + Rxjs
-![user-search+mongodb+rxjs](./imgs/user-search+mongodb+rxjs.png)
+### User Search + MongoDB + Rxjs
+<img src="./imgs/user-search+mongodb+rxjs.png" width="360">
