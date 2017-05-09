@@ -1,6 +1,6 @@
 ### Redux Life Cycle
 
-![Redux Life Cycle](./imgs/redux-life-cycle.png){:height="36px" width="36px"}
+<img src="./imgs/redux-life-cycle.png" width="360">
 
 
 ### Node.js Architecture & Inner Workings
