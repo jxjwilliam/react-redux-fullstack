@@ -1,39 +1,44 @@
 import redis from 'redis';
 import {Redis} from '../etc/config'
 
-
 //[redis:]//[[user][:password@]][host][:port]
-const url = 'redis://' + Redis.user + ':' + Redis.password + '@' + Redis.host + ':' + Redis.port;
-
-const client = redis.createClient(url);
+const rurl = Redis.getUrlString();
 /**
- * var pub = redis.createClient();
- * var sub = redis.createClient();
+ * create 3 redis clients:
+ * - pub/sub used for socket+redis-pub/sub
+ * - client used for login user counts
+ * all the 3 access the same `redis-server` DB
  */
+const client = redis.createClient(rurl);
 
-// Redis Client Ready
-client.once('ready', function () {
+// Redis Pub/Sub, can be multiple subscribers.
+const pub = redis.createClient(rurl);
+const sub = redis.createClient(rurl);
 
-  // Flush Redis DB
-  // client.flushdb();
-
-  // Initialize Chatters
-  client.get('chat_users', function (err, reply) {
-    if (reply) {
-      chatters = JSON.parse(reply);
-    }
-  });
-
-  // Initialize Messages
-  client.get('chat_app_messages', function (err, reply) {
-    if (reply) {
-      chat_messages = JSON.parse(reply);
-    }
-  });
+// socket -> sub -> pub -> socket
+// call sequence: 'subscribe', 'message'
+sub.on('subscribe', (channel, message) => {
+  console.log('message: ', message);
+  pub.publish(channel, "red"); //"redis_twits"
+  setTimeout(()=> pub.publish(channel, 'blue'), 2000)
 });
 
-client.on('error', (e) => {
-  console.log(e);
-});
 
-module.exports = client
+client.once('ready', () => {
+  client.set('loginCounts', 1, redis.print);
+})
+
+client.on('error', e => console.log('error', e));
+
+module.exports = {sub, pub, client}
+
+/**
+ modules.exports = (function(io) {
+  var socket = io.sockets;
+  //...
+  //same as above, but inject a object `io`.
+  return { sub, pub, client }
+})(io);
+
+ call var redis = require('./redis')(io)
+ */

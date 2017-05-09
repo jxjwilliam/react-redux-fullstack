@@ -7,7 +7,7 @@ export function thunk({ dispatch, getState }) {
 
 // when need to use superagent, should applyMiddleware(thunk) first
 const thunk = (store) => (next) => (action) =>
-  typeof action === 'function' ? action(store.dispatch) : next(action);
+  typeof action === 'function' ? action(store.dispatch, store.getState) : next(action);
 
 const promise = (store) => (next) => (action) => {
   if (typeof action.then === 'function') {

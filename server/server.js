@@ -9,7 +9,8 @@ import bodyParser from 'body-parser'
 import http from 'http'
 import SocketIo from 'socket.io'
 import cookieParser from 'cookie-parser';
-import redis from 'redis'
+import redis from './redis'
+import rabbitmq from './rabbitmq'
 //import cors from 'cors';
 
 // 2. import webpack
@@ -25,7 +26,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 
 import routes from './routes/mongo/';
 import pg_routes from './routes/pg/'
-import {WebServer, Redis} from '../etc/config'
+import {WebServer} from '../etc/config'
 
 
 const compiler = webpack(webpackConfig);
@@ -101,20 +102,29 @@ const runnable = app.listen(port, error => {
   }
 });
 
-
-// Redis Pub/Sub
-const rurl = Redis.getUrlString();
-const pub = redis.createClient(rurl);
-const sub = redis.createClient(rurl);
-
 // socket `Chat` config
 const bufferSize = 100;
 const messageBuffer = new Array(bufferSize);
 let messageIndex = 0;
 
 io.on('connection', (socket) => {
-  // this seems not fired.
-  socket.emit('news', {msg: `'Hello World!' from server`});
+
+  redis.client.get('loginCounts', (err, count) => io.emit('onlineLoggedIn', count))
+  /**
+   * what's the difference btw `socket.emit` and `io.emit`?
+   */
+  socket.on('login', () => {
+    redis.client.incr('loginCounts');
+    redis.client.get('loginCounts', (err, count) => {
+      io.emit('onlineLoggedIn', count)
+    })
+  });
+  socket.on('logout', () => {
+    redis.client.decr('loginCounts');
+    redis.client.get('loginCounts', (err, count) => {
+      io.emit('onlineLoggedIn', count);
+    })
+  });
 
   socket.on('history', () => {
     for (let index = 0; index < bufferSize; index++) {
@@ -134,27 +144,28 @@ io.on('connection', (socket) => {
   });
 
   socket.on('socket-redis', (data) => {
-    sub.subscribe('redis_twits');
+    // false, object, true
+    //console.log(io.sockets == socket, typeof io.sockets, typeof io.sockets.emit === 'function');
+
+    redis.sub.subscribe('redis_twits');
   });
-})
 
-sub.on('subscribe', (channel) => {
-  pub.publish(channel, "red"); //"redis_twits"
-  setTimeout(()=> pub.publish('twits', 'blue'), 2000)
-});
-
-sub.on('message', (chan, msg) => {
-  //console.log('I am in message', chan, msg); //redis_twits, red
-
-  // refer to socket.d
-  //res: { field1: 'red', field2: 'blue' } 'object' true
-  pub.hgetall('smoothie', (err, res) => {
-    console.log(res, typeof io.sockets, typeof io.sockets.emit==='function');
-    res.key = msg;
-
-    // in browser, the res: {field1: "red", field2: "blue", key: "red"}
-    io.sockets.emit('twits', res);
+  socket.on('rabbitmq', data => {
+    rabbitmq.send(data)
   })
 })
+
+rabbitmq.receive(io);
+
+
+//TODO: how to move this to ./redis.js?
+redis.sub.on('message', (chan, msg) => {
+  //console.log('I am in message', chan, msg); //2: [{redis_twits, red}, {redis_twits, blue}]
+  redis.pub.hgetall('smoothie', (err, res) => {
+    res.key = msg;
+    // in browser, the res: {field1: "red", field2: "blue", key: "red"}
+    io.sockets.emit('twits', res);
+  });
+});
 
 io.listen(runnable);

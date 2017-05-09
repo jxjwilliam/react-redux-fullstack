@@ -180,6 +180,9 @@ export function logout() {
 ## Unit Test
 
 - use karma + mocha + chai + sinon + webpack to make test (folder) works, need a lot of npm-modules.
+- in package.json `scripts`:
+  "immutable": "mocha --compilers js:babel-core/register --require ./test/helper.js  --recursive"
+  does the same thing as karma.conf.js
 
 ```bash
 ncu
@@ -224,6 +227,13 @@ Use `react-router-dom` instead:
 - https://github.com/WilliamJiang/node-xml-xslt
 - docs/flow.md
 
+- react-boilerplate:
+
+```bash
+  $ npm install -g create-react-app
+  $ create-react-app demo-app
+  $ cd demo-app
+```
 
 ## Things to TODO
 

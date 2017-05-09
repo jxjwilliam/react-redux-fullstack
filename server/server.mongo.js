@@ -32,7 +32,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'src')));
 
-//TODO:
 app.use('/api/todos', routes.todos);
 app.use('/api/users', routes.users);
 app.use('/api/counter', routes.counter);

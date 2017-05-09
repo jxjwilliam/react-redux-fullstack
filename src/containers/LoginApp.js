@@ -34,12 +34,17 @@ class Login extends Component {
   handleLogin(values, dispatch) {
     this.props.fetchLogin(values)
       .then(data => {
-        if (data.hasOwnProperty('username') && data.hasOwnProperty('password')) {
+        if (!data.account) {
+          // no such a user:
+          dispatch({type: 'LOGIN_FAILED', error: 'User/Account not exist or not match:' + JSON.stringify(values)})
+        }
+        else if (data.hasOwnProperty('account') && data.hasOwnProperty('tokenId')) {
           dispatch({type: 'LOGIN_SUCCESS', payload: data})
+          if (socket) socket.emit('login')
         }
         else {
           dispatch({type: 'LOGIN_FAILED', error: 'Login failed!'})
-          throw new SubmissionError({username: 'User does not exist', _error: 'Login failed!'})
+          throw new SubmissionError({account: 'User does not exist', _error: 'Login failed!'})
           //throw new SubmissionError({password: 'Wrong password', _error: 'Login failed!'})
         }
       })
@@ -49,15 +54,15 @@ class Login extends Component {
     this.props.fetchLogout()
       .then(data => {
         this.props.dispatch({type: 'LOGOUT_SUCCESS'})
+        if (socket) socket.emit('logout')
       })
   }
 
-  delay = s => new Promise(resolve => setTimeout(resolve, s));
-
+  //delay = s => new Promise(resolve => setTimeout(resolve, s));
   //loggedIn: true, shouldRedirect: true, tokenId:
   render() {
-    const {tokenId, username, errorMessage, shouldRedirect} = this.props.token;
-    //console.log('props: states+actions', this.props);
+    const {tokenId, account, errorMessage, shouldRedirect} = this.props.token;
+
     if (shouldRedirect) {
       //return this.delay(5000).then(()=> <Redirect to='/'/>)
       var no_return_undefined = new Promise(resolve => setTimeout(resolve, 5000)).then(() => {
@@ -74,7 +79,9 @@ class Login extends Component {
         }
         {tokenId &&
         <div>
-          <p>You are currently logged in as <strong>{username}</strong>.</p>
+          <p>You are currently logged in as <strong>{account}</strong>.</p>
+
+          <p>Total login users are socket</p>
 
           <div>
             <button className="btn btn-danger" onClick={this.handleLogout}><i className="fa fa-sign-out"/>{' '}Log Out

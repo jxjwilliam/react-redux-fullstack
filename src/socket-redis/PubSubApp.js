@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SmoothieComponent from 'react-smoothie'
 
-class SocketRedisPubSub extends Component {
+class RedisPubSub extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +42,7 @@ class SocketRedisPubSub extends Component {
     if (socket) {
       socket.on('twits', (msg) => {
         //{field1: "red", field2: "blue", key: "red"}
-        console.log('redis-smoothie-socket:', msg);
+        //console.log('redis-smoothie-socket:', msg);
         this.drawGraph(msg)
       });
 
@@ -62,7 +62,7 @@ class SocketRedisPubSub extends Component {
   render() {
     return (
       <div className="row">
-        <h3>Twitter Reach</h3>
+        <h2>Socket.io + Redis for Twitter Reach</h2>
 
         <SmoothieComponent ref="chart" width="600" height="200"/>;
       </div>
@@ -70,8 +70,8 @@ class SocketRedisPubSub extends Component {
   }
 }
 
-SocketRedisPubSub = connect(
+RedisPubSub = connect(
     state => ({token: state.token})
-)(SocketRedisPubSub);
+)(RedisPubSub);
 
-export default SocketRedisPubSub;
+export default RedisPubSub;

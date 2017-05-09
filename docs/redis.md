@@ -30,10 +30,10 @@ $ npm install redis -S
 - redis-cli incr mycounter
 
 
-###4. Steps
+###4. Commands
 
 - add test unit in test/tdd/
-- add a tab socket-redis and a component src/socket-redis/SocketRedisPubSubApp.js
+- add a tab socket-redis and a component src/socket-redis/PubSubApp.js
 - add pub/sub clients
 
 - set `smoothie` to initialize redis `smoothie`, to test persistant store.
@@ -55,10 +55,23 @@ $ redis-cli
   pub.hgetall('smoothie', callback);
 ```
 
+- set get loginCounts 10; get, incr, decr, del
+- redis-cli> get loginCounts
+- redis-cli> INFO 
+
+
 ###5. Redis-backed Pub/Sub
 
-- 2 clients required: 1 for pub, 1 for sub
+- 2 clients required: 1 for pub, 1 for sub (or multiple subs)
 - use 1 channel, add metadata to your message
+
+1. browser: socket.emit
+1. server: 
+  socket.on
+  redis.publish
+  redis.subscribe
+  socket.emit
+1. browser: socket.on  
 
 
 ## Q&A

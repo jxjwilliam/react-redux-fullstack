@@ -18,10 +18,10 @@ const SubmitValidationForm = (props) => {
   return (
     <form onSubmit={handleSubmit(props.onSubmit)} className="login-form form-inline">
       <div className="form-group">
-        <Field name="username" type="text" component={renderField} label="Username"/>
+        <Field name="account" type="text" component={renderField} label="Username"/>
       </div>
       <div className="form-group">
-        <Field name="password" type="password" component={renderField} label="Password"/>
+        <Field name="pass" type="password" component={renderField} label="Password"/>
       </div>
       <div className="form-group">
         {error && <strong>{error}</strong>}
@@ -39,5 +39,5 @@ const SubmitValidationForm = (props) => {
 
 export default reduxForm({
   form: 'submitValidation',
-  fields: ['username', 'password'] // we send only field names here
+  fields: ['account', 'pass'] // we send only field names here
 })(SubmitValidationForm)
