@@ -56,6 +56,9 @@ export const fetchAction = () => (dispatch) => {
 export const socketAction = () => {
   var action = {type: 'SOCKET'}
   action.socket = true;
+  action.meta = {
+    channel: 'news'
+  }
   action.payload = initial.finance;
   return action;
 }
@@ -79,6 +82,15 @@ export const promiseAction = () => {
   })
 }
 
+export const payloadpromiseAction = () => {
+  return {
+    type: 'PROMISE',
+    payload: new Promise((resolve, reject) => setTimeout(() => {
+      resolve(initial.name)
+    }, 500))
+  }
+}
+
 // 6. no need to dispatch, do other stuff instead of `dispatch`
 export const customAction = () => {
   return {
@@ -88,3 +100,9 @@ export const customAction = () => {
   }
 }
 
+export const rxjsAction = () => dispatch => {
+  return dispatch({
+    type: 'RXJS-EVENT',
+    observable: Rx.Observable.interval(1000).take(5),
+  });
+}

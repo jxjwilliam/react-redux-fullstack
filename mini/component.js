@@ -18,7 +18,7 @@ class App extends Component {
     super(props)
     this.state = {
       actions: ['ACTION', 'THUNK', 'SUPERAGENT', 'NOPROMISE',
-        'FETCH', 'SOCKET', 'AUTH', 'PROMISE', 'CUSTOM']
+        'FETCH', 'SOCKET', 'AUTH', 'PROMISE', 'PAYLOADPROMISE', 'CUSTOM', 'RXJS']
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -32,12 +32,14 @@ class App extends Component {
 
   render() {
     const {data} = this.props;
-    const actions = this.state.actions.map((a, i) => (
-      <div className="flex-item" key={i}>
-        <input type="button" className="btn btn-default" onClick={this.handleClick}
-               ref="middlewareButton" value={a}/>
-      </div>
-    ))
+    const actions = this.state.actions.map((a, i) => {
+      return (
+        <div className="flex-item" key={i}>
+          <input type="button" className="btn btn-default" onClick={this.handleClick}
+                 ref="middlewareButton" value={a}/>
+        </div>
+      )
+    })
     var list = [];
     if (Array.isArray(data) && data.length > 0) {
       list = data.map((d, i) => (
@@ -58,7 +60,7 @@ class App extends Component {
           {/*{this.refs.middlewareButton ? ` - ${this.refs.middlewareButton.value.toLowerCase()}` : ''} */}
         </h3>
 
-        <div className="flex-container">{actions}</div>
+        <div className="row flex-container">{actions}</div>
         <hr/>
         <ul className="row list-group">
           {list}
