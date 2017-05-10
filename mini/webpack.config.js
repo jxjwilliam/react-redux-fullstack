@@ -12,7 +12,7 @@ module.exports = {
   ],
   entry: [
     'webpack-hot-middleware/client',
-    'src/index.js'
+    './mini/client.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -34,17 +34,12 @@ module.exports = {
           presets: ['react', 'stage-0', 'es2015']
         }
       },
-      // CSS
       {
         test: /\.styl$/,
-        include: path.join(__dirname, 'src/styles'),
         loader: 'style-loader!css-loader!stylus-loader'
       },
       {
         test: /\.css$/,
-        include: [
-          path.resolve(__dirname, 'src/styles')
-        ],
         loader: 'style-loader!css-loader'
       },
       {

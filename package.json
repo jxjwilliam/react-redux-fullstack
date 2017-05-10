@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "dev": "node ./server/index",
+    "mini": "node ./mini/index",
     "test": "karma start karma.conf.js",
     "immutable": "mocha --compilers js:babel-core/register --require ./test/helper.js ./test/**/*.spec.js --recursive"
   },
