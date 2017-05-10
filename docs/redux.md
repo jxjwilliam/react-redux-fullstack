@@ -53,43 +53,10 @@ so that you can update the UI of your application.
 - trigger → publish
 - type → topic
 
-### 4. server-sider rendering
 
-Server Side Rendering based on routes matched by React-router.
-```javascript
-app.use((req, res) => {
-    match({
-        routes,
-        location: req.url
-    }, (err, redirectLocation, renderProps) => {
-        if (err) {
-            return res.status(500).end('Internal server error');
-        }
+### 4. redux-promise vs redux-thunk
+ReduxPromise returns a promise as the payload when an action is dispatched, and then the 
+ReduxPromise middleware works to resolve that promise and pass the result to the reducer.
 
-        if (!renderProps) {
-            return res.status(404).end('Not found!');
-        }
-
-        const initialState = {
-            posts: [],
-            post: {}
-        };
-
-        const store = configureStore(initialState);
-
-        fetchComponentData(store.dispatch, renderProps.components, renderProps.params).then(() => {
-            const initialView = renderToString(
-                <Provider store = {store} >
-                  <RouterContext {...renderProps}/>
-                </Provider>
-            );
-
-            const finalState = store.getState();
-
-            res.status(200).end(renderFullPage(initialView, finalState));
-        }).catch(() => {
-            res.end(renderFullPage('Error', {}));
-        });
-    });
-});
-```
+ReduxThunk, on the other hand, forces the action creator to hold off on actually dispatching the 
+action object to the reducers until dispatch is called.

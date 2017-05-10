@@ -40,13 +40,9 @@ export const superagentAction = () => (dispatch) => {
     })
 }
 
-// 2. promise: action.then==='function'
 let defer = new Promise((resolve, reject) => setTimeout(resolve));
-
-export const promiseAction = () => {
-  return (dispatch) => {
-    defer.then((data) => dispatch({type: 'PROMISE', payload: initial.company}))
-  }
+export const nopromiseAction = () => dispatch => {
+  return defer.then((data) => dispatch({type: 'THUNK', payload: initial.company}))
 }
 
 export const fetchAction = () => (dispatch) => {
@@ -55,17 +51,40 @@ export const fetchAction = () => (dispatch) => {
     .then(data => dispatch({type: 'FETCH', payload: data}))
 }
 
-
+// 3. action.meta && action.meta.remote: socket
+// no need `dispatch`, use socket.emit/on
 export const socketAction = () => {
-  var action = {type: 'SOCKET', meta: {}}
-  action.meta.remote = true;
+  var action = {type: 'SOCKET'}
+  action.socket = true;
   action.payload = initial.finance;
   return action;
 }
 
+// 4. action.type==='AUTH'
+// no need `dispatch`, use redirect or transitionTo.
 export const authAction = () => {
   return {type: 'AUTH', payload: initial.name}
 }
 
+// 5. promise: action.then==='function'
+// redux-thunk will dispatch
+export const promiseAction = () => {
+  const payload = {
+    'redux-promise': 'returns a promise as the payload when an action is dispatched, and then the ReduxPromise middleware works to resolve that promise and pass the result to the reducer.',
+    'redux-thunk': 'on the other hand, forces the action creator to hold off on actually dispatching the action object to the reducers until dispatch is called.',
+    ref: 'http://stackoverflow.com/questions/36577510/what-is-the-difference-between-redux-thunk-and-redux-promise'
+  }
+  return new Promise((resolve, reject) => {
+    resolve({type: 'PROMISE', payload: payload})
+  })
+}
 
+// 6. no need to dispatch, do other stuff instead of `dispatch`
+export const customAction = () => {
+  return {
+    type: 'ACTION',
+    custom: 'what are you going to do?',
+    payload: initial.random
+  }
+}
 

@@ -33,55 +33,57 @@ const logger = (store) => (next) => {
  */
 const promise = (store) => (next) => (action) => {
   if (typeof action.then === 'function') {
-    //console.info('[in middleware promise]:', action, next)
+    console.info('[in middleware promise]:', action)
     return action.then(next);
+    //return Promise.resolve(action).then(store.dispatch);
   }
   return next(action);
 }
 
 const thunk = (store) => (next) => (action) => {
   if (typeof action === 'function') {
-    //console.info('[in middleware thunk]:', action, next)
-    action(store.dispatch, store.getState)
+    console.info('[in middleware thunk]:', typeof action)
+    return action(store.dispatch, store.getState)
   }
-  else
+  else {
     next(action);
+  }
 }
 /**
  * william add middleware to intercept for socket
  * http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html#the-architecture
- * Concretely, we should only send out actions that have a {meta: {remote: true}} property attached
  */
-const remoteActionMiddleware = store => next => action => {
-  if (action.meta && action.meta.remote) {
-    //console.log('[in middleware socket]:', action, next);
-    //socket.emit('action', action)
+const socket = store => next => action => {
+  if (action.socket) {
+    console.log('[in middleware socket]:', typeof action);
+    //return socket.emit('action', action)
   }
   return next(action)
 }
 
-function authMiddleware({getState, dispatch}) {
+function auth({getState, dispatch}) {
   return (next) => (action) => {
-    if (typeof action === 'object' && action.hasOwnProperty('type')) {
+    if (action.type === 'AUTH') {
+      console.log('[in middleware auth]:', typeof action);
+      next(action);
 
-      if (action.type === 'AUTH') {
-        //console.log('[in middleware auth]:', action, next);
-        next(action);
-
-        const state = getState();
-        let path = '/dashboard';
-
-        if (typeof state['router'] === 'object' && typeof state['router']['route'] === 'object' && null !== state['router']['route']) {
-          if (state.router.route.name === 'login' && typeof state.router.route.query['to'] === 'string') {
-            path = state.router.route.query.to;
-          }
-        }
-        //return next(actions.transitionTo(path));
-      }
+      const state = getState();
+      let path = '/dashboard';
+      //return next(actions.transitionTo(path));
     }
-
     return next(action);
   }
+}
+
+// william custom intercept
+const custom = store => next => action => {
+  if (action.custom) {
+    console.log('[in middleware custom]:', typeof action)
+    // this could change, return anything other than dispatch.
+    // current use `dispatch` for test
+    return next(action);
+  }
+  return next(action);
 }
 
 const wrapDispatchWithMiddlewares = (store, middlewares) => {
@@ -90,16 +92,14 @@ const wrapDispatchWithMiddlewares = (store, middlewares) => {
   })
 }
 
-// version 2: with manual logger, promise and thunk.
 const configureStore = () => {
-
   const store = createStore(
     rootReducer,
     devToolsEnhancer()
   );
-  let middlewares = [thunk, promise, logger, remoteActionMiddleware, authMiddleware]; //promise;
+  let middlewares = [thunk, promise, socket, auth, custom];
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'production') {
     middlewares.push(logger);
   }
 

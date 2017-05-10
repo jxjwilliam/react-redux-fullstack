@@ -17,7 +17,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      actions: ['THUNK', 'PROMISE', 'SOCKET', 'AUTH', 'ACTION', 'FETCH', 'SUPERAGENT']
+      actions: ['ACTION', 'THUNK', 'SUPERAGENT', 'NOPROMISE',
+        'FETCH', 'SOCKET', 'AUTH', 'PROMISE', 'CUSTOM']
     }
     this.handleClick = this.handleClick.bind(this);
   }
