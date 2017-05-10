@@ -22,6 +22,7 @@ For more details, check [here](./docs/HISTORY.md) and [here](./docs/DEV.md)
 ## Improvement
 
 - add `mini` folder to test middlewares: thunk, socket, promise, jwt, auth, and custom, it is an all-inclusive mini-package which can clone for other purpose.
+- use `redux-observable-middleware`
 
 ## Multi-servers
 There are multiple webserver which can be switched to run by different purpose.

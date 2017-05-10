@@ -1,7 +1,16 @@
 import { combineReducers } from 'redux'
 
+const ACTION_TYPE = 'INTERVAL';
 const reducer = (state = {}, action) => {
   switch (action.type) {
+    case `${ACTION_TYPE}`:
+      return {};
+    case `${ACTION_TYPE}_ON_NEXT`:
+      return {data: {observable_on_next: action.data}}
+    case `${ACTION_TYPE}_ON_ERROR`:
+      return state;
+    case `${ACTION_TYPE}_ON_COMPLETED`:
+      return state;
     default:
       return {data: action.payload};
   }

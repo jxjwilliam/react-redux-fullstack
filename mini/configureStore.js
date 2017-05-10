@@ -1,6 +1,7 @@
 import { createStore, compose, applyMiddleware } from 'redux'
 import { devToolsEnhancer } from 'redux-devtools-extension';
 import rootReducer from './reducer'
+import observableMiddleware from 'redux-observable-middleware'
 
 /**
  * logger(store) => return store
@@ -103,7 +104,10 @@ const custom = store => next => action => {
 const observable = ({dispatch, getState}) => next => action => {
   if (action.observable != null && typeof action.observable.subscribe === 'function') {
     console.log('[in middleware observable]:', typeof action)
-    action.observable.subscribe((data) => dispatch({type: 'RXJS-EVENT', data}))
+    action.observable.subscribe((res) => {
+      console.log(typeof res[0], res[0])
+      dispatch({type: 'RXJS-EVENT', payload: res})
+    })
   }
   else {
     return next(action);
@@ -123,7 +127,7 @@ const configureStore = () => {
     rootReducer,
     devToolsEnhancer()
   );
-  let middlewares = [thunk, promise, socket, auth, custom, observable];
+  let middlewares = [thunk, promise, socket, auth, custom, observableMiddleware];
 
   if (process.env.NODE_ENV === 'production') {
     middlewares.push(logger);

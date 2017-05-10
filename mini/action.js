@@ -1,6 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import superagent from 'superagent'
+import Rx from 'rxjs/Rx'
 var faker = require('faker/locale/en')
+
 
 /** NOTICE:
  * - payload = {}
@@ -100,9 +102,10 @@ export const customAction = () => {
   }
 }
 
-export const rxjsAction = () => dispatch => {
-  return dispatch({
-    type: 'RXJS-EVENT',
+export const rxjsAction = () => {
+  return {
+    type: 'INTERVAL',
     observable: Rx.Observable.interval(1000).take(5),
-  });
+    //observable: Rx.Observable.ajax('https://api.github.com/search/users?q=jxjwilliam')
+  };
 }

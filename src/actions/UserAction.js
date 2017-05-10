@@ -1,5 +1,5 @@
 import superagent from 'superagent'
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import {debounceTime} from 'rxjs/operator/debounceTime';
 
