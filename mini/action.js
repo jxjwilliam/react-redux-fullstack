@@ -105,7 +105,7 @@ export const customAction = () => {
 export const rxjsAction = () => {
   return {
     type: 'INTERVAL',
-    observable: Rx.Observable.interval(1000).take(5),
-    //observable: Rx.Observable.ajax('https://api.github.com/search/users?q=jxjwilliam')
+    //observable: Rx.Observable.interval(1000).take(5),
+    observable: Rx.Observable.fromPromise(fetch('https://api.github.com/search/users?q=jxjwilliam'))
   };
 }

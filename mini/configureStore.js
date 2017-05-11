@@ -104,9 +104,10 @@ const custom = store => next => action => {
 const observable = ({dispatch, getState}) => next => action => {
   if (action.observable != null && typeof action.observable.subscribe === 'function') {
     console.log('[in middleware observable]:', typeof action)
-    action.observable.subscribe((res) => {
-      console.log(typeof res[0], res[0])
-      dispatch({type: 'RXJS-EVENT', payload: res})
+    action.observable.subscribe((data) => {
+      Promise.resolve(data.json()).then(data => {
+        dispatch({type: 'RXJS-PROMISE', payload: data.items[0]})
+      });
     })
   }
   else {
@@ -127,7 +128,7 @@ const configureStore = () => {
     rootReducer,
     devToolsEnhancer()
   );
-  let middlewares = [thunk, promise, socket, auth, custom, observableMiddleware];
+  let middlewares = [thunk, promise, socket, auth, custom, observable];//observableMiddleware
 
   if (process.env.NODE_ENV === 'production') {
     middlewares.push(logger);
