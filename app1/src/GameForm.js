@@ -1,4 +1,3 @@
-// direct copy from https://github.com/Remchi/crud-with-redux/blob/master/src/GameForm.js
 import React from 'react';
 import classnames from 'classnames';
 
@@ -64,7 +63,7 @@ class GameForm extends React.Component {
             value={this.state.title}
             onChange={this.handleChange}
             id="title"
-            />
+          />
           <span>{this.state.errors.title}</span>
         </div>
 
@@ -75,7 +74,7 @@ class GameForm extends React.Component {
             value={this.state.cover}
             onChange={this.handleChange}
             id="cover"
-            />
+          />
           <span>{this.state.errors.cover}</span>
         </div>
 
@@ -95,5 +94,6 @@ class GameForm extends React.Component {
     );
   }
 }
+
 
 export default GameForm;

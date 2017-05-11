@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import {Provider} from 'react-redux'
-import rootReducer from './rootReducer'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import { BrowserRouter } from 'react-router-dom' //no react-router
 import App from './App';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './rootReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 
-let store = createStore(
+const store = createStore(
   rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk)
   )
-)
+);
 
 ReactDOM.render(
   <BrowserRouter>
@@ -23,5 +23,4 @@ ReactDOM.render(
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')
-)
-
+);

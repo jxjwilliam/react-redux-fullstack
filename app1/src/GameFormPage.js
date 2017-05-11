@@ -34,11 +34,11 @@ class GameFormPage extends React.Component {
       <div>
         {
           this.state.redirect ?
-            <Redirect to="/games" /> :
-            <GameForm
-              game={this.props.game}
-              saveGame={this.saveGame}
-              />
+          <Redirect to="/games" /> :
+          <GameForm
+            game={this.props.game}
+            saveGame={this.saveGame}
+          />
         }
       </div>
     );
