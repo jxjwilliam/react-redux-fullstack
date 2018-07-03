@@ -12,3 +12,6 @@ pkill mongod
 
 # PostgreSQL server
 brew services stop postgresql
+
+# RabbitMQ
+brew services stop rabbitmq

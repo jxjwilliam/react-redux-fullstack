@@ -37,7 +37,7 @@ const getFakerData = {
         completed: Math.random() > 0.5
       })
     }
-    //console.log(prettyjson.render(todos));
+    console.log(prettyjson.render(todos));
     return todos;
   }
 }

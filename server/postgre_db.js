@@ -5,7 +5,7 @@ import prettyjson from 'prettyjson'
 
 const config = {
   host: 'localhost',
-  port: 5433, //5432
+  port: 5432,
   user: 'psql',
   password: 'psql',
   database: 'react_redux',

@@ -127,7 +127,7 @@ files: [
   -- use `initialValues` to fill up the edit-form.
   -- `Field` should have `onChange`, otherwise the input can't edit, even nothing to do:
   ```javascript
-    onChange={()=>{}}
+    onChange={}
   ```
   -- rewrite add/edit userReucer, use map, concat.
   -- pass user._id as hidden: <input name="_id" type="hidden" />

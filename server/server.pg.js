@@ -4,7 +4,8 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-import favicon from 'serve-favicon';
+//import favicon from 'serve-favicon';
+const favicon = require('serve-favicon');
 
 // 2. import webpack
 import webpack from 'webpack';

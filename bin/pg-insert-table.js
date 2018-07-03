@@ -6,11 +6,20 @@
  * Error: dlopen(/Users/user/WebstormProjects/React/todos1/node_modules/node-libcurl/lib/binding/node_libcurl.node, 1): Library not loaded: /Users/travis/lib/libcurl.4.dylib
  */
 const getFakerData = require('./getFakerData');
+
+/**
+ *
+ */
+
+var ary = getFakerData.getUserData();
+console.log(ary);
+return;
+
 const exec = require('child_process').exec;
 
-//http://localhost:8083/api/pg/todos
+//http://localhost:8088/api/pg/todos
 const config = {
-  "URL": "http://127.0.0.1:8083/api/pg/todos",
+  "URL": "http://127.0.0.1:8088/api/pg/todos",
   "HEADER": "Content-Type: application/json",
   "METHOD": "POST"
 }
@@ -24,15 +33,13 @@ var params = ary.map(function (item) {
   }
 
   var todo_str = tmp.join('&');
-  exec('curl --data "' + todo_str + '" http://127.0.0.1:8083/api/pg/todos', function (err, stdout, stderr) {
+  exec('curl --data "' + todo_str + '" http://127.0.0.1:8088/api/pg/todos', function (err, stdout, stderr) {
     if (err) {
       console.error(err);
       return;
     }
-    console.log(stdout);
   })
-
 })
-console.log(params);
+
 //curl --data "text=test&complete=false" http://127.0.0.1:3000/api/pg/todos
 
