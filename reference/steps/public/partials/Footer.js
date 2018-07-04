@@ -6,7 +6,7 @@ class Footer extends Component {
     }
     render() {
         return (
-            <p class="text-center text-muted">© Copyright 2017 William Jiang</p>
+            <p class="text-center text-muted">© Copyright 2018 William Jiang</p>
         )
     }
 }
