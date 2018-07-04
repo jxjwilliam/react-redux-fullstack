@@ -59,7 +59,7 @@ const RabbitMQ = {
   url: 'amqp://localhost'
 };
 
-const config = {
+module.exports = {
   WebServer,
   WebSocket,
   Mongo,
@@ -67,5 +67,3 @@ const config = {
   Redis,
   RabbitMQ
 }
-
-module.exports = config;

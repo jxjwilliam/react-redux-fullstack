@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#! /usr/local/bin/node
 
 /**
  * const Curl = require('node-libcurl').Curl;
@@ -7,13 +7,7 @@
  */
 const getFakerData = require('./getFakerData');
 
-/**
- *
- */
-
 var ary = getFakerData.getUserData();
-console.log(ary);
-return;
 
 const exec = require('child_process').exec;
 

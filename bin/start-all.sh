@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Mysl
-mysqld &
+# NO Mysql:
+#mysqld &
 
 # Redis-server
 redis-server &

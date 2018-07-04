@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Mysl
-#pkill mysql
+# NO Mysql
+#pkill mysqld
 
 # Redis-server
 pkill redis-server
-$ redis-cli shutdown
+redis-cli shutdown
 
 # Mongod
 pkill mongod
