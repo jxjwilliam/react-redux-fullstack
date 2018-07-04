@@ -5,7 +5,7 @@
 /Library/PostgreSQL/9.6
 /Library/PostgreSQL/9.6/data
 pass: Benjamin001
-port 5433
+port 5432
 Locale: en_US.UTF-8
 
 ```bash
@@ -46,7 +46,7 @@ COMMENT ON ROLE psql IS 'william jiang created `psql` user, password should be `
 
 ### 2. create database
 ```sql
-﻿CREATE DATABASE reac_redux
+﻿CREATE DATABASE react_redux
     WITH 
     OWNER = psql
     ENCODING = 'UTF8'
@@ -90,3 +90,33 @@ SELECT setval('item_id_seq', (SELECT MAX(id) FROM items)+1);
 
 - duplicated sequenced-index
 - primary key / max-id
+
+
+pgadmin
+--------
+https://www.postgresql.org/ftp/pgadmin/pgadmin4/v3.1/macos/
+
+
+## PostgreSQL + redux/todoMVC
+
+###1. server-side: make PostgreSQL work
+
+- install PostgreSQL 9.6
+- pgAdmin4: login user: psql/psql
+- pgAdmin4: create DB: react-redux
+- bin/psql-create-table.js: items 
+- bin/psql-insert-table.js: insert table `items`
+- node server:
+  server/server-psql.js: webserver just for psql.
+  server/postgr_db.js: pool
+  server/pg/: CRUD todos 
+- test: localhost:8083/api/pg/todos/ works
+
+###2. Front-end:
+
+- add tab `pg` for postgreSQL, and make sure it works.
+- copy from redux/expamples/todomvc: http://redux.js.org/docs/introduction/Examples.html
+- add modules:
+  "classnames"
+  "todomvc-app-css"
+- work src/psql/todomvc to make it work with PostgreSQL

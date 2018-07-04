@@ -23,7 +23,7 @@ const Footer = ({footer}) => {
       <div className="flex-container">
         {items}
       </div>
-      <p {...footer}>&copy; 2017 - William Jiang</p>
+      <p {...footer}>&copy; 2017-2018 William Jiang</p>
     </footer>
   )
 }

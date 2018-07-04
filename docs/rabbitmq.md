@@ -6,20 +6,11 @@
 $ brew install rabbitmq
 ```
 
-To have launchd start rabbitmq now and restart at login:
-```bash
-$ brew services start rabbitmq
-```
-Or, if you don't want/need a background service you can just run:
-```bash
-$ rabbitmq-server
-```
-
 - /usr/local/sbin/rabbitmq-server
 - /usr/local/etc/rabbitmq
-CONFIG_FILE=/usr/local/etc/rabbitmq/rabbitmq
-NODE_IP_ADDRESS=127.0.0.1
-NODENAME=rabbit@localhost
+- CONFIG_FILE=/usr/local/etc/rabbitmq/rabbitmq
+- NODE_IP_ADDRESS=127.0.0.1
+- NODENAME=rabbit@localhost
 
 ### Install Client
 
@@ -28,12 +19,13 @@ $ npm install amqplib
 ```
 
 ### Commands
-
-- rabbitmqctl start
-- rabbitmqctl stop
-- rabbitmqctl status
-- rabbitmqctl restart
-- rabbitmqctl list_queues
+```bash
+$ rabbitmqctl start
+$ rabbitmqctl stop
+$ rabbitmqctl status
+$ rabbitmqctl restart
+$ rabbitmqctl list_queues
+```
 
 ## Q&A
 
@@ -43,6 +35,22 @@ When a message is done processing and ready to be delivered to the user, the web
 
 when the user reconnects, check the database to see if there are any messages waiting for that user and send them at that point.
 
-### Reference
+Reference
+----------
+[Node.js code for RabbitMQ tutorials](https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/javascript-nodejs)
 
-https://github.com/rabbitmq/rabbitmq-tutorials/tree/master/javascript-nodejs
+Notes
+------
+After `brew install rabbitmq`:
+
+Bash completion has been installed to:
+  /usr/local/etc/bash_completion.d
+
+To have launchd start rabbitmq now and restart at login:
+```bash
+$ brew services start rabbitmq
+```
+Or, if you don't want/need a background service you can just run:
+```bash
+$ rabbitmq-server
+```

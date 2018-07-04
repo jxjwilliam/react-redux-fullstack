@@ -72,7 +72,7 @@ class Login extends Component {
 
     return (
       <div className="row loginPage">
-        <h1>Login</h1>
+        <h2>Login</h2>
         {errorMessage ? <p className="alert alert-danger">{errorMessage}</p> : null}
         {!tokenId &&
         <LoginForm onSubmit={ this.handleLogin }/>
@@ -80,8 +80,6 @@ class Login extends Component {
         {tokenId &&
         <div>
           <p>You are currently logged in as <strong>{account}</strong>.</p>
-
-          <p>Total login users are socket</p>
 
           <div>
             <button className="btn btn-danger" onClick={this.handleLogout}><i className="fa fa-sign-out"/>{' '}Log Out
@@ -92,6 +90,23 @@ class Login extends Component {
       </div>
     )
   }
+
+  /**
+   * not use: but a good reference
+   * https://github.com/reactjs/redux/issues/297
+   componentWillUpdate() {
+    const { router } = this.context
+    if(this.props.token.shouldRedirect) {
+      store.dispatch({type: 'resetSubmitState '})
+      router.transition('...')
+    }
+  }
+   componentWillReceiveProps(nextProps) {
+    if (['/login', '/sign-up'].indexOf(this.props.router.path) !== -1 && this.props.isLoggedIn) {
+      this.context.router.transitionTo(this.props.router.query.nextPath || '/home')
+    }
+  }
+   */
 }
 
 Login = connect(

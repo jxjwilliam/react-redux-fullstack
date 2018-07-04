@@ -1,0 +1,18 @@
+/* flexbox */
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+  background-color: lightgrey;
+}
+
+.flex-item {
+  margin: 6px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="col-"] {
+    width: 100%;
+  }
+}

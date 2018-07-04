@@ -1,7 +1,29 @@
 const router = require('express').Router()
 const Login = require('../../models/login')
 import { v4 } from 'node-uuid';
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken';
+import config from '../../../etc/jwtconfig'
 
+router.route('/login')
+  .post((req, res, next) => {
+    const { account, pass } = req.body;
+    Login.findOne({account: account}, (err, user)=> {
+      if (err) {
+        return res.status(401).json({errors: {form: 'Invalid Credentials'}})
+      }
+      if (bcrypt.compareSync(pass, user.get('password_digest'))) {
+        const token = jwt.sign({
+          id: user.get('id'),
+          username: user.get('username')
+        }, config.jwtSecret);
+        res.json({token})
+      }
+      else {
+        res.status(401).json({errors: {form: 'Invalid Password'}});
+      }
+    })
+  })
 /**
  * 1. password encrypt
  * 2. if token exists, return token instead of query DB

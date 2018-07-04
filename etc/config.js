@@ -30,11 +30,11 @@ const Mongo = {
 
 const Pg = {
   HOST: 'localhost',
-  PORT: 5433,
+  PORT: 5432,
   USER: 'psql',
   PASSWORD: 'psql',
   DB: 'react_redux',
-  //postgres://localhost:5433/react-redux
+  //postgres://localhost:5432/react-redux
   getDBString: function () {
     return 'postgres://' + this.HOST + ':' + this.PORT + '/' + this.DB
   },

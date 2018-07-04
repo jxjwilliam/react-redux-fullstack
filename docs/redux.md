@@ -52,3 +52,11 @@ so that you can update the UI of your application.
 - off → unsubscribe
 - trigger → publish
 - type → topic
+
+
+### 4. redux-promise vs redux-thunk
+ReduxPromise returns a promise as the payload when an action is dispatched, and then the 
+ReduxPromise middleware works to resolve that promise and pass the result to the reducer.
+
+ReduxThunk, on the other hand, forces the action creator to hold off on actually dispatching the 
+action object to the reducers until dispatch is called.

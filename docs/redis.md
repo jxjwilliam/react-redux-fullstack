@@ -1,6 +1,6 @@
 ## Redis
 
-Redis is an open-source (BSD-licensed), in-memory data structure store, used as a database, cache, and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperlogs, and geospatial indexes with radius queries.
+[Redis](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298) is an open-source (BSD-licensed), in-memory data structure store, used as a database, cache, and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperlogs, and geospatial indexes with radius queries.
 
 - Super-fast in-memory data structure server
 - Pub/Sub
@@ -8,27 +8,16 @@ Redis is an open-source (BSD-licensed), in-memory data structure store, used as 
 - Zero install and easy to operate
 - Connect multiple node.js-servers to 1 redis channel
 
-###1. Install Server
-
-- cd ~/bin/
-- Download and install Redis-3.2.8
-- make
-  - src/redis-server
-The server is now ready to accept connections on port 6379
-
-
-###2. Install Client
-
-https://github.com/NodeRedis/node_redis
 ```bash
-$ npm install redis -S
+$ brew info redis
+$ brew install redis
 ```
 
-###3. command-line:
-
-- redis-cli
-- redis-cli incr mycounter
-
+```bash
+$ redis-cli ping
+$ redis-cli
+$ redis-cli incr mycounter
+```
 
 ###4. Commands
 
