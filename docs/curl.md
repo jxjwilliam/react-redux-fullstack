@@ -1,8 +1,15 @@
+MongoDB init `counters` collection
+----------------------------------
+
+```bash
+curl -X POST "http://localhost:8088/api/counter" -H "Content-Type: application/json" -d "{\"counter\":8}"
 
 DATA='{"counter": 66}'
-curl -X PUT "http://localhost:8081/api/counter" -H "Content-Type: application/json" -d "${DATA}"
+curl -X PUT "http://localhost:8088/api/counter" -H "Content-Type: application/json" -d "${DATA}"
+```
+or use Chrome [Yet Another REST Client](chrome-extension://ehafadccdcdedbhcbddihehiodgcddpl/index.html)
 
-
+```bash
 DB_URL="http://localhost:8088/api/tasks"
 HEADER="Content-Type: application/json"
 METHOD=POST
@@ -15,7 +22,6 @@ $ curl -X GET $DB_URL
 $ curl -X GET "http://localhost:8088/api/tasks"
 
 $ curl -X GET "http://localhost:8088/api/tasks/586e886d7106b038d820a550"
-
 
 $ curl -X POST "http://localhost:8088/api/tasks"  -H "Content-Type: application/x-www-form-urlencoded"  -d 'description=test'
 
@@ -31,8 +37,10 @@ $ curl -X PUT "http://localhost:8088/api/tasks/586e886d7106b038d820a550" \
 $ curl -X DELETE -i "http://localhost:8088/api/tasks"
 
 $ curl -X DELETE -i "http://localhost:8088/api/tasks/586e886d7106b038d820a550"
+```
 
-
-### PostgreSQL:
-
-curl --data "text=test&complete=false" http://127.0.0.1:3000/api/v1/todos
+PostgreSQL:
+-----------
+```bash
+$ curl --data "text=test&complete=false" http://127.0.0.1:3000/api/v1/todos
+```

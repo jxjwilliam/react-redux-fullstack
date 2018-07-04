@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import App from './todomvc/containers/App'
-import 'todomvc-app-css/index.css'
+//import 'todomvc-app-css/index.css'
 
 /**
  * 1. import styles from './...css'
