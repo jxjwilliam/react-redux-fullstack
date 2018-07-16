@@ -25,6 +25,10 @@ $ redis-cli incr mycounter
 - add a tab socket-redis and a component src/socket-redis/PubSubApp.js
 - add pub/sub clients
 
+```bash
+$ redis-cli
+> config set stop-writes-on-bgsave-error no
+```
 - set `smoothie` to initialize redis `smoothie`, to test persistant store.
 
 ```bash

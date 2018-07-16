@@ -64,3 +64,12 @@ app.use((req, res) => {
     });
 });
 ```
+
+generic web-server
+-------------------
+- webpack-dev-server
+- serve
+- http-server
+- pm4
+- forever
+- nodemon

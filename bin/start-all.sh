@@ -3,10 +3,10 @@
 # NO Mysql:
 #mysqld &
 
-# Redis-server
+# Redis-server: /usr/local/var/db/redis, /usr/local/etc/redis.conf
 redis-server &
 
-# Mongod
+# Mongodb: mongod --path /usr/local/var/mongodb
 mongod &
 
 # PostgreSQL server

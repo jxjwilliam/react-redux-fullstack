@@ -61,6 +61,8 @@ class Delegate extends Component {
                      ref={(input) => this.input = input}/>
             </div>
             <button className="btn btn-primary" type="submit">load</button>
+            &nbsp;
+            <label>Academind</label>
           </form>
           <div id="loading" className="row alert alert-info hide">
             <i className="fa fa-spin fa-cog"></i> ...loading github...
