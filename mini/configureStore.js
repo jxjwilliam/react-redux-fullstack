@@ -130,7 +130,7 @@ const configureStore = () => {
   );
   let middlewares = [thunk, promise, socket, auth, custom, observable];//observableMiddleware
 
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     middlewares.push(logger);
   }
 

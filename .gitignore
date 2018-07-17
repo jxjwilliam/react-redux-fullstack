@@ -7,3 +7,4 @@ es
 coverage
 *.log
 *.local.js
+.vscode

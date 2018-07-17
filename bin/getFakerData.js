@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#! /usr/local/bin/node
 //https://github.com/marak/Faker.js/
 //TODO: write into a file for testing purpose.
 

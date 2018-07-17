@@ -10,7 +10,7 @@ var faker = require('faker/locale/en')
 const getValue = (obj) => {
   var o = {}
   for (var i in obj) {
-    o[i] = obj[i]()
+    o[i] = obj[i].call()
   }
   return o;
 }

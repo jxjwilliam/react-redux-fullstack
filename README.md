@@ -3,7 +3,7 @@
 ## Quick Start
 
 ```bash
-cd `this-folder`
+cd `react-redux-fullstack`
 npm install
 //or:
 ncu -u

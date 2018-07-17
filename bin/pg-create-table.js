@@ -1,3 +1,5 @@
+#! /usr/local/bin/node
+
 const pg = require('pg');
 const config = require('../etc/config');
 
