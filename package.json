@@ -5,8 +5,8 @@
   "main": "server/index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "dev": "node ./server/index",
-    "mini": "node ./mini/index",
+    "dev": "nodemon ./server/index",
+    "mini": "nodemon ./mini/index",
     "test": "karma start karma.conf.js",
     "immutable": "mocha --compilers js:babel-core/register --require ./test/helper.js ./test/**/*.spec.js --recursive"
   },

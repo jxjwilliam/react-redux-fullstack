@@ -1,10 +1,10 @@
 #!/bin/bash
 
-cd ~/WebstormProjects/React/react-redux-fullstack
+cd ~/WebstormProjects/Tutorials/react-redux-fullstack
 
 export PATH=$PATH:./bin
 
-bin/start-all.sh
+./bin/start-all.sh
 
 nodemon ./server/index
 

@@ -2,6 +2,7 @@
 ```bash
 cd mini
 node ./index.js
+open localhost:8089
 
 #or:
 cd `this-folder`

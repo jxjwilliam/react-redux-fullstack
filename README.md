@@ -6,9 +6,11 @@
 cd `react-redux-fullstack`
 npm install
 //or:
-ncu -u
-npm install
-webpack-dev-server
+//ncu -u
+//npm install
+//npm -g install webpack-dev-server
+./node_modules/.bin/webpack-dev-server
+//export PORT=8000 webpack-dev-server
 ```
 
 Then:
